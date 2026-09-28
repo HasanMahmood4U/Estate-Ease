@@ -907,6 +907,335 @@
     }
 
 }
+
+/* =====================================
+   ESTATE-EASE LARGE IMAGE SLIDER
+===================================== */
+
+.estate-slider {
+    width: 100%;
+    height: 560px;
+    position: relative;
+    overflow: hidden;
+    background: #111;
+}
+
+
+/* SLIDES CONTAINER */
+
+.estate-slides {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
+/* SINGLE SLIDE */
+
+.estate-slide {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+
+/* ACTIVE SLIDE */
+
+.estate-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* IMAGE */
+
+.estate-slide img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* DARK OVERLAY */
+
+.estate-slide::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.72) 0%,
+            rgba(0, 0, 0, 0.45) 40%,
+            rgba(0, 0, 0, 0.10) 75%
+        );
+}
+
+
+/* TEXT CONTENT */
+
+.estate-slide-content {
+    position: absolute;
+
+    z-index: 2;
+
+    left: 8%;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: white;
+
+    max-width: 580px;
+}
+
+
+/* SMALL TITLE */
+
+.estate-slide-content span {
+    display: inline-block;
+
+    color: #f5a623;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+
+/* MAIN TITLE */
+
+.estate-slide-content h2 {
+    font-size: 52px;
+
+    line-height: 1.1;
+
+    margin: 0 0 18px;
+
+    font-weight: 500;
+}
+
+
+/* ORANGE PART */
+
+.estate-slide-content h2 strong {
+    color: #f5a623;
+
+    font-weight: 700;
+}
+
+
+/* DESCRIPTION */
+
+.estate-slide-content p {
+    font-size: 18px;
+
+    line-height: 1.6;
+
+    color: #f2f2f2;
+
+    max-width: 520px;
+
+    margin-bottom: 28px;
+}
+
+
+/* BUTTON */
+
+.estate-slide-content a {
+    display: inline-block;
+
+    padding: 13px 24px;
+
+    background: #f5a623;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+
+.estate-slide-content a:hover {
+    background: #08784f;
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================
+   ARROWS
+===================================== */
+
+.estate-arrow {
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 5;
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid rgba(255,255,255,0.5);
+
+    border-radius: 50%;
+
+    background: rgba(0,0,0,0.35);
+
+    color: white;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.estate-arrow:hover {
+    background: #f5a623;
+
+    border-color: #f5a623;
+}
+
+
+.estate-prev {
+    left: 25px;
+}
+
+
+.estate-next {
+    right: 25px;
+}
+
+
+/* =====================================
+   DOTS
+===================================== */
+
+.estate-dots {
+    position: absolute;
+
+    z-index: 5;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.estate-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.65);
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.estate-dot.active {
+    width: 30px;
+
+    border-radius: 10px;
+
+    background: #f5a623;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 768px) {
+
+    .estate-slider {
+        height: 460px;
+    }
+
+
+    .estate-slide-content {
+        left: 7%;
+        right: 7%;
+
+        text-align: center;
+
+        max-width: none;
+    }
+
+
+    .estate-slide-content h2 {
+        font-size: 34px;
+    }
+
+
+    .estate-slide-content p {
+        font-size: 15px;
+    }
+
+
+    .estate-slide-content span {
+        font-size: 11px;
+    }
+
+
+    .estate-arrow {
+        width: 38px;
+        height: 38px;
+
+        font-size: 18px;
+    }
+
+
+    .estate-prev {
+        left: 12px;
+    }
+
+
+    .estate-next {
+        right: 12px;
+    }
+}
     </style>
 </head>
 
@@ -1806,6 +2135,105 @@
     </div>
 
 </div>
+
+<!-- ==============================
+     ESTATE-EASE PROPERTY SLIDER
+================================ -->
+
+<section class="estate-slider">
+
+    <div class="estate-slides">
+
+        <!-- SLIDE 1 -->
+        <div class="estate-slide active">
+            <img src="images/slide4.jpg" alt="Luxury Apartment">
+
+            <div class="estate-slide-content">
+                <span>MODERN LIVING</span>
+                <h2>Find Your<br><strong>Dream Apartment</strong></h2>
+                <p>Modern amenities, prime locations and a better lifestyle.</p>
+
+                <a href="apartments.html">Explore Apartments →</a>
+            </div>
+        </div>
+
+
+        <!-- SLIDE 2 -->
+        <div class="estate-slide">
+            <img src="images/slide1.jpg" alt="Luxury Villa">
+
+            <div class="estate-slide-content">
+                <span>LUXURY LIVING</span>
+                <h2>Elegant Villas<br><strong>For Better Living</strong></h2>
+                <p>Spacious, private and luxurious villas for your family.</p>
+
+                <a href="villas.html">View Villas →</a>
+            </div>
+        </div>
+
+
+        <!-- SLIDE 3 -->
+        <div class="estate-slide">
+            <img src="images/slide2.jpg" alt="Premium Apartment">
+
+            <div class="estate-slide-content">
+                <span>PREMIUM APARTMENTS</span>
+                <h2>Live In<br><strong>Comfort & Style</strong></h2>
+                <p>Thoughtfully designed apartments for modern families.</p>
+
+                <a href="apartments.html">Explore Now →</a>
+            </div>
+        </div>
+
+
+        <!-- SLIDE 4 -->
+        <div class="estate-slide">
+            <img src="images/slide3.jpg" alt="Beautiful Villa">
+
+            <div class="estate-slide-content">
+                <span>PREMIUM PROPERTIES</span>
+                <h2>Your Perfect Home<br><strong>In Nature's Lap</strong></h2>
+                <p>Experience peace, privacy and luxury in every corner.</p>
+
+                <a href="villas.html">View Properties →</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- PREVIOUS BUTTON -->
+    <button class="estate-arrow estate-prev"
+            onclick="changeEstateSlide(-1)">
+        &#10094;
+    </button>
+
+
+    <!-- NEXT BUTTON -->
+    <button class="estate-arrow estate-next"
+            onclick="changeEstateSlide(1)">
+        &#10095;
+    </button>
+
+
+    <!-- DOTS -->
+    <div class="estate-dots">
+
+        <span class="estate-dot active"
+              onclick="showEstateSlide(0)"></span>
+
+        <span class="estate-dot"
+              onclick="showEstateSlide(1)"></span>
+
+        <span class="estate-dot"
+              onclick="showEstateSlide(2)"></span>
+
+        <span class="estate-dot"
+              onclick="showEstateSlide(3)"></span>
+
+    </div>
+
+</section>
 <!-- ================= FOOTER ================= -->
 
 <footer>
@@ -2133,7 +2561,68 @@ function globalSearch() {
         encodeURIComponent(location);
 }
 
+/* =====================================
+   ESTATE-EASE PROPERTY SLIDER
+===================================== */
 
+let estateSlideIndex = 0;
+
+const estateSlides =
+    document.querySelectorAll(".estate-slide");
+
+const estateDots =
+    document.querySelectorAll(".estate-dot");
+
+
+function showEstateSlide(index) {
+
+    estateSlides.forEach(function(slide) {
+        slide.classList.remove("active");
+    });
+
+    estateDots.forEach(function(dot) {
+        dot.classList.remove("active");
+    });
+
+
+    estateSlideIndex = index;
+
+
+    estateSlides[estateSlideIndex]
+        .classList.add("active");
+
+    estateDots[estateSlideIndex]
+        .classList.add("active");
+}
+
+
+function changeEstateSlide(direction) {
+
+    estateSlideIndex += direction;
+
+
+    if (estateSlideIndex >= estateSlides.length) {
+        estateSlideIndex = 0;
+    }
+
+
+    if (estateSlideIndex < 0) {
+        estateSlideIndex =
+            estateSlides.length - 1;
+    }
+
+
+    showEstateSlide(estateSlideIndex);
+}
+
+
+/* AUTO SLIDE EVERY 5 SECONDS */
+
+setInterval(function() {
+
+    changeEstateSlide(1);
+
+}, 5000);
 </script>
 
 </body>
