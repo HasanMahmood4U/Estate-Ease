@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plots | Estate-Ease</title>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f6f8f7;
+            color: #222;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+            min-height: 75px;
+            background: #ffffff;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #0d6b4b;
+        }
+
+        .logo span {
+            color: #f4a62a;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #0d6b4b;
+        }
+
+        .back-btn {
+            background: #0d6b4b;
+            color: #ffffff;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #09543b;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ===================================================== */
+
+        .page-header {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .page-header h1 {
+            color: #0d6b4b;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 17px;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .plot-search {
+            width: 90%;
+            max-width: 900px;
+
+            margin: 0 auto 40px;
+
+            background: #ffffff;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+
+            display: flex;
+            gap: 10px;
+        }
+
+        .plot-search input {
+            flex: 1;
+
+            padding: 14px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        .plot-search input:focus {
+            border-color: #0d6b4b;
+        }
+
+        .plot-search button {
+            padding: 14px 24px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #0d6b4b;
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .plot-search button:hover {
+            background: #09543b;
+        }
+
+
+        /* =====================================================
+           PROPERTY GRID
+        ===================================================== */
+
+        .property-grid {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 25px;
+
+            padding-bottom: 60px;
+        }
+
+
+        /* =====================================================
+           PROPERTY CARD
+        ===================================================== */
+
+        .property-card {
+            background: #ffffff;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+            transition: 0.3s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.13);
+        }
+
+
+        /* =====================================================
+           IMAGE SLIDER
+        ===================================================== */
+
+        .property-slider {
+            height: 240px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background: #ddd;
+        }
+
+        .property-slider img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .property-tag {
+            position: absolute;
+
+            top: 15px;
+            left: 15px;
+
+            background: #0d6b4b;
+
+            color: #ffffff;
+
+            padding: 6px 10px;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            z-index: 5;
+        }
+
+        .slider-btn {
+            position: absolute;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 38px;
+            height: 38px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.92);
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            z-index: 10;
+        }
+
+        .slider-btn:hover {
+            background: #ffffff;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+
+        /* =====================================================
+           PROPERTY INFO
+        ===================================================== */
+
+        .property-info {
+            padding: 20px;
+        }
+
+        .property-info h3 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+
+        .brand-name {
+            color: #f4a62a;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 9px;
+        }
+
+        .location {
+            color: #666;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .property-details {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+        .property-details span {
+            background: #f2f5f3;
+
+            padding: 7px 9px;
+
+            border-radius: 5px;
+
+            color: #555;
+
+            font-size: 12px;
+        }
+
+        .property-bottom {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+        .price {
+            color: #0d6b4b;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+        .view-btn {
+            border: none;
+
+            background: #f4a62a;
+
+            color: #ffffff;
+
+            padding: 9px 13px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .view-btn:hover {
+            background: #df901c;
+        }
+
+
+        /* =====================================================
+           NO RESULT
+        ===================================================== */
+
+        #noResult {
+            display: none;
+
+            text-align: center;
+
+            padding: 50px;
+
+            color: #777;
+
+            font-size: 18px;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .property-modal {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.78);
+
+            z-index: 2000;
+
+            overflow-y: auto;
+
+            padding: 40px 20px;
+        }
+
+        .property-modal-content {
+            width: 95%;
+            max-width: 900px;
+
+            margin: auto;
+
+            background: #ffffff;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+
+        /* =====================================================
+           CLOSE BUTTON
+        ===================================================== */
+
+        .close-property {
+            position: absolute;
+
+            top: 15px;
+            right: 15px;
+
+            width: 40px;
+            height: 40px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: rgba(0, 0, 0, 0.75);
+
+            color: #ffffff;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            z-index: 20;
+        }
+
+        .close-property:hover {
+            background: #000000;
+        }
+
+
+        /* =====================================================
+           MODAL IMAGE
+        ===================================================== */
+
+        .modal-image-slider {
+            height: 450px;
+
+            position: relative;
+
+            background: #eeeeee;
+        }
+
+        .modal-image-slider img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .modal-slider-btn {
+            position: absolute;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 45px;
+            height: 45px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.92);
+
+            cursor: pointer;
+
+            font-size: 20px;
+        }
+
+        .modal-slider-btn:hover {
+            background: #ffffff;
+        }
+
+        .modal-prev {
+            left: 15px;
+        }
+
+        .modal-next {
+            right: 15px;
+        }
+
+
+        /* =====================================================
+           MODAL INFORMATION
+        ===================================================== */
+
+        .modal-info {
+            padding: 30px;
+        }
+
+        .modal-info h2 {
+            color: #0d6b4b;
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+        }
+
+        .modal-brand {
+            color: #f4a62a;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+        .modal-location {
+            color: #666;
+
+            margin-bottom: 20px;
+        }
+
+        .modal-details {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        .modal-details span {
+            background: #f2f5f3;
+
+            padding: 9px 12px;
+
+            border-radius: 6px;
+
+            color: #555;
+
+            font-size: 13px;
+        }
+
+        .modal-price {
+            font-size: 25px;
+
+            color: #0d6b4b;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        .modal-description {
+            color: #555;
+
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================================
+           OWNER INFORMATION
+        ===================================================== */
+
+        .owner-info {
+            background: #eef7f3;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            border-left: 4px solid #0d6b4b;
+        }
+
+        .owner-info h3 {
+            color: #0d6b4b;
+
+            margin-bottom: 12px;
+        }
+
+        .owner-info p {
+            margin: 7px 0;
+
+            color: #444;
+        }
+
+        .contact-owner-btn {
+            display: inline-block;
+
+            margin-top: 10px;
+
+            background: #0d6b4b;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            padding: 10px 16px;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+        }
+
+        .contact-owner-btn:hover {
+            background: #09543b;
+        }
+
+
+        /* =====================================================
+           BOOKING BOX
+        ===================================================== */
+
+        .booking-box {
+            background: #f6f8f7;
+
+            padding: 20px;
+
+            border-radius: 10px;
+        }
+
+        .booking-box h3 {
+            color: #0d6b4b;
+
+            margin-bottom: 15px;
+        }
+
+        .booking-box label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+        }
+
+        .booking-box input {
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 7px;
+
+            margin-bottom: 15px;
+        }
+
+        .booking-btn,
+        .payment-btn {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            margin-top: 8px;
+        }
+
+        .booking-btn {
+            background: #0d6b4b;
+        }
+
+        .booking-btn:hover {
+            background: #09543b;
+        }
+
+        .payment-btn {
+            background: #f4a62a;
+        }
+
+        .payment-btn:hover {
+            background: #df901c;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .property-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .modal-image-slider {
+                height: 350px;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 18px 5%;
+
+                flex-wrap: wrap;
+
+                gap: 15px;
+            }
+
+            .nav-links {
+                order: 3;
+
+                width: 100%;
+
+                justify-content: center;
+
+                gap: 18px;
+            }
+
+            .page-header {
+                padding: 40px 15px 25px;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+            .plot-search {
+                flex-direction: column;
+            }
+
+            .plot-search button {
+                width: 100%;
+            }
+
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .property-slider {
+                height: 250px;
+            }
+
+            .modal-image-slider {
+                height: 280px;
+            }
+
+            .modal-info {
+                padding: 20px;
+            }
+
+            .modal-info h2 {
+                font-size: 23px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Estate<span>-Ease</span>
+        </div>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html#categories">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="#search-results.html">
+                    Properties
+                </a>
+            </li>
+
+            <li>
+                <a href="#index.html#about">
+                    About
+                </a>
+            </li>
+
+            <li>
+                <a href="#index.html#contact">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
+
+        <a
+            href="index.html#categories"
+            class="back-btn"
+        >
+            ← Back
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ===================================================== -->
+
+    <header class="page-header">
+
+        <h1>
+            Residential Plots
+        </h1>
+
+        <p>
+            Find residential plots and land for building
+            your dream home.
+        </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         SEARCH
+    ===================================================== -->
+
+    <div class="plot-search">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search plot, project, brand or location..."
+        >
+
+        <button onclick="searchPlots()">
+            Search
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         PROPERTY GRID
+    ===================================================== -->
+
+    <main>
+
+        <div
+            class="property-grid"
+            id="propertyGrid"
+        >
+        </div>
+
+
+        <div id="noResult">
+            No plots found.
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         PROPERTY MODAL
+    ===================================================== -->
+
+    <div
+        class="property-modal"
+        id="propertyModal"
+    >
+
+        <div class="property-modal-content">
+
+
+            <button
+                class="close-property"
+                onclick="closeProperty()"
+            >
+                ×
+            </button>
+
+
+            <!-- MODAL IMAGE -->
+
+            <div class="modal-image-slider">
+
+                <img
+                    id="modalPropertyImage"
+                    src=""
+                    alt="Residential Plot"
+                >
+
+
+                <button
+                    class="modal-slider-btn modal-prev"
+                    onclick="changeModalImage(-1)"
+                >
+                    ❮
+                </button>
+
+
+                <button
+                    class="modal-slider-btn modal-next"
+                    onclick="changeModalImage(1)"
+                >
+                    ❯
+                </button>
+
+            </div>
+
+
+            <!-- MODAL CONTENT -->
+
+            <div class="modal-info">
+
+                <h2 id="modalTitle">
+                    Residential Plot
+                </h2>
+
+
+                <div
+                    class="modal-brand"
+                    id="modalBrand"
+                >
+                    Project
+                </div>
+
+
+                <div
+                    class="modal-location"
+                    id="modalLocation"
+                >
+                    📍 Location
+                </div>
+
+
+                <div
+                    class="modal-details"
+                    id="modalDetails"
+                >
+                </div>
+
+
+                <div
+                    class="modal-price"
+                    id="modalPrice"
+                >
+                    ₹0
+                </div>
+
+
+                <p class="modal-description">
+
+                    Residential plot suitable for constructing
+                    a customized home. Please verify title,
+                    approvals, dimensions, road access and
+                    other property documents before purchase.
+
+                </p>
+
+
+                <!-- =================================================
+                     OWNER INFORMATION
+                ================================================= -->
+
+                <div class="owner-info">
+
+                    <h3>
+                        👤 Property Owner
+                    </h3>
+
+                    <p>
+                        <strong>Name:</strong>
+                        <span id="modalOwnerName"></span>
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        <span id="modalOwnerPhone"></span>
+                    </p>
+
+                    <a
+                        id="callOwnerBtn"
+                        href="#"
+                        class="contact-owner-btn"
+                    >
+                        📞 Call Owner
+                    </a>
+
+                </div>
+
+
+                <!-- =================================================
+                     BOOKING
+                ================================================= -->
+
+                <div class="booking-box">
+
+                    <h3>
+                        Book Site Visit
+                    </h3>
+
+
+                    <label for="bookingDate">
+                        Select Visit Date
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="bookingDate"
+                    >
+
+
+                    <button
+                        class="booking-btn"
+                        onclick="bookProperty()"
+                    >
+                        Book Site Visit
+                    </button>
+
+
+                    <button
+                        class="payment-btn"
+                        onclick="makePayment()"
+                    >
+                        Proceed to Payment
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           PLOT DATA
+        ===================================================== */
+
+        const plots = [
+
+            {
+                title: "Sumukha Enclave Plot",
+                brand: "Sumukha Enclave",
+                location: "Attibele, Bangalore",
+                area: "1200",
+                dimensions: "30 × 40 ft",
+                facing: "North Facing",
+                price: "₹45 Lakhs",
+
+                ownerName: "Rahul Sharma",
+                ownerPhone: "9876543210",
+
+                images: [
+
+                    "https://www.nanubhaiproperty.com/images/thumbs/property/626822_1200-sq-ft-residential-plot-land-for-sale-attibele-in-bangalore_800.jpeg",
+
+                    "https://rei.wlimg.com/prop_images/2071516/1300483_1.jpg",
+
+                    "https://is1-2.housingcdn.com/01c16c28/688d0efc498cc6152fc39edaffdbf9e4/v0/fs/residential_plot-for-sale-malayambakkam-Chennai-plot_view.jpg"
+
+                ]
+            },
+
+
+            {
+                title: "Oraiyan Ananda Residency",
+                brand: "Oraiyan",
+                location: "Anekal Road, Bangalore",
+                area: "1200",
+                dimensions: "30 × 40 ft",
+                facing: "East Facing",
+                price: "₹56.39 Lakhs",
+
+                ownerName: "Priya Nair",
+                ownerPhone: "9887654321",
+
+                images: [
+
+                    "https://dynamic.realestateindia.com/prop_images/wh3/4102833/1478241_3.jpg",
+
+                    "https://dynamic.realestateindia.com/prop_images/3457143/1265843_3.jpg",
+
+                    "https://dynamic.realestateindia.com/prop_images/3754603/1352033_5.jpeg"
+
+                ]
+            },
+
+
+            {
+                title: "Virtue Urban Valley",
+                brand: "Virtue Urban Valley",
+                location: "KR Puram, Bangalore",
+                area: "1200",
+                dimensions: "30 × 40 ft",
+                facing: "East Facing",
+                price: "₹1.07 Crore",
+
+                ownerName: "Amit Verma",
+                ownerPhone: "9812345678",
+
+                images: [
+
+                    "https://dynamic.realestateindia.com/prop_images/wh3/3886098/1395538_3.jpg",
+
+                    "https://housing-images.n7net.in/01c16c28/29c44b360ad1ad69c922a2b80eeb8669/v0/_p/residential_plot-for-sale-battarahalli-Bengaluru-plot_view.jpg",
+
+                    "https://www.nanubhaiproperty.com/images/thumbs/property/626822_1200-sq-ft-residential-plot-land-for-sale-attibele-in-bangalore_800.jpeg"
+
+                ]
+            },
+
+
+            {
+                title: "Sannatammanahalli Plot",
+                brand: "Housing Listing",
+                location: "Battarahalli, Bangalore",
+                area: "1500",
+                dimensions: "50 × 30 ft",
+                facing: "East Facing",
+                price: "₹1.44 Crore",
+
+                ownerName: "Karan Mehta",
+                ownerPhone: "9876123456",
+
+                images: [
+
+                    "https://housing-images.n7net.in/01c16c28/29c44b360ad1ad69c922a2b80eeb8669/v0/_p/residential_plot-for-sale-battarahalli-Bengaluru-plot_view.jpg",
+
+                    "https://housing-images.n7net.in/01c16c28/29c44b360ad1ad69c922a2b80eeb8669/v0/medium/residential_plot-for-sale-battarahalli-Bengaluru-plot_view.jpg",
+
+                    "https://housing-images.n7net.in/01c16c28/3bd1d1682b6f700d5e9f73a31f3a6551/v0/medium/residential_plot-for-sale-battarahalli-Bengaluru-plot_view.jpg"
+
+                ]
+            },
+
+
+            {
+                title: "Greenfield Residential Plot",
+                brand: "Greenfield Estates",
+                location: "Chettipalayam, Coimbatore",
+                area: "2400",
+                dimensions: "40 × 60 ft",
+                facing: "South Facing",
+                price: "₹48 Lakhs",
+
+                ownerName: "Suresh Kumar",
+                ownerPhone: "9900123456",
+
+                images: [
+
+                    "https://rei.wlimg.com/prop_images/2071516/1300483_1.jpg",
+
+                    "https://dynamic.realestateindia.com/prop_images/3457143/1265843_3.jpg",
+
+                    "https://dynamic.realestateindia.com/prop_images/3754603/1352033_5.jpeg"
+
+                ]
+            },
+
+
+            {
+                title: "Palm Grove Residential Plot",
+                brand: "Palm Grove Developers",
+                location: "Tripunithura, Kochi",
+                area: "2613",
+                dimensions: "Approx. 6 Cent",
+                facing: "Road Facing",
+                price: "₹48 Lakhs",
+
+                ownerName: "Mohammed Sameer",
+                ownerPhone: "9966332211",
+
+                images: [
+
+                    "https://dyimg2.realestateindia.com/prop_images/1857247/906042_1.jpeg",
+
+                    "https://is1-2.housingcdn.com/01c16c28/688d0efc498cc6152fc39edaffdbf9e4/v0/fs/residential_plot-for-sale-malayambakkam-Chennai-plot_view.jpg",
+
+                    "https://rei.wlimg.com/prop_images/2071516/1300483_1.jpg"
+
+                ]
+            },
+
+
+            {
+                title: "TGP Smaart City Plot",
+                brand: "TGP Smaart City",
+                location: "Katpadi, Vellore",
+                area: "1900",
+                dimensions: "Residential Plot",
+                facing: "Road Facing",
+                price: "₹30 Lakhs",
+
+                ownerName: "Vikram Reddy",
+                ownerPhone: "9987654321",
+
+                images: [
+
+                    "https://dynamic.realestateindia.com/prop_images/3754603/1352033_5.jpeg",
+
+                    "https://dynamic.realestateindia.com/prop_images/3457143/1265843_3.jpg",
+
+                    "https://dyimg2.realestateindia.com/prop_images/1857247/906042_1.jpeg"
+
+                ]
+            },
+
+
+            {
+                title: "Maruthi Extension Plot",
+                brand: "Maruthi Extension",
+                location: "Malur, Kolar",
+                area: "1200",
+                dimensions: "Residential Plot",
+                facing: "North Facing",
+                price: "₹37.70 Lakhs",
+
+                ownerName: "Arjun Kumar",
+                ownerPhone: "9845012345",
+
+                images: [
+
+                    "https://housing-images.n7net.in/01c16c28/29c44b360ad1ad69c922a2b80eeb8669/v0/_p/residential_plot-for-sale-battarahalli-Bengaluru-plot_view.jpg",
+
+                    "https://www.nanubhaiproperty.com/images/thumbs/property/626822_1200-sq-ft-residential-plot-land-for-sale-attibele-in-bangalore_800.jpeg",
+
+                    "https://dynamic.realestateindia.com/prop_images/wh3/4102833/1478241_3.jpg"
+
+                ]
+            }
+
+        ];
+
+
+        /* =====================================================
+           CARD IMAGE INDEXES
+        ===================================================== */
+
+        const cardImageIndexes =
+            new Array(plots.length).fill(0);
+
+
+        /* =====================================================
+           RENDER PLOTS
+        ===================================================== */
+
+        function renderPlots(list = plots) {
+
+            const grid =
+                document.getElementById("propertyGrid");
+
+            grid.innerHTML = "";
+
+
+            if (list.length === 0) {
+
+                document.getElementById(
+                    "noResult"
+                ).style.display = "block";
+
+                return;
+            }
+
+
+            document.getElementById(
+                "noResult"
+            ).style.display = "none";
+
+
+            list.forEach((plot) => {
+
+                const plotIndex =
+                    plots.indexOf(plot);
+
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "property-card";
+
+
+                card.innerHTML = `
+
+                    <div class="property-slider">
+
+                        <img
+                            id="cardImage-${plotIndex}"
+                            src="${plot.images[0]}"
+                            alt="${plot.title}"
+                        >
+
+
+                        <span class="property-tag">
+                            Plot
+                        </span>
+
+
+                        <button
+                            class="slider-btn prev"
+                            onclick="changeCardImage(
+                                ${plotIndex},
+                                -1
+                            )"
+                        >
+                            ❮
+                        </button>
+
+
+                        <button
+                            class="slider-btn next"
+                            onclick="changeCardImage(
+                                ${plotIndex},
+                                1
+                            )"
+                        >
+                            ❯
+                        </button>
+
+                    </div>
+
+
+                    <div class="property-info">
+
+                        <h3>
+                            ${plot.title}
+                        </h3>
+
+
+                        <div class="brand-name">
+                            ${plot.brand}
+                        </div>
+
+
+                        <div class="location">
+                            📍 ${plot.location}
+                        </div>
+
+
+                        <div class="property-details">
+
+                            <span>
+                                📐 ${plot.area} sqft
+                            </span>
+
+                            <span>
+                                📏 ${plot.dimensions}
+                            </span>
+
+                            <span>
+                                🧭 ${plot.facing}
+                            </span>
+
+                        </div>
+
+
+                        <div class="property-bottom">
+
+                            <div class="price">
+                                ${plot.price}
+                            </div>
+
+
+                            <button
+                                class="view-btn"
+                                onclick="openProperty(
+                                    ${plotIndex}
+                                )"
+                            >
+                                View Details →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                grid.appendChild(card);
+
+            });
+
+        }
+
+
+        /* =====================================================
+           CARD IMAGE SLIDER
+        ===================================================== */
+
+        function changeCardImage(
+            index,
+            direction
+        ) {
+
+            const plot =
+                plots[index];
+
+
+            cardImageIndexes[index] +=
+                direction;
+
+
+            if (
+                cardImageIndexes[index] >=
+                plot.images.length
+            ) {
+
+                cardImageIndexes[index] = 0;
+
+            }
+
+
+            if (
+                cardImageIndexes[index] < 0
+            ) {
+
+                cardImageIndexes[index] =
+                    plot.images.length - 1;
+
+            }
+
+
+            document.getElementById(
+                `cardImage-${index}`
+            ).src =
+                plot.images[
+                    cardImageIndexes[index]
+                ];
+
+        }
+
+
+        /* =====================================================
+           MODAL VARIABLES
+        ===================================================== */
+
+        let selectedPlot = null;
+
+        let modalImageIndex = 0;
+
+
+        /* =====================================================
+           OPEN PROPERTY
+        ===================================================== */
+
+        function openProperty(index) {
+
+            selectedPlot =
+                plots[index];
+
+
+            modalImageIndex = 0;
+
+
+            document.getElementById(
+                "modalTitle"
+            ).innerText =
+                selectedPlot.title;
+
+
+            document.getElementById(
+                "modalBrand"
+            ).innerText =
+                selectedPlot.brand;
+
+
+            document.getElementById(
+                "modalLocation"
+            ).innerText =
+                "📍 " +
+                selectedPlot.location;
+
+
+            document.getElementById(
+                "modalDetails"
+            ).innerHTML = `
+
+                <span>
+                    📐 ${selectedPlot.area} sqft
+                </span>
+
+                <span>
+                    📏 ${selectedPlot.dimensions}
+                </span>
+
+                <span>
+                    🧭 ${selectedPlot.facing}
+                </span>
+
+            `;
+
+
+            document.getElementById(
+                "modalPrice"
+            ).innerText =
+                selectedPlot.price;
+
+
+            /* =================================================
+               OWNER DETAILS
+            ================================================= */
+
+            document.getElementById(
+                "modalOwnerName"
+            ).innerText =
+                selectedPlot.ownerName;
+
+
+            document.getElementById(
+                "modalOwnerPhone"
+            ).innerText =
+                selectedPlot.ownerPhone;
+
+
+            document.getElementById(
+                "callOwnerBtn"
+            ).href =
+                "tel:" + selectedPlot.ownerPhone;
+
+
+            document.getElementById(
+                "modalPropertyImage"
+            ).src =
+                selectedPlot.images[0];
+
+
+            document.getElementById(
+                "propertyModal"
+            ).style.display =
+                "block";
+
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+        /* =====================================================
+           MODAL IMAGE SLIDER
+        ===================================================== */
+
+        function changeModalImage(direction) {
+
+            if (!selectedPlot) {
+                return;
+            }
+
+
+            modalImageIndex +=
+                direction;
+
+
+            if (
+                modalImageIndex >=
+                selectedPlot.images.length
+            ) {
+
+                modalImageIndex = 0;
+
+            }
+
+
+            if (modalImageIndex < 0) {
+
+                modalImageIndex =
+                    selectedPlot.images.length - 1;
+
+            }
+
+
+            document.getElementById(
+                "modalPropertyImage"
+            ).src =
+                selectedPlot.images[
+                    modalImageIndex
+                ];
+
+        }
+
+
+        /* =====================================================
+           CLOSE MODAL
+        ===================================================== */
+
+        function closeProperty() {
+
+            document.getElementById(
+                "propertyModal"
+            ).style.display =
+                "none";
+
+
+            document.body.style.overflow =
+                "auto";
+
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        function searchPlots() {
+
+            const searchText =
+                document.getElementById(
+                    "searchInput"
+                ).value
+                .trim()
+                .toLowerCase();
+
+
+            const filteredPlots =
+                plots.filter((plot) => {
+
+                    return (
+
+                        plot.title
+                            .toLowerCase()
+                            .includes(searchText)
+
+                        ||
+
+                        plot.brand
+                            .toLowerCase()
+                            .includes(searchText)
+
+                        ||
+
+                        plot.location
+                            .toLowerCase()
+                            .includes(searchText)
+
+                    );
+
+                });
+
+
+            renderPlots(filteredPlots);
+
+        }
+
+
+        /* =====================================================
+           ENTER KEY SEARCH
+        ===================================================== */
+
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (event.key === "Enter") {
+
+                        searchPlots();
+
+                    }
+
+                }
+            );
+
+
+        /* =====================================================
+           BOOK SITE VISIT
+        ===================================================== */
+
+        function bookProperty() {
+
+            const date =
+                document.getElementById(
+                    "bookingDate"
+                ).value;
+
+
+            if (date === "") {
+
+                alert(
+                    "Please select a site visit date."
+                );
+
+                return;
+            }
+
+
+            alert(
+                "Site visit requested for " +
+                date
+            );
+
+        }
+
+
+        /* =====================================================
+           PAYMENT
+        ===================================================== */
+
+        function makePayment() {
+
+            alert(
+                "Payment gateway will be connected here."
+            );
+
+        }
+
+
+        /* =====================================================
+           URL SEARCH
+        ===================================================== */
+
+        function loadURLSearch() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const search =
+                params.get("search");
+
+
+            if (search) {
+
+                document.getElementById(
+                    "searchInput"
+                ).value =
+                    search;
+
+
+                const searchText =
+                    search.toLowerCase();
+
+
+                const filteredPlots =
+                    plots.filter((plot) => {
+
+                        return (
+
+                            plot.title
+                                .toLowerCase()
+                                .includes(searchText)
+
+                            ||
+
+                            plot.brand
+                                .toLowerCase()
+                                .includes(searchText)
+
+                            ||
+
+                            plot.location
+                                .toLowerCase()
+                                .includes(searchText)
+
+                        );
+
+                    });
+
+
+                renderPlots(
+                    filteredPlots
+                );
+
+            } else {
+
+                renderPlots();
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CLOSE MODAL ON OUTSIDE CLICK
+        ===================================================== */
+
+        document
+            .getElementById("propertyModal")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target === this
+                    ) {
+
+                        closeProperty();
+
+                    }
+
+                }
+            );
+
+
+        /* =====================================================
+           INITIALIZE PAGE
+        ===================================================== */
+
+        loadURLSearch();
+
+    </script>
+
+</body>
+
+</html>

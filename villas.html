@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Villas - Estate-Ease</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f8f7;
+            color: #222;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 75px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #0d6b4b;
+        }
+
+        .logo span {
+            color: #f4a62a;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #0d6b4b;
+        }
+
+        .back-btn {
+            background: #0d6b4b;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #09543b;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .page-header {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .page-header h1 {
+            font-size: 38px;
+            color: #0d6b4b;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 17px;
+        }
+
+
+        /* ================= SEARCH ================= */
+
+        .villa-search {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 10px;
+        }
+
+        .villa-search input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .villa-search button {
+            padding: 14px 24px;
+            border: none;
+            background: #0d6b4b;
+            color: white;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .villa-search button:hover {
+            background: #09543b;
+        }
+
+
+        /* ================= PROPERTY GRID ================= */
+
+        .property-grid {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding-bottom: 60px;
+        }
+
+
+        /* ================= PROPERTY CARD ================= */
+
+        .property-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.13);
+        }
+
+
+        /* ================= IMAGE SLIDER ================= */
+
+        .property-slider {
+            height: 240px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .property-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.9);
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 5;
+        }
+
+        .slider-btn:hover {
+            background: white;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .property-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #0d6b4b;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        /* ================= PROPERTY INFO ================= */
+
+        .property-info {
+            padding: 20px;
+        }
+
+        .property-info h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .location {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .property-details {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 18px;
+        }
+
+        .property-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price {
+            color: #0d6b4b;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .view-btn {
+            border: none;
+            background: #f4a62a;
+            color: white;
+            padding: 9px 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .view-btn:hover {
+            background: #df901c;
+        }
+
+
+        /* ================= NO RESULT ================= */
+
+        #noResult {
+            display: none;
+            text-align: center;
+            padding: 50px;
+            color: #777;
+            font-size: 18px;
+        }
+
+
+        /* ================= POPUP ================= */
+
+        .property-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            overflow-y: auto;
+            padding: 40px 15px;
+        }
+
+        .property-modal-content {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .close-property {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .popup-slider {
+            height: 430px;
+            position: relative;
+        }
+
+        .popup-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .popup-slider button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.9);
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .popup-prev {
+            left: 15px;
+        }
+
+        .popup-next {
+            right: 15px;
+        }
+
+        .popup-info {
+            padding: 30px;
+        }
+
+        .popup-info h2 {
+            color: #0d6b4b;
+            margin-bottom: 10px;
+        }
+
+        .popup-details {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .popup-price {
+            color: #0d6b4b;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= OWNER INFORMATION ================= */
+
+        .owner-box {
+            background: #f6f8f7;
+            border-left: 4px solid #0d6b4b;
+            padding: 18px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .owner-box h3 {
+            color: #0d6b4b;
+            margin-bottom: 12px;
+        }
+
+        .owner-box p {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .call-owner-btn {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 11px 18px;
+            background: #0d6b4b;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .call-owner-btn:hover {
+            background: #09543b;
+        }
+
+
+        /* ================= BOOKING ================= */
+
+        .booking-box {
+            background: #f5f7f6;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .booking-box h3 {
+            margin-bottom: 12px;
+            color: #0d6b4b;
+        }
+
+        .booking-box label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .booking-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .booking-btn {
+            background: #0d6b4b;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .booking-btn:hover {
+            background: #09543b;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 900px) {
+
+            .property-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+            .villa-search {
+                flex-direction: column;
+            }
+
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .popup-slider {
+                height: 280px;
+            }
+
+            .popup-info {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Estate<span>-Ease</span>
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+
+            <li>
+                <a href="index.html#categories">Categories</a>
+            </li>
+
+            <li>
+                <a href="search-results.html">Properties</a>
+            </li>
+
+            <li>
+                <a href="index.html#about">About</a>
+            </li>
+
+        </ul>
+
+        <a href="index.html#categories" class="back-btn">
+            ← Back
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= HEADER ================= -->
+
+<section class="page-header">
+
+    <h1>Luxury Villas</h1>
+
+    <p>
+        Explore beautiful villas that match your lifestyle
+    </p>
+
+</section>
+
+
+
+<!-- ================= SEARCH ================= -->
+
+<div class="villa-search">
+
+    <input
+        type="text"
+        id="villaSearch"
+        placeholder="Search villa, location, price..."
+    >
+
+    <button onclick="searchVillas()">
+        🔍 Search
+    </button>
+
+</div>
+
+
+
+<!-- ================= PROPERTY GRID ================= -->
+
+<div class="property-grid" id="villaGrid">
+
+
+    <!-- VILLA 1 -->
+
+    <div class="property-card"
+         data-search="green valley villa chandapura bangalore villa 97 lakhs">
+
+        <div class="property-slider">
+
+            <img
+                id="img-1"
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80"
+                alt="Green Valley Villa">
+
+            <span class="property-tag">
+                FOR SALE
+            </span>
+
+            <button class="slider-btn prev"
+                    onclick="changeCardImage(1,-1)">
+                ❮
+            </button>
+
+            <button class="slider-btn next"
+                    onclick="changeCardImage(1,1)">
+                ❯
+            </button>
+
+        </div>
+
+        <div class="property-info">
+
+            <h3>Green Valley Villa</h3>
+
+            <div class="location">
+                📍 Chandapura, Bangalore
+            </div>
+
+            <div class="property-details">
+                <span>🛏 3 Beds</span>
+                <span>🚿 3 Baths</span>
+                <span>📐 2,040 sqft</span>
+            </div>
+
+            <div class="property-bottom">
+
+                <div class="price">
+                    ₹97 Lakhs
+                </div>
+
+                <button class="view-btn"
+                        onclick="openVilla(0)">
+                    View Details →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VILLA 2 -->
+
+    <div class="property-card"
+         data-search="royal garden villa whitefield bangalore villa 1.35 crore">
+
+        <div class="property-slider">
+
+            <img
+                id="img-2"
+                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
+                alt="Royal Garden Villa">
+
+            <span class="property-tag">
+                FOR SALE
+            </span>
+
+            <button class="slider-btn prev"
+                    onclick="changeCardImage(2,-1)">
+                ❮
+            </button>
+
+            <button class="slider-btn next"
+                    onclick="changeCardImage(2,1)">
+                ❯
+            </button>
+
+        </div>
+
+        <div class="property-info">
+
+            <h3>Royal Garden Villa</h3>
+
+            <div class="location">
+                📍 Whitefield, Bangalore
+            </div>
+
+            <div class="property-details">
+                <span>🛏 4 Beds</span>
+                <span>🚿 3 Baths</span>
+                <span>📐 2,500 sqft</span>
+            </div>
+
+            <div class="property-bottom">
+
+                <div class="price">
+                    ₹1.35 Crore
+                </div>
+
+                <button class="view-btn"
+                        onclick="openVilla(1)">
+                    View Details →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VILLA 3 -->
+
+    <div class="property-card"
+         data-search="skyline luxury villa indiranagar bangalore 2.10 crore">
+
+        <div class="property-slider">
+
+            <img
+                id="img-3"
+                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+                alt="Skyline Luxury Villa">
+
+            <span class="property-tag">
+                FOR SALE
+            </span>
+
+            <button class="slider-btn prev"
+                    onclick="changeCardImage(3,-1)">
+                ❮
+            </button>
+
+            <button class="slider-btn next"
+                    onclick="changeCardImage(3,1)">
+                ❯
+            </button>
+
+        </div>
+
+        <div class="property-info">
+
+            <h3>Skyline Luxury Villa</h3>
+
+            <div class="location">
+                📍 Indiranagar, Bangalore
+            </div>
+
+            <div class="property-details">
+                <span>🛏 4 Beds</span>
+                <span>🚿 4 Baths</span>
+                <span>📐 3,000 sqft</span>
+            </div>
+
+            <div class="property-bottom">
+
+                <div class="price">
+                    ₹2.10 Crore
+                </div>
+
+                <button class="view-btn"
+                        onclick="openVilla(2)">
+                    View Details →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VILLA 4 -->
+
+    <div class="property-card"
+         data-search="modern lakeview villa sarjapur bangalore 1.05 crore">
+
+        <div class="property-slider">
+
+            <img
+                id="img-4"
+                src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+                alt="Modern Lakeview Villa">
+
+            <span class="property-tag">
+                FOR SALE
+            </span>
+
+            <button class="slider-btn prev"
+                    onclick="changeCardImage(4,-1)">
+                ❮
+            </button>
+
+            <button class="slider-btn next"
+                    onclick="changeCardImage(4,1)">
+                ❯
+            </button>
+
+        </div>
+
+        <div class="property-info">
+
+            <h3>Modern Lakeview Villa</h3>
+
+            <div class="location">
+                📍 Sarjapur Road, Bangalore
+            </div>
+
+            <div class="property-details">
+                <span>🛏 3 Beds</span>
+                <span>🚿 3 Baths</span>
+                <span>📐 1,850 sqft</span>
+            </div>
+
+            <div class="property-bottom">
+
+                <div class="price">
+                    ₹1.05 Crore
+                </div>
+
+                <button class="view-btn"
+                        onclick="openVilla(3)">
+                    View Details →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VILLA 5 -->
+
+    <div class="property-card"
+         data-search="royal palm villa electronic city bangalore 1.25 crore">
+
+        <div class="property-slider">
+
+            <img
+                id="img-5"
+                src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80"
+                alt="Royal Palm Villa">
+
+            <span class="property-tag">
+                FOR SALE
+            </span>
+
+            <button class="slider-btn prev"
+                    onclick="changeCardImage(5,-1)">
+                ❮
+            </button>
+
+            <button class="slider-btn next"
+                    onclick="changeCardImage(5,1)">
+                ❯
+            </button>
+
+        </div>
+
+        <div class="property-info">
+
+            <h3>Royal Palm Villa</h3>
+
+            <div class="location">
+                📍 Electronic City, Bangalore
+            </div>
+
+            <div class="property-details">
+                <span>🛏 3 Beds</span>
+                <span>🚿 3 Baths</span>
+                <span>📐 2,100 sqft</span>
+            </div>
+
+            <div class="property-bottom">
+
+                <div class="price">
+                    ₹1.25 Crore
+                </div>
+
+                <button class="view-btn"
+                        onclick="openVilla(4)">
+                    View Details →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VILLA 6 -->
+
+    <div class="property-card"
+         data-search="greenwood villa devanahalli bangalore 88 lakhs">
+
+        <div class="property-slider">
+
+            <img
+                id="img-6"
+                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80"
+                alt="Greenwood Villa">
+
+            <span class="property-tag">
+                FOR SALE
+            </span>
+
+            <button class="slider-btn prev"
+                    onclick="changeCardImage(6,-1)">
+                ❮
+            </button>
+
+            <button class="slider-btn next"
+                    onclick="changeCardImage(6,1)">
+                ❯
+            </button>
+
+        </div>
+
+        <div class="property-info">
+
+            <h3>Greenwood Villa</h3>
+
+            <div class="location">
+                📍 Devanahalli, Bangalore
+            </div>
+
+            <div class="property-details">
+                <span>🛏 3 Beds</span>
+                <span>🚿 2 Baths</span>
+                <span>📐 1,700 sqft</span>
+            </div>
+
+            <div class="property-bottom">
+
+                <div class="price">
+                    ₹88 Lakhs
+                </div>
+
+                <button class="view-btn"
+                        onclick="openVilla(5)">
+                    View Details →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VILLA 7 -->
+
+    <div class="property-card"
+         data-search="premium garden villa hosur road bangalore 1.15 crore">
+
+        <div class="property-slider">
+
+            <img
+                id="img-7"
+                src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80"
+                alt="Premium Garden Villa">
+
+            <span class="property-tag">
+                FOR SALE
+            </span>
+
+            <button class="slider-btn prev"
+                    onclick="changeCardImage(7,-1)">
+                ❮
+            </button>
+
+            <button class="slider-btn next"
+                    onclick="changeCardImage(7,1)">
+                ❯
+            </button>
+
+        </div>
+
+        <div class="property-info">
+
+            <h3>Premium Garden Villa</h3>
+
+            <div class="location">
+                📍 Hosur Road, Bangalore
+            </div>
+
+            <div class="property-details">
+                <span>🛏 4 Beds</span>
+                <span>🚿 3 Baths</span>
+                <span>📐 2,300 sqft</span>
+            </div>
+
+            <div class="property-bottom">
+
+                <div class="price">
+                    ₹1.15 Crore
+                </div>
+
+                <button class="view-btn"
+                        onclick="openVilla(6)">
+                    View Details →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VILLA 8 -->
+
+    <div class="property-card"
+         data-search="urban luxury villa koramangala bangalore 1.75 crore">
+
+        <div class="property-slider">
+
+            <img
+                id="img-8"
+                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
+                alt="Urban Luxury Villa">
+
+            <span class="property-tag">
+                FOR SALE
+            </span>
+
+            <button class="slider-btn prev"
+                    onclick="changeCardImage(8,-1)">
+                ❮
+            </button>
+
+            <button class="slider-btn next"
+                    onclick="changeCardImage(8,1)">
+                ❯
+            </button>
+
+        </div>
+
+        <div class="property-info">
+
+            <h3>Urban Luxury Villa</h3>
+
+            <div class="location">
+                📍 Koramangala, Bangalore
+            </div>
+
+            <div class="property-details">
+                <span>🛏 4 Beds</span>
+                <span>🚿 4 Baths</span>
+                <span>📐 2,800 sqft</span>
+            </div>
+
+            <div class="property-bottom">
+
+                <div class="price">
+                    ₹1.75 Crore
+                </div>
+
+                <button class="view-btn"
+                        onclick="openVilla(7)">
+                    View Details →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div id="noResult">
+    ❌ No villas found. Try another search.
+</div>
+
+
+
+<!-- ================= POPUP ================= -->
+
+<div class="property-modal" id="propertyModal">
+
+    <div class="property-modal-content">
+
+        <button class="close-property"
+                onclick="closeVilla()">
+            ×
+        </button>
+
+
+        <!-- POPUP IMAGE -->
+
+        <div class="popup-slider">
+
+            <img id="popupImage"
+                 src=""
+                 alt="Villa">
+
+            <button class="popup-prev"
+                    onclick="changePopupImage(-1)">
+                ❮
+            </button>
+
+            <button class="popup-next"
+                    onclick="changePopupImage(1)">
+                ❯
+            </button>
+
+        </div>
+
+
+        <!-- POPUP INFORMATION -->
+
+        <div class="popup-info">
+
+            <h2 id="popupTitle">
+                Villa
+            </h2>
+
+            <div id="popupLocation"
+                 class="location">
+            </div>
+
+
+            <div id="popupDetails"
+                 class="popup-details">
+            </div>
+
+
+            <div id="popupPrice"
+                 class="popup-price">
+            </div>
+
+
+            <p>
+                Beautiful villa with modern design,
+                comfortable rooms and premium facilities.
+            </p>
+
+
+            <!-- ================= OWNER ================= -->
+
+            <div class="owner-box">
+
+                <h3>
+                    👤 Property Owner
+                </h3>
+
+                <p>
+                    <strong>Name:</strong>
+                    <span id="popupOwnerName"></span>
+                </p>
+
+                <p>
+                    <strong>Phone:</strong>
+                    <span id="popupOwnerPhone"></span>
+                </p>
+
+                <a
+                    id="callOwnerBtn"
+                    href="#"
+                    class="call-owner-btn">
+                    📞 Call Owner
+                </a>
+
+            </div>
+
+
+            <!-- ================= BOOKING ================= -->
+
+            <div class="booking-box">
+
+                <h3>
+                    Book Property
+                </h3>
+
+                <label>
+                    Select Date
+                </label>
+
+                <input
+                    type="date"
+                    id="bookingDate">
+
+                <button class="booking-btn"
+                        onclick="bookVilla()">
+                    Book Now
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* ================= VILLA DATA ================= */
+
+const villas = [
+
+    {
+        title: "Green Valley Villa",
+        location: "Chandapura, Bangalore",
+        beds: 3,
+        baths: 3,
+        area: "2,040",
+        price: "₹97 Lakhs",
+
+        ownerName: "Rahul Sharma",
+        ownerPhone: "9876543210",
+
+        images: [
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+        ]
+    },
+
+
+    {
+        title: "Royal Garden Villa",
+        location: "Whitefield, Bangalore",
+        beds: 4,
+        baths: 3,
+        area: "2,500",
+        price: "₹1.35 Crore",
+
+        ownerName: "Arjun Kumar",
+        ownerPhone: "9845012345",
+
+        images: [
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80"
+        ]
+    },
+
+
+    {
+        title: "Skyline Luxury Villa",
+        location: "Indiranagar, Bangalore",
+        beds: 4,
+        baths: 4,
+        area: "3,000",
+        price: "₹2.10 Crore",
+
+        ownerName: "Vikram Reddy",
+        ownerPhone: "9987654321",
+
+        images: [
+            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80"
+        ]
+    },
+
+
+    {
+        title: "Modern Lakeview Villa",
+        location: "Sarjapur Road, Bangalore",
+        beds: 3,
+        baths: 3,
+        area: "1,850",
+        price: "₹1.05 Crore",
+
+        ownerName: "Suresh Kumar",
+        ownerPhone: "9900123456",
+
+        images: [
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80"
+        ]
+    },
+
+
+    {
+        title: "Royal Palm Villa",
+        location: "Electronic City, Bangalore",
+        beds: 3,
+        baths: 3,
+        area: "2,100",
+        price: "₹1.25 Crore",
+
+        ownerName: "Karan Mehta",
+        ownerPhone: "9876123456",
+
+        images: [
+            "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+        ]
+    },
+
+
+    {
+        title: "Greenwood Villa",
+        location: "Devanahalli, Bangalore",
+        beds: 3,
+        baths: 2,
+        area: "1,700",
+        price: "₹88 Lakhs",
+
+        ownerName: "Priya Nair",
+        ownerPhone: "9887654321",
+
+        images: [
+            "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80"
+        ]
+    },
+
+
+    {
+        title: "Premium Garden Villa",
+        location: "Hosur Road, Bangalore",
+        beds: 4,
+        baths: 3,
+        area: "2,300",
+        price: "₹1.15 Crore",
+
+        ownerName: "Amit Verma",
+        ownerPhone: "9812345678",
+
+        images: [
+            "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80"
+        ]
+    },
+
+
+    {
+        title: "Urban Luxury Villa",
+        location: "Koramangala, Bangalore",
+        beds: 4,
+        baths: 4,
+        area: "2,800",
+        price: "₹1.75 Crore",
+
+        ownerName: "Mohammed Sameer",
+        ownerPhone: "9966332211",
+
+        images: [
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+        ]
+    }
+
+];
+
+
+
+/* ================= CARD SLIDERS ================= */
+
+const cardImages = villas.map(villa => villa.images);
+
+const cardIndex = [
+    0,0,0,0,0,0,0,0
+];
+
+
+function changeCardImage(cardNumber, direction) {
+
+    const index = cardNumber - 1;
+
+    cardIndex[index] += direction;
+
+    if (cardIndex[index] >= cardImages[index].length) {
+        cardIndex[index] = 0;
+    }
+
+    if (cardIndex[index] < 0) {
+        cardIndex[index] = cardImages[index].length - 1;
+    }
+
+    document.getElementById("img-" + cardNumber).src =
+        cardImages[index][cardIndex[index]];
+
+}
+
+
+
+/* ================= POPUP ================= */
+
+let currentPopupVilla = 0;
+
+let currentPopupImage = 0;
+
+
+function openVilla(index) {
+
+    currentPopupVilla = index;
+
+    currentPopupImage = 0;
+
+    const villa = villas[index];
+
+
+    /* TITLE */
+
+    document.getElementById("popupTitle").innerText =
+        villa.title;
+
+
+    /* LOCATION */
+
+    document.getElementById("popupLocation").innerText =
+        "📍 " + villa.location;
+
+
+    /* DETAILS */
+
+    document.getElementById("popupDetails").innerHTML = `
+
+        <span>
+            🛏 ${villa.beds} Beds
+        </span>
+
+        <span>
+            🚿 ${villa.baths} Baths
+        </span>
+
+        <span>
+            📐 ${villa.area} sqft
+        </span>
+
+    `;
+
+
+    /* PRICE */
+
+    document.getElementById("popupPrice").innerText =
+        villa.price;
+
+
+    /* IMAGE */
+
+    document.getElementById("popupImage").src =
+        villa.images[0];
+
+
+    /* ================= OWNER INFORMATION ================= */
+
+    document.getElementById("popupOwnerName").innerText =
+        villa.ownerName;
+
+
+    document.getElementById("popupOwnerPhone").innerText =
+        villa.ownerPhone;
+
+
+    /* ================= CALL BUTTON ================= */
+
+    document.getElementById("callOwnerBtn").href =
+        "tel:" + villa.ownerPhone;
+
+
+    /* SHOW POPUP */
+
+    document.getElementById("propertyModal").style.display =
+        "block";
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+
+/* ================= POPUP IMAGE SLIDER ================= */
+
+function changePopupImage(direction) {
+
+    const villa = villas[currentPopupVilla];
+
+    currentPopupImage += direction;
+
+    if (currentPopupImage >= villa.images.length) {
+        currentPopupImage = 0;
+    }
+
+    if (currentPopupImage < 0) {
+        currentPopupImage = villa.images.length - 1;
+    }
+
+    document.getElementById("popupImage").src =
+        villa.images[currentPopupImage];
+
+}
+
+
+
+/* ================= CLOSE POPUP ================= */
+
+function closeVilla() {
+
+    document.getElementById("propertyModal").style.display =
+        "none";
+
+    document.body.style.overflow = "auto";
+
+}
+
+
+
+/* ================= SEARCH ================= */
+
+function searchVillas() {
+
+    const searchValue =
+        document
+        .getElementById("villaSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const cards =
+        document.querySelectorAll(".property-card");
+
+    let found = 0;
+
+    cards.forEach(card => {
+
+        const text =
+            card.dataset.search.toLowerCase();
+
+        if (
+            searchValue === "" ||
+            text.includes(searchValue)
+        ) {
+
+            card.style.display = "block";
+
+            found++;
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    document.getElementById("noResult").style.display =
+        found === 0 ? "block" : "none";
+
+}
+
+
+
+/* ================= URL SEARCH ================= */
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const searchFromHome =
+    params.get("search");
+
+
+if (searchFromHome) {
+
+    document.getElementById("villaSearch").value =
+        searchFromHome;
+
+    searchVillas();
+
+}
+
+
+
+/* ================= BOOKING ================= */
+
+function bookVilla() {
+
+    const date =
+        document.getElementById("bookingDate").value;
+
+    if (date === "") {
+
+        alert("Please select a booking date.");
+
+        return;
+
+    }
+
+    alert(
+        "Booking request submitted for " +
+        date
+    );
+
+}
+
+
+
+/* ================= CLOSE POPUP OUTSIDE ================= */
+
+document
+    .getElementById("propertyModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+
+            closeVilla();
+
+        }
+
+    });
+
+
+</script>
+
+</body>
+</html>

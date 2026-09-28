@@ -17,7 +17,7 @@
         body {
             background: #f7f8fa;
             color: #222;
-        }0
+        }
 
         /* ================= NAVBAR =========== */
 
@@ -585,6 +585,328 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ================= PROPERTY POPUP ================= */
+
+.property-modal {
+
+    display: none;
+
+    position: fixed;
+
+    z-index: 9999;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.75);
+
+    overflow-y: auto;
+
+}
+
+
+.property-modal-content {
+
+    width: 90%;
+
+    max-width: 850px;
+
+    margin: 40px auto;
+
+    background: white;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+
+}
+
+
+/* CLOSE BUTTON */
+
+.close-property {
+
+    position: absolute;
+
+    right: 18px;
+    top: 15px;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #222;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+
+}
+
+
+/* IMAGE */
+
+.property-slider {
+
+    width: 100%;
+
+    height: 430px;
+
+    position: relative;
+
+    background: #eee;
+
+}
+
+
+.property-slider img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* SLIDER BUTTON */
+
+.slider-btn {
+
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.9);
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+}
+
+
+.slider-btn:hover {
+
+    background: white;
+
+}
+
+
+.slider-btn.prev {
+
+    left: 15px;
+
+}
+
+
+.slider-btn.next {
+
+    right: 15px;
+
+}
+
+
+/* POPUP INFO */
+
+.property-popup-info {
+
+    padding: 30px;
+
+}
+
+
+.property-popup-info h2 {
+
+    font-size: 32px;
+
+    color: #0d6b4b;
+
+    margin-bottom: 12px;
+
+}
+
+
+.popup-location {
+
+    font-size: 18px;
+
+    color: #555;
+
+    margin-bottom: 20px;
+
+}
+
+
+.popup-details {
+
+    display: flex;
+
+    gap: 25px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 20px;
+
+    font-size: 16px;
+
+}
+
+
+.modal-price {
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    color: #0d6b4b;
+
+    margin-bottom: 15px;
+
+}
+
+
+.popup-description {
+
+    color: #666;
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* BOOKING */
+
+.booking-box {
+
+    background: #f7f8fa;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+}
+
+
+.booking-box h3 {
+
+    margin-bottom: 15px;
+
+}
+
+
+.booking-box label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: bold;
+
+}
+
+
+.booking-box input {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.booking-btn,
+.payment-btn {
+
+    border: none;
+
+    padding: 13px 20px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    margin-right: 10px;
+
+}
+
+
+.booking-btn {
+
+    background: #0d6b4b;
+
+    color: white;
+
+}
+
+
+.payment-btn {
+
+    background: #f4a62a;
+
+    color: white;
+
+}
+
+
+@media(max-width:600px) {
+
+    .property-slider {
+
+        height: 280px;
+
+    }
+
+    .property-popup-info {
+
+        padding: 20px;
+
+    }
+
+    .property-popup-info h2 {
+
+        font-size: 25px;
+
+    }
+
+}
     </style>
 </head>
 
@@ -601,7 +923,7 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="INDEX1.HTML">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="#properties">Properties</a></li>
             <li><a href="#categories">Categories</a></li>
             <li><a href="#cta">About Us</a></li>
@@ -670,9 +992,10 @@
                     <label>LOCATION</label>
 
                     <input
-                        type="text"
-                        id="location"
-                        placeholder="Enter city or locality">
+    type="text"
+    id="searchLocation"
+    placeholder="Enter city or locality"
+>
 
                 </div>
 
@@ -738,13 +1061,9 @@
                 </div>
 
 
-                <button
-                    class="search-btn"
-                    onclick="searchProperty()">
-
-                    🔍 Search
-
-                </button>
+<button onclick="globalSearch()">
+    🔍 Search
+</button>
 
             </div>
 
@@ -773,7 +1092,7 @@
     <div class="category-grid">
 
         <div class="category-card"
-             onclick="selectCategory('Apartment')">
+             onclick="window.location.href='apartments.html'">
 
             <div class="category-icon">🏢</div>
 
@@ -785,7 +1104,7 @@
 
 
         <div class="category-card"
-             onclick="selectCategory('Villa')">
+             onclick="window.location.href='villas.html'">
 
             <div class="category-icon">🏡</div>
 
@@ -797,7 +1116,7 @@
 
 
         <div class="category-card"
-             onclick="selectCategory('House')">
+             onclick="window.location.href='IndependentHouses.html'">
 
             <div class="category-icon">🏠</div>
 
@@ -809,7 +1128,7 @@
 
 
         <div class="category-card"
-             onclick="selectCategory('Plot')">
+             onclick="window.location.href='plots.html'">
 
             <div class="category-icon">🌳</div>
 
@@ -821,7 +1140,7 @@
 
 
         <div class="category-card"
-             onclick="selectCategory('Commercial')">
+             onclick="window.location.href='commercial.html'">
 
             <div class="category-icon">🏬</div>
 
@@ -838,6 +1157,8 @@
 
 <!-- ================= FEATURED PROPERTIES ================= -->
 
+<!-- ================= FEATURED PROPERTIES ================= -->
+
 <section class="featured" id="properties">
 
     <div class="featured-container">
@@ -846,9 +1167,7 @@
 
             <h2>Featured Properties</h2>
 
-            <p>
-                Handpicked properties for you
-            </p>
+            <p>Handpicked properties for you</p>
 
         </div>
 
@@ -857,90 +1176,24 @@
 
 
             <!-- PROPERTY 1 -->
-                          <div class="property-card"
-     onclick="openProperty(
-        'Premium 2 BHK Home',
-        'HSR Layout, Bangalore',
-        '2',
-        '2',
-        '1,200',
-        '₹35,000/mo',
-        'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-     )">
-
-    <div class="property-image">
-
-        <img
-            src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
-            alt="Premium 2 BHK Home">
-
-        <span class="property-tag">
-            FOR RENT
-        </span>
-
-        <div class="heart"
-             onclick="event.stopPropagation(); favorite(this)">
-            ♡
-        </div>
-
-    </div>
-
-    <div class="property-info">
-
-        <h3>Premium 2 BHK Home</h3>
-
-        <div class="location">
-            📍 HSR Layout, Bangalore
-        </div>
-
-        <div class="property-details">
-
-            <span>🛏 2 Beds</span>
-            <span>🚿 2 Baths</span>
-            <span>📐 1,200 sqft</span>
-
-        </div>
-
-        <div class="property-bottom">
-
-            <div class="price">
-                ₹35,000/mo
-            </div>
-
-            <button
-                class="view-btn"
-                onclick="event.stopPropagation(); openProperty(
-                    'Premium 2 BHK Home',
-                    'HSR Layout, Bangalore',
-                    '2',
-                    '2',
-                    '1,200',
-                    '₹35,000/mo',
-                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-                )">
-                View Details →
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
 
             <div class="property-card">
 
                 <div class="property-image">
 
                     <img
-                        src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80">
+                        src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
+                        alt="Premium 2 BHK Home"
+                    >
 
                     <span class="property-tag">
                         FOR RENT
                     </span>
 
-                    <div class="heart"
-                         onclick="favorite(this)">
+                    <div
+                        class="heart"
+                        onclick="event.stopPropagation(); favorite(this)"
+                    >
                         ♡
                     </div>
 
@@ -970,50 +1223,73 @@
                             ₹35,000/mo
                         </div>
 
-                        <a href="#" class="view-btn">
+
+                        <button
+                            type="button"
+                            class="view-btn"
+                            onclick="openProperty(
+                                'Premium 2 BHK Home',
+                                'HSR Layout, Bangalore',
+                                '2',
+                                '2',
+                                '1,200',
+                                '₹35,000/mo',
+                                [
+                                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80',
+                                    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80',
+                                    'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80'
+                                ]
+                            )"
+                        >
                             View Details →
-                        </a>
+                        </button>
 
                     </div>
 
                 </div>
 
             </div>
-            
-<!-- PROPERTY 1 -->
+
+
+
+            <!-- PROPERTY 2 -->
+
             <div class="property-card">
 
                 <div class="property-image">
 
                     <img
-                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80">
+                        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80"
+                        alt="Royal Heights"
+                    >
 
                     <span class="property-tag">
                         FOR SALE
                     </span>
 
-                    <div class="heart"
-                         onclick="favorite(this)">
+                    <div
+                        class="heart"
+                        onclick="event.stopPropagation(); favorite(this)"
+                    >
                         ♡
                     </div>
 
                 </div>
-                
 
 
                 <div class="property-info">
 
-                    <h3>Luxury 3 BHK Apartment</h3>
+                    <h3>Royal Heights</h3>
 
                     <div class="location">
-                        📍 Whitefield, Bangalore
+                        📍 Kochi, Kerala
                     </div>
 
                     <div class="property-details">
 
                         <span>🛏 3 Beds</span>
                         <span>🚿 2 Baths</span>
-                        <span>📐 1,650 sqft</span>
+                        <span>📐 1,500 sqft</span>
 
                     </div>
 
@@ -1021,352 +1297,257 @@
                     <div class="property-bottom">
 
                         <div class="price">
-                            ₹1.25 Cr
+                            ₹65 Lakhs
                         </div>
 
-                        <a href="property.html" class="view-btn">
+
+                        <button
+                            type="button"
+                            class="view-btn"
+                            onclick="openProperty(
+                                'Royal Heights',
+                                'Kochi, Kerala',
+                                '3',
+                                '2',
+                                '1,500',
+                                '₹65 Lakhs',
+                                [
+                                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
+                                    'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80',
+                                    'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80'
+                                ]
+                            )"
+                        >
                             View Details →
-                        </a>
-                        
+                        </button>
 
                     </div>
 
                 </div>
 
             </div>
-                                      <div class="property-card"
-     onclick="openProperty(
-        'Premium 2 BHK Home',
-        'HSR Layout, Bangalore',
-        '2',
-        '2',
-        '1,200',
-        '₹35,000/mo',
-        'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-     )">
 
-    <div class="property-image">
-
-        <img
-            src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
-            alt="Premium 2 BHK Home">
-
-        <span class="property-tag">
-            FOR RENT
-        </span>
-
-        <div class="heart"
-             onclick="event.stopPropagation(); favorite(this)">
-            ♡
-        </div>
-
-    </div>
-
-    <div class="property-info">
-
-        <h3>Premium 2 BHK Home</h3>
-
-        <div class="location">
-            📍 HSR Layout, Bangalore
-        </div>
-
-        <div class="property-details">
-
-            <span>🛏 2 Beds</span>
-            <span>🚿 2 Baths</span>
-            <span>📐 1,200 sqft</span>
-
-        </div>
-
-        <div class="property-bottom">
-
-            <div class="price">
-                ₹35,000/mo
-            </div>
-
-            <button
-                class="view-btn"
-                onclick="event.stopPropagation(); openProperty(
-                    'Premium 2 BHK Home',
-                    'HSR Layout, Bangalore',
-                    '2',
-                    '2',
-                    '1,200',
-                    '₹35,000/mo',
-                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-                )">
-                View Details →
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-            <div class="property-card">
-
-                <div class="property-image">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80">
-
-                    <span class="property-tag">
-                        FOR RENT
-                    </span>
-
-                    <div class="heart"
-                         onclick="favorite(this)">
-                        ♡
-                    </div>
-
-                </div>
-
-
-                <div class="property-info">
-
-                    <h3>Premium 2 BHK Home</h3>
-
-                    <div class="location">
-                        📍 HSR Layout, Bangalore
-                    </div>
-
-                    <div class="property-details">
-
-                        <span>🛏 2 Beds</span>
-                        <span>🚿 2 Baths</span>
-                        <span>📐 1,200 sqft</span>
-
-                    </div>
-
-
-                    <div class="property-bottom">
-
-                        <div class="price">
-                            ₹35,000/mo
-                        </div>
-
-                        <a href="#" class="view-btn">
-                            View Details →
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-      
-
-
-            <!-- PROPERTY 2 -->
-             <div class="property-card"
-     onclick="openProperty(
-        'Premium 2 BHK Home',
-        'HSR Layout, Bangalore',
-        '2',
-        '2',
-        '1,200',
-        '₹35,000/mo',
-        'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-     )">
-
-    <div class="property-image">
-
-        <img
-            src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
-            alt="Premium 2 BHK Home">
-
-        <span class="property-tag">
-            FOR RENT
-        </span>
-
-        <div class="heart"
-             onclick="event.stopPropagation(); favorite(this)">
-            ♡
-        </div>
-
-    </div>
-
-    <div class="property-info">
-
-        <h3>Premium 2 BHK Home</h3>
-
-        <div class="location">
-            📍 HSR Layout, Bangalore
-        </div>
-
-        <div class="property-details">
-
-            <span>🛏 2 Beds</span>
-            <span>🚿 2 Baths</span>
-            <span>📐 1,200 sqft</span>
-
-        </div>
-
-        <div class="property-bottom">
-
-            <div class="price">
-                ₹35,000/mo
-            </div>
-
-            <button
-                class="view-btn"
-                onclick="event.stopPropagation(); openProperty(
-                    'Premium 2 BHK Home',
-                    'HSR Layout, Bangalore',
-                    '2',
-                    '2',
-                    '1,200',
-                    '₹35,000/mo',
-                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-                )">
-                View Details →
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-            <div class="property-card">
-
-                <div class="property-image">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80">
-
-                    <span class="property-tag">
-                        FOR RENT
-                    </span>
-
-                    <div class="heart"
-                         onclick="favorite(this)">
-                        ♡
-                    </div>
-
-                </div>
-
-
-                <div class="property-info">
-
-                    <h3>Premium 2 BHK Home</h3>
-
-                    <div class="location">
-                        📍 HSR Layout, Bangalore
-                    </div>
-
-                    <div class="property-details">
-
-                        <span>🛏 2 Beds</span>
-                        <span>🚿 2 Baths</span>
-                        <span>📐 1,200 sqft</span>
-
-                    </div>
-
-
-                    <div class="property-bottom">
-
-                        <div class="price">
-                            ₹35,000/mo
-                        </div>
-
-                        <a href="#property-info-btn">
-                            View Details →
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
 
 
             <!-- PROPERTY 3 -->
+             <div class="property-card">
+  <div class="property-image">
+    <img src="https://img.squareyards.com/secondaryPortal/IN_638938171510608874-1809250632313231.jpg" alt="Green Valley Villa">
+    <span class="property-tag">FOR SALE</span>
+  </div>
 
-            <div class="property-card">
+  <div class="property-info">
+    <h3>Green Valley Villa</h3>
+    <div class="location">📍 Chandapura, Bangalore</div>
 
-    <div class="property-image">
-
-        <img
-            src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
-            alt="Premium 2 BHK Home"
-            onclick="openProperty(
-                'Premium 2 BHK Home',
-                'HSR Layout, Bangalore',
-                '2',
-                '2',
-                '1,200',
-                '₹35,000/mo',
-                'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-            )">
-
-        <span class="property-tag">
-            FOR RENT
-        </span>
-
-        <div class="heart"
-             onclick="event.stopPropagation(); favorite(this)">
-            ♡
-        </div>
-
+    <div class="property-details">
+      <span>🛏 3 Beds</span>
+      <span>🚿 3 Baths</span>
+      <span>📐 2,040 sqft</span>
     </div>
 
-    <div class="property-info">
+    <div class="property-bottom">
+      <div class="price">₹97 Lakhs</div>
 
-        <h3>Premium 2 BHK Home</h3>
-
-        <div class="location">
-            📍 HSR Layout, Bangalore
-        </div>
-
-        <div class="property-details">
-            <span>🛏 2 Beds</span>
-            <span>🚿 2 Baths</span>
-            <span>📐 1,200 sqft</span>
-        </div>
-
-        <div class="property-bottom">
-
-            <div class="price">
-                ₹35,000/mo
-            </div>
-
-            <a href="#" class="view-btn"
-               onclick="event.preventDefault(); openProperty(
-                    'Premium 2 BHK Home',
-                    'HSR Layout, Bangalore',
-                    '2',
-                    '2',
-                    '1,200',
-                    '₹35,000/mo',
-                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-               )">
-                View Details →
-            </a>
-
-        </div>
-
+      <button type="button" class="view-btn"
+        onclick="openProperty(
+          'Green Valley Villa',
+          'Chandapura, Bangalore',
+          '3',
+          '3',
+          '2,040',
+          '₹97 Lakhs',
+          [
+            'https://img.squareyards.com/secondaryPortal/IN_638938171510608874-1809250632313231.jpg',
+            'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80',
+            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80'
+          ]
+        )">
+        View Details →
+      </button>
     </div>
-
+  </div>
 </div>
 
+            <!-- PROPERTY 4 -->
+             <div class="property-card">
+  <div class="property-image">
+    <img src="https://cdn.webulous.io/sites/2T52AGE53B/images/img_4616.JPG" alt="Royal Garden Residence">
+    <span class="property-tag">FOR SALE</span>
+  </div>
+
+  <div class="property-info">
+    <h3>Royal Garden Residence</h3>
+    <div class="location">📍 Whitefield, Bangalore</div>
+
+    <div class="property-details">
+      <span>🛏 4 Beds</span>
+      <span>🚿 3 Baths</span>
+      <span>📐 2,500 sqft</span>
+    </div>
+
+    <div class="property-bottom">
+      <div class="price">₹1.35 Crore</div>
+
+      <button type="button" class="view-btn"
+        onclick="openProperty(
+          'Royal Garden Residence',
+          'Whitefield, Bangalore',
+          '4',
+          '3',
+          '2,500',
+          '₹1.35 Crore',
+          [
+            'https://cdn.webulous.io/sites/2T52AGE53B/images/img_4616.JPG',
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
+            'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80'
+          ]
+        )">
+        View Details →
+      </button>
+    </div>
+  </div>
+</div>
+
+            <!-- PROPERTY 5 -->
+             <div class="property-card">
+  <div class="property-image">
+    <img src="https://photos.zillowstatic.com/fp/a67a2482f0d9b37edb655af2b4e92fe5-cc_ft_960.jpg" alt="Skyline Penthouse">
+    <span class="property-tag">FOR SALE</span>
+  </div>
+
+  <div class="property-info">
+    <h3>Skyline Penthouse</h3>
+    <div class="location">📍 Indiranagar, Bangalore</div>
+
+    <div class="property-details">
+      <span>🛏 3 Beds</span>
+      <span>🚿 3 Baths</span>
+      <span>📐 2,200 sqft</span>
+    </div>
+
+    <div class="property-bottom">
+      <div class="price">₹2.10 Crore</div>
+
+      <button type="button" class="view-btn"
+        onclick="openProperty(
+          'Skyline Penthouse',
+          'Indiranagar, Bangalore',
+          '3',
+          '3',
+          '2,200',
+          '₹2.10 Crore',
+          [
+            'https://photos.zillowstatic.com/fp/a67a2482f0d9b37edb655af2b4e92fe5-cc_ft_960.jpg',
+            'https://a0.muscache.com/im/pictures/hosting/Hosting-1720437916397009300/original/9e8480a9-7ad8-4b29-9e43-8f68cca7e27c.png?im_w=720',
+            'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80'
+          ]
+        )">
+        View Details →
+      </button>
+    </div>
+  </div>
+</div>
+
+            <!-- PROPERTY 6 -->
+             <div class="property-card">
+  <div class="property-image">
+    <img src="https://i.pinimg.com/originals/c2/88/b9/c288b971371a35f38dbd0270f0a4370e.png" alt="Modern Lakeview House">
+    <span class="property-tag">FOR SALE</span>
+  </div>
+
+  <div class="property-info">
+    <h3>Modern Lakeview House</h3>
+    <div class="location">📍 Sarjapur Road, Bangalore</div>
+
+    <div class="property-details">
+      <span>🛏 3 Beds</span>
+      <span>🚿 2 Baths</span>
+      <span>📐 1,850 sqft</span>
+    </div>
+
+    <div class="property-bottom">
+      <div class="price">₹1.05 Crore</div>
+
+      <button type="button" class="view-btn"
+        onclick="openProperty(
+          'Modern Lakeview House',
+          'Sarjapur Road, Bangalore',
+          '3',
+          '2',
+          '1,850',
+          '₹1.05 Crore',
+          [
+            'https://i.pinimg.com/originals/c2/88/b9/c288b971371a35f38dbd0270f0a4370e.png',
+            'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80',
+            'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
+          ]
+        )">
+        View Details →
+      </button>
+    </div>
+  </div>
+</div>
+
+            <!-- PROPERTY 7 -->
+             <div class="property-card">
+  <div class="property-image">
+    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1720437916397009300/original/9e8480a9-7ad8-4b29-9e43-8f68cca7e27c.png?im_w=720" alt="Urban Luxury Apartment">
+    <span class="property-tag">FOR RENT</span>
+  </div>
+
+  <div class="property-info">
+    <h3>Urban Luxury Apartment</h3>
+    <div class="location">📍 Koramangala, Bangalore</div>
+
+    <div class="property-details">
+      <span>🛏 2 Beds</span>
+      <span>🚿 2 Baths</span>
+      <span>📐 1,450 sqft</span>
+    </div>
+
+    <div class="property-bottom">
+      <div class="price">₹55,000/mo</div>
+
+      <button type="button" class="view-btn"
+        onclick="openProperty(
+          'Urban Luxury Apartment',
+          'Koramangala, Bangalore',
+          '2',
+          '2',
+          '1,450',
+          '₹55,000/mo',
+          [
+            'https://a0.muscache.com/im/pictures/hosting/Hosting-1720437916397009300/original/9e8480a9-7ad8-4b29-9e43-8f68cca7e27c.png?im_w=720',
+            'https://photos.zillowstatic.com/fp/a67a2482f0d9b37edb655af2b4e92fe5-cc_ft_960.jpg',
+            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80'
+          ]
+        )">
+        View Details →
+      </button>
+    </div>
+  </div>
+</div>
+
+            <!-- PROPERTY 8 -->
 
             <div class="property-card">
 
                 <div class="property-image">
 
                     <img
-                        src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80">
+                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+                        alt="City View Apartments"
+                    >
 
                     <span class="property-tag">
-                        COMMERCIAL
+                        FOR SALE
                     </span>
 
-                    <div class="heart"
-                         onclick="favorite(this)">
+                    <div
+                        class="heart"
+                        onclick="event.stopPropagation(); favorite(this)"
+                    >
                         ♡
                     </div>
 
@@ -1375,17 +1556,17 @@
 
                 <div class="property-info">
 
-                    <h3>Premium Office Space</h3>
+                    <h3>City View Apartments</h3>
 
                     <div class="location">
-                        📍 Koramangala, Bangalore
+                        📍 Bangalore, Karnataka
                     </div>
 
                     <div class="property-details">
 
-                        <span>🏢 Office</span>
-                        <span>🚗 Parking</span>
-                        <span>📐 2,500 sqft</span>
+                        <span>🛏 2 Beds</span>
+                        <span>🚿 2 Baths</span>
+                        <span>📐 1,100 sqft</span>
 
                     </div>
 
@@ -1393,12 +1574,29 @@
                     <div class="property-bottom">
 
                         <div class="price">
-                            ₹1.5 Lakh/mo
+                            ₹50 Lakhs
                         </div>
 
-                        <a href="#" class="view-btn">
+
+                        <button
+                            type="button"
+                            class="view-btn"
+                            onclick="openProperty(
+                                'City View Apartments',
+                                'Bangalore, Karnataka',
+                                '2',
+                                '2',
+                                '1,100',
+                                '₹50 Lakhs',
+                                [
+                                    'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80',
+                                    'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80',
+                                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
+                                ]
+                            )"
+                        >
                             View Details →
-                        </a>
+                        </button>
 
                     </div>
 
@@ -1406,31 +1604,208 @@
 
             </div>
 
+
         </div>
 
     </div>
 
 </section>
 
+<div id="propertyModal" class="property-modal">
 
-<!-- ================= CTA ================= -->
+    <div class="property-modal-content">
 
-<section class="cta" id="cta">
+        <button
+            class="close-property"
+            onclick="closeProperty()">
+            ×
+        </button>
 
-    <h2>Have a Property to Sell or Rent?</h2>
+        <div class="property-slider">
 
-    <p>
-        List your property on Estate-Ease and reach
-        thousands of potential buyers and tenants.
-    </p>
+            <img
+                id="propertyImage"
+                src=""
+                alt="Property"
+            >
 
-    <a href="post.html" class="cta-btn">
-        Post Your Property
-    </a>
+            <button
+                class="slider-btn prev"
+                onclick="changeImage(-1)">
+                ❮
+            </button>
 
-</section>
+            <button
+                class="slider-btn next"
+                onclick="changeImage(1)">
+                ❯
+            </button>
+
+        </div>
 
 
+        <div class="property-popup-info">
+
+            <h2 id="popupTitle"></h2>
+
+            <div id="popupLocation"></div>
+
+            <div
+                id="popupDetails"
+                class="property-details">
+            </div>
+
+            <div
+                id="popupPrice"
+                class="modal-price">
+            </div>
+
+
+            <h3>Book Property</h3>
+
+            <label>Select Date</label>
+
+            <input
+                type="date"
+                id="bookingDate"
+            >
+
+            <button
+                class="booking-btn"
+                onclick="bookProperty()">
+                Book Now
+            </button>
+
+            <button
+                class="payment-btn"
+                onclick="makePayment()">
+                Proceed to Payment
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ================= PROPERTY POPUP ================= -->
+
+<div id="propertyModal" class="property-modal">
+
+    <div class="property-modal-content">
+
+        <button class="close-property" onclick="closeProperty()">
+            ×
+        </button>
+
+
+        <!-- IMAGE SLIDER -->
+
+        <div class="property-slider">
+
+            <img
+                id="propertyImage"
+                src=""
+                alt="Property Image"
+            >
+
+            <button
+                class="slider-btn prev"
+                onclick="changeImage(-1)"
+            >
+                ❮
+            </button>
+
+            <button
+                class="slider-btn next"
+                onclick="changeImage(1)"
+            >
+                ❯
+            </button>
+
+        </div>
+
+
+        <!-- PROPERTY DETAILS -->
+
+        <div class="property-popup-info">
+
+            <h2 id="popupTitle">
+                Property
+            </h2>
+
+            <div
+                class="popup-location"
+                id="popupLocation"
+            >
+                📍 Location
+            </div>
+
+
+            <div
+                class="popup-details"
+                id="popupDetails"
+            >
+            </div>
+
+
+            <div
+                class="modal-price"
+                id="popupPrice"
+            >
+                ₹0
+            </div>
+
+
+            <p class="popup-description">
+
+                This beautiful property is available
+                with modern facilities, excellent
+                location and premium amenities.
+
+            </p>
+
+
+            <!-- BOOKING -->
+
+            <div class="booking-box">
+
+                <h3>
+                    Book Property
+                </h3>
+
+
+                <label>
+                    Select Date
+                </label>
+
+                <input
+                    type="date"
+                    id="bookingDate"
+                >
+
+
+                <button
+                    class="booking-btn"
+                    onclick="bookProperty()"
+                >
+                    Book Now
+                </button>
+
+
+                <button
+                    class="payment-btn"
+                    onclick="makePayment()"
+                >
+                    Proceed to Payment
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 <!-- ================= FOOTER ================= -->
 
 <footer>
@@ -1527,31 +1902,53 @@
     }
 
 
-    function searchProperty() {
+function searchProperty() {
 
-        const location =
-            document.getElementById("location").value;
+    const location =
+        document.getElementById("location").value.trim();
 
-        const propertyType =
-            document.getElementById("propertyType").value;
+    const propertyType =
+        document.getElementById("propertyType").value;
 
-        if (location === "") {
+    if (location === "" && propertyType === "") {
 
-            alert("Please enter a location.");
+        alert("Please enter a location or select a property type.");
 
-            return;
-        }
-
-        alert(
-            "Searching for " +
-            selectedMode +
-            " properties in " +
-            location +
-            " - " +
-            propertyType
-        );
-
+        return;
     }
+
+
+    /* VILLA SEARCH */
+
+    if (
+        propertyType.toLowerCase() === "villa" ||
+        location.toLowerCase().includes("villa")
+    ) {
+
+        let searchText = location
+            .replace(/villa/gi, "")
+            .trim();
+
+        window.location.href =
+            "villas.html?search=" +
+            encodeURIComponent(searchText);
+
+        return;
+    }
+
+
+    /* OTHER PROPERTY TYPES */
+
+    alert(
+        "Searching for " +
+        selectedMode +
+        " properties in " +
+        location +
+        " - " +
+        propertyType
+    );
+
+}
 
 
     function selectCategory(category) {
@@ -1584,21 +1981,158 @@
         }
 
     }
+ 
 
-function openProperty(title, location, beds, baths, area, price, image) {
 
-    const url =
-        "property.html?" +
-        "title=" + encodeURIComponent(title) +
-        "&location=" + encodeURIComponent(location) +
-        "&beds=" + encodeURIComponent(beds) +
-        "&baths=" + encodeURIComponent(baths) +
-        "&area=" + encodeURIComponent(area) +
-        "&price=" + encodeURIComponent(price) +
-        "&image=" + encodeURIComponent(image);
+let propertyImages = [];
+let currentImage = 0;
 
-    window.location.href = url;
+
+function openProperty(
+    title,
+    location,
+    beds,
+    baths,
+    area,
+    price,
+    images
+) {
+
+    // Property title
+    document.getElementById("popupTitle").innerText =
+        title;
+
+
+    // Location
+    document.getElementById("popupLocation").innerText =
+        "📍 " + location;
+
+
+    // Details
+    document.getElementById("popupDetails").innerHTML = `
+        <span>🛏 ${beds} Beds</span>
+        <span>🚿 ${baths} Baths</span>
+        <span>📐 ${area} sqft</span>
+    `;
+
+
+    // Price
+    document.getElementById("popupPrice").innerText =
+        price;
+
+
+    // Images
+    propertyImages =
+        Array.isArray(images)
+        ? images
+        : [images];
+
+
+    currentImage = 0;
+
+
+    // First image
+    document.getElementById("propertyImage").src =
+        propertyImages[0];
+
+
+    // Open popup
+    document.getElementById("propertyModal").style.display =
+        "block";
+
+
+    // Stop background scrolling
+    document.body.style.overflow = "hidden";
 }
+
+
+function changeImage(direction) {
+
+    currentImage += direction;
+
+
+    if (currentImage >= propertyImages.length) {
+
+        currentImage = 0;
+
+    }
+
+
+    if (currentImage < 0) {
+
+        currentImage =
+            propertyImages.length - 1;
+
+    }
+
+
+    document.getElementById("propertyImage").src =
+        propertyImages[currentImage];
+
+}
+
+
+function closeProperty() {
+
+    document.getElementById("propertyModal").style.display =
+        "none";
+
+
+    document.body.style.overflow = "auto";
+
+}
+
+
+function bookProperty() {
+
+    const date =
+        document.getElementById("bookingDate").value;
+
+
+    if (date === "") {
+
+        alert("Please select a booking date.");
+
+        return;
+
+    }
+
+
+    alert(
+        "Property viewing/booking requested for " +
+        date
+    );
+
+}
+
+
+function makePayment() {
+
+    alert(
+        "Payment page will be connected here."
+    );
+
+}
+
+
+function globalSearch() {
+
+    const location =
+        document.getElementById("searchLocation").value.trim();
+
+    if (location === "") {
+
+        alert("Please enter a city or locality.");
+
+        return;
+    }
+
+    // Open the common search results page
+    window.location.href =
+        "search-results.html?location=" +
+        encodeURIComponent(location);
+}
+
 
 </script>
 

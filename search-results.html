@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Search Results - Estate-Ease</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f5f7f6;
+            color: #222;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+
+            background: white;
+
+            height: 74px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 8%;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,0.08);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            font-size: 34px;
+
+            font-weight: bold;
+
+            color: #08784f;
+        }
+
+
+        .logo span {
+            color: #f5a623;
+        }
+
+
+        nav a {
+
+            text-decoration: none;
+
+            color: #333;
+
+            margin-left: 35px;
+
+            font-weight: bold;
+
+            font-size: 17px;
+        }
+
+
+        nav a:hover {
+            color: #08784f;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .header {
+
+            text-align: center;
+
+            padding: 45px 20px 25px;
+        }
+
+
+        .header h1 {
+
+            font-size: 36px;
+
+            color: #08784f;
+
+            margin-bottom: 10px;
+        }
+
+
+        .header p {
+
+            color: #666;
+
+            font-size: 17px;
+        }
+
+
+        #searchText {
+
+            color: #f5a623;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= SEARCH BOX ================= */
+
+        .search-box {
+
+            width: 90%;
+
+            max-width: 700px;
+
+            margin: 10px auto 35px;
+
+            display: flex;
+        }
+
+
+        .search-box input {
+
+            flex: 1;
+
+            padding: 15px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px 0 0 8px;
+
+            outline: none;
+
+            font-size: 16px;
+        }
+
+
+        .search-box button {
+
+            border: none;
+
+            background: #08784f;
+
+            color: white;
+
+            padding: 0 25px;
+
+            border-radius: 0 8px 8px 0;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .search-box button:hover {
+            background: #05613f;
+        }
+
+
+        /* ================= RESULT COUNT ================= */
+
+        .result-info {
+
+            width: 90%;
+
+            max-width: 1250px;
+
+            margin: 0 auto 20px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= PROPERTY GRID ================= */
+
+        .property-container {
+
+            width: 90%;
+
+            max-width: 1250px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 25px;
+
+            padding-bottom: 60px;
+        }
+
+
+        /* ================= CARD ================= */
+
+        .property-card {
+
+            background: white;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+
+            cursor: pointer;
+        }
+
+
+        .property-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.13);
+        }
+
+
+        .property-image {
+
+            width: 100%;
+
+            height: 210px;
+
+            object-fit: cover;
+        }
+
+
+        .card-content {
+
+            padding: 18px;
+        }
+
+
+        /* ================= TYPE ================= */
+
+        .type {
+
+            display: inline-block;
+
+            background: #e8f5ef;
+
+            color: #08784f;
+
+            padding: 5px 9px;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 9px;
+        }
+
+
+        .property-card h2 {
+
+            font-size: 19px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .brand {
+
+            color: #f5a623;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .location {
+
+            color: #666;
+
+            font-size: 14px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .details {
+
+            display: flex;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 14px;
+        }
+
+
+        .details span {
+
+            background: #f3f4f6;
+
+            padding: 6px 8px;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+        }
+
+
+        .price {
+
+            color: #08784f;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            margin-bottom: 13px;
+        }
+
+
+        .view-btn {
+
+            width: 100%;
+
+            padding: 11px;
+
+            border: none;
+
+            background: #f5a623;
+
+            color: white;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .view-btn:hover {
+
+            background: #df901c;
+        }
+
+
+        /* ================= NO RESULT ================= */
+
+        .no-result {
+
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+            color: #666;
+        }
+
+
+        .no-result h2 {
+
+            margin-bottom: 10px;
+
+            color: #333;
+        }
+
+
+        /* =====================================================
+           PROPERTY POPUP
+        ===================================================== */
+
+        .property-modal {
+
+            display: none;
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            background:
+                rgba(0,0,0,0.70);
+
+            z-index: 9999;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        .modal-content {
+
+            background: white;
+
+            width: 700px;
+
+            max-width: 100%;
+
+            max-height: 92vh;
+
+            overflow-y: auto;
+
+            border-radius: 15px;
+
+            position: relative;
+
+            padding: 25px;
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,0.25);
+
+            animation: popupAnimation 0.25s ease;
+        }
+
+
+        @keyframes popupAnimation {
+
+            from {
+
+                opacity: 0;
+
+                transform: scale(0.90);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: scale(1);
+
+            }
+
+        }
+
+
+        /* ================= CLOSE BUTTON ================= */
+
+        .close-btn {
+
+            position: absolute;
+
+            right: 15px;
+
+            top: 15px;
+
+            width: 40px;
+
+            height: 40px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: white;
+
+            color: #333;
+
+            font-size: 28px;
+
+            cursor: pointer;
+
+            z-index: 5;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.15);
+        }
+
+
+        .close-btn:hover {
+
+            background: #08784f;
+
+            color: white;
+        }
+
+
+        /* ================= MODAL IMAGE ================= */
+
+        #modalImage {
+
+            width: 100%;
+
+            height: 320px;
+
+            object-fit: cover;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .modal-content h2 {
+
+            color: #08784f;
+
+            font-size: 27px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .modal-brand {
+
+            color: #f5a623;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+        }
+
+
+        .modal-location {
+
+            color: #666;
+
+            margin-bottom: 15px;
+
+            font-size: 15px;
+        }
+
+
+        .modal-details {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 15px;
+        }
+
+
+        .modal-details span {
+
+            background: #f3f4f6;
+
+            padding: 8px 12px;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+        }
+
+
+        .modal-price {
+
+            color: #08784f;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            margin-bottom: 18px;
+        }
+
+
+        .modal-description {
+
+            color: #555;
+
+            line-height: 1.6;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= OWNER ================= */
+
+        .owner-info {
+
+            background: #eef7f3;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            border-left:
+                4px solid #08784f;
+        }
+
+
+        .owner-info h3 {
+
+            color: #08784f;
+
+            margin-bottom: 12px;
+        }
+
+
+        .owner-info p {
+
+            margin: 7px 0;
+
+            color: #444;
+        }
+
+
+        .contact-owner-btn {
+
+            display: inline-block;
+
+            margin-top: 10px;
+
+            background: #08784f;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 16px;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+        }
+
+
+        .contact-owner-btn:hover {
+
+            background: #05613f;
+        }
+
+
+        /* ================= BOOKING ================= */
+
+        .booking-section {
+
+            background: #fafafa;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+        }
+
+
+        .booking-section h3 {
+
+            color: #08784f;
+
+            margin-bottom: 15px;
+        }
+
+
+        .booking-section label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #444;
+        }
+
+
+        .booking-section input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 7px;
+
+            margin-bottom: 12px;
+
+            font-size: 15px;
+        }
+
+
+        .booking-btn {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #08784f;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+
+        .booking-btn:hover {
+
+            background: #05613f;
+        }
+
+
+        .payment-btn {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #f5a623;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            margin-top: 10px;
+        }
+
+
+        .payment-btn:hover {
+
+            background: #df901c;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 1000px) {
+
+            .property-container {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media(max-width: 600px) {
+
+            nav {
+
+                flex-direction: column;
+
+                height: auto;
+
+                padding: 15px;
+            }
+
+
+            nav a {
+
+                margin: 8px;
+
+                font-size: 14px;
+            }
+
+
+            .property-container {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .header h1 {
+
+                font-size: 28px;
+            }
+
+
+            .modal-content {
+
+                padding: 18px;
+            }
+
+
+            #modalImage {
+
+                height: 220px;
+            }
+
+
+            .modal-content h2 {
+
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="logo">
+            Estate<span>-Ease</span>
+        </div>
+
+
+        <div>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#featured-properties">
+                Properties
+            </a>
+
+            <a href="index.html#categories">
+                Categories
+            </a>
+
+            <a href="index.html#about">
+                About Us
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= HEADER ================= -->
+
+    <section class="header">
+
+        <h1>
+            Search Results
+        </h1>
+
+
+        <p>
+
+            Properties found for:
+
+            <span id="searchText"></span>
+
+        </p>
+
+    </section>
+
+
+
+    <!-- ================= SEARCH AGAIN ================= -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search city or locality..."
+        >
+
+
+        <button onclick="performSearch()">
+
+            🔍 Search
+
+        </button>
+
+    </div>
+
+
+
+    <!-- ================= RESULT COUNT ================= -->
+
+    <div
+        class="result-info"
+        id="resultInfo"
+    ></div>
+
+
+
+    <!-- ================= PROPERTY CONTAINER ================= -->
+
+    <div
+        class="property-container"
+        id="propertyContainer"
+    ></div>
+
+
+
+    <!-- =====================================================
+         PROPERTY POPUP
+    ===================================================== -->
+
+    <div
+        class="property-modal"
+        id="propertyModal"
+    >
+
+        <div class="modal-content">
+
+
+            <!-- CLOSE -->
+
+            <button
+                class="close-btn"
+                onclick="closePropertyModal()"
+            >
+                ×
+            </button>
+
+
+
+            <!-- IMAGE -->
+
+            <img
+                id="modalImage"
+                src=""
+                alt="Property"
+            >
+
+
+
+            <!-- TITLE -->
+
+            <h2 id="modalTitle"></h2>
+
+
+
+            <!-- BRAND -->
+
+            <div
+                class="modal-brand"
+                id="modalBrand"
+            ></div>
+
+
+
+            <!-- LOCATION -->
+
+            <div
+                class="modal-location"
+                id="modalLocation"
+            ></div>
+
+
+
+            <!-- DETAILS -->
+
+            <div
+                class="modal-details"
+                id="modalDetails"
+            ></div>
+
+
+
+            <!-- PRICE -->
+
+            <div
+                class="modal-price"
+                id="modalPrice"
+            ></div>
+
+
+
+            <!-- DESCRIPTION -->
+
+            <p
+                class="modal-description"
+                id="modalDescription"
+            ></p>
+
+
+
+            <!-- ================= OWNER ================= -->
+
+            <div class="owner-info">
+
+                <h3>
+                    👤 Property Owner
+                </h3>
+
+
+                <p>
+
+                    <strong>Name:</strong>
+
+                    <span id="modalOwnerName"></span>
+
+                </p>
+
+
+                <p>
+
+                    <strong>Phone:</strong>
+
+                    <span id="modalOwnerPhone"></span>
+
+                </p>
+
+
+                <a
+                    id="callOwnerBtn"
+                    href="#"
+                    class="contact-owner-btn"
+                >
+
+                    📞 Call Owner
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ================= BOOKING ================= -->
+
+            <div class="booking-section">
+
+                <h3>
+                    📅 Book Property
+                </h3>
+
+
+                <label>
+                    Select Date
+                </label>
+
+
+                <input
+                    type="date"
+                    id="bookingDate"
+                >
+
+
+                <button
+                    class="booking-btn"
+                    onclick="bookProperty()"
+                >
+
+                    📅 Book Now
+
+                </button>
+
+
+                <button
+                    class="payment-btn"
+                    onclick="makePayment()"
+                >
+
+                    💳 Proceed to Payment
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        /* =========================================
+           ALL PROPERTY DATA
+        ========================================= */
+
+        const allProperties = [
+
+
+            /* ================= APARTMENTS ================= */
+
+            {
+                title: "Green Valley Apartment",
+                brand: "Green Valley Developers",
+                type: "Apartment",
+                purpose: "Buy",
+                location: "Whitefield, Bangalore",
+                area: "1250 sqft",
+                details: "2 Beds • 2 Baths",
+                price: "₹85 Lakhs",
+
+                image:
+                    "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Rahul Sharma",
+                ownerPhone: "9876543210",
+
+                description:
+                    "A comfortable apartment located in Whitefield, Bangalore with modern facilities and a convenient location."
+            },
+
+
+            {
+                title: "Lakeview Heights",
+                brand: "Lakeview Builders",
+                type: "Apartment",
+                purpose: "Rent",
+                location: "Koramangala, Bangalore",
+                area: "1100 sqft",
+                details: "2 Beds • 2 Baths",
+                price: "₹35,000/month",
+
+                image:
+                    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Priya Nair",
+                ownerPhone: "9887654321",
+
+                description:
+                    "Well-maintained apartment in Koramangala suitable for comfortable city living."
+            },
+
+
+            /* ================= VILLAS ================= */
+
+            {
+                title: "Palm Garden Villa",
+                brand: "Palm Garden Developers",
+                type: "Villa",
+                purpose: "Buy",
+                location: "Sarjapur Road, Bangalore",
+                area: "2400 sqft",
+                details: "3 Beds • 3 Baths",
+                price: "₹2.10 Crore",
+
+                image:
+                    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Amit Verma",
+                ownerPhone: "9812345678",
+
+                description:
+                    "Spacious villa with modern architecture and a peaceful residential environment."
+            },
+
+
+            {
+                title: "Royal Green Villa",
+                brand: "Royal Homes",
+                type: "Villa",
+                purpose: "Rent",
+                location: "Electronic City, Bangalore",
+                area: "2100 sqft",
+                details: "3 Beds • 3 Baths",
+                price: "₹65,000/month",
+
+                image:
+                    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Karan Mehta",
+                ownerPhone: "9876123456",
+
+                description:
+                    "Premium villa available for rent in Electronic City with spacious rooms and modern amenities."
+            },
+
+
+            /* ================= INDEPENDENT HOUSE ================= */
+
+            {
+                title: "Sunrise Independent House",
+                brand: "Sunrise Properties",
+                type: "Independent House",
+                purpose: "Buy",
+                location: "JP Nagar, Bangalore",
+                area: "1800 sqft",
+                details: "3 Beds • 3 Baths",
+                price: "₹1.45 Crore",
+
+                image:
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Suresh Kumar",
+                ownerPhone: "9900123456",
+
+                description:
+                    "Independent family house in JP Nagar with spacious rooms and a convenient location."
+            },
+
+
+            {
+                title: "Family Home",
+                brand: "Family Homes",
+                type: "Independent House",
+                purpose: "Rent",
+                location: "Mysore Road, Bangalore",
+                area: "1500 sqft",
+                details: "3 Beds • 2 Baths",
+                price: "₹30,000/month",
+
+                image:
+                    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Mohammed Sameer",
+                ownerPhone: "9966332211",
+
+                description:
+                    "Family-friendly independent house available for rent near Mysore Road."
+            },
+
+
+            /* ================= PLOTS ================= */
+
+            {
+                title: "Sumukha Enclave Plot",
+                brand: "Sumukha Enclave",
+                type: "Plot",
+                purpose: "Buy",
+                location: "Attibele, Bangalore",
+                area: "1200 sqft",
+                details: "30 × 40 • North Facing",
+                price: "₹45 Lakhs",
+
+                image:
+                    "https://www.nanubhaiproperty.com/images/thumbs/property/626822_1200-sq-ft-residential-plot-land-for-sale-attibele-in-bangalore_800.jpeg",
+
+                ownerName: "Vikram Reddy",
+                ownerPhone: "9987654321",
+
+                description:
+                    "Residential plot in Attibele, Bangalore suitable for building a family home."
+            },
+
+
+            {
+                title: "Palm Grove Residential Plot",
+                brand: "Palm Grove Developers",
+                type: "Plot",
+                purpose: "Buy",
+                location: "Tripunithura, Kochi",
+                area: "2613 sqft",
+                details: "Road Facing",
+                price: "₹48 Lakhs",
+
+                image:
+                    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Arjun Kumar",
+                ownerPhone: "9845012345",
+
+                description:
+                    "Road-facing residential plot in Tripunithura, Kochi."
+            },
+
+
+            /* ================= COMMERCIAL ================= */
+
+            {
+                title: "Skyline Business Tower",
+                brand: "Skyline Developers",
+                type: "Commercial",
+                purpose: "Buy",
+                location: "Whitefield, Bangalore",
+                area: "1850 sqft",
+                details: "Office • 2 Parking",
+                price: "₹2.85 Crore",
+
+                image:
+                    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Rahul Sharma",
+                ownerPhone: "9876543210",
+
+                description:
+                    "Modern commercial office space in Whitefield, Bangalore suitable for business operations."
+            },
+
+
+            {
+                title: "Urban Square Showroom",
+                brand: "Urban Square Group",
+                type: "Commercial",
+                purpose: "Rent",
+                location: "Koramangala, Bangalore",
+                area: "2400 sqft",
+                details: "Showroom • Ground Floor",
+                price: "₹1.20 Lakh/month",
+
+                image:
+                    "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Priya Nair",
+                ownerPhone: "9887654321",
+
+                description:
+                    "Ground-floor commercial showroom space in Koramangala."
+            },
+
+
+            {
+                title: "Metro Business Hub",
+                brand: "MetroSpace Properties",
+                type: "Commercial",
+                purpose: "Buy",
+                location: "HITEC City, Hyderabad",
+                area: "3200 sqft",
+                details: "Office • 5 Parking",
+                price: "₹3.75 Crore",
+
+                image:
+                    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Amit Verma",
+                ownerPhone: "9812345678",
+
+                description:
+                    "Large commercial office space located in HITEC City, Hyderabad."
+            },
+
+
+            {
+                title: "Prime Retail Avenue",
+                brand: "PrimeLand Realty",
+                type: "Commercial",
+                purpose: "Rent",
+                location: "Andheri West, Mumbai",
+                area: "1100 sqft",
+                details: "Retail Shop • Ground Floor",
+                price: "₹90,000/month",
+
+                image:
+                    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80",
+
+                ownerName: "Karan Mehta",
+                ownerPhone: "9876123456",
+
+                description:
+                    "Ground-floor retail shop in Andheri West, Mumbai suitable for commercial use."
+            }
+
+        ];
+
+
+
+        /* =========================================
+           CURRENT SEARCH RESULTS
+        ========================================= */
+
+        let currentResults = [];
+
+        let selectedProperty = null;
+
+
+
+        /* =========================================
+           GET SEARCH FROM URL
+        ========================================= */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        let currentSearch =
+            urlParams.get("location") || "";
+
+
+
+        /* =========================================
+           DISPLAY RESULTS
+        ========================================= */
+
+        function showResults(searchValue) {
+
+
+            const query =
+                searchValue
+                    .toLowerCase()
+                    .trim();
+
+
+            document.getElementById(
+                "searchText"
+            ).innerText =
+                searchValue || "All Properties";
+
+
+            document.getElementById(
+                "searchInput"
+            ).value =
+                searchValue;
+
+
+
+            /* ================================
+               SEARCH EVERYTHING
+            ================================= */
+
+            const results =
+                allProperties.filter(property => {
+
+
+                    const searchableText = (
+
+                        property.title + " " +
+
+                        property.brand + " " +
+
+                        property.type + " " +
+
+                        property.purpose + " " +
+
+                        property.location + " " +
+
+                        property.area + " " +
+
+                        property.details
+
+                    ).toLowerCase();
+
+
+                    return searchableText
+                        .includes(query);
+
+                });
+
+
+
+            /* SAVE CURRENT RESULTS */
+
+            currentResults = results;
+
+
+
+            document.getElementById(
+                "resultInfo"
+            ).innerText =
+                results.length +
+                " properties found";
+
+
+
+            renderResults(results);
+
+        }
+
+
+
+        /* =========================================
+           RENDER RESULTS
+        ========================================= */
+
+        function renderResults(results) {
+
+
+            const container =
+                document.getElementById(
+                    "propertyContainer"
+                );
+
+
+            container.innerHTML = "";
+
+
+
+            if (results.length === 0) {
+
+
+                container.innerHTML = `
+
+                    <div class="no-result">
+
+                        <h2>
+                            No Property Found
+                        </h2>
+
+                        <p>
+                            Try another city,
+                            locality or property name.
+                        </p>
+
+                    </div>
+
+                `;
+
+
+                return;
+
+            }
+
+
+
+            results.forEach((property, index) => {
+
+
+                container.innerHTML += `
+
+                    <div
+                        class="property-card"
+                        onclick="openPropertyPopup(${index})"
+                    >
+
+                        <img
+                            class="property-image"
+                            src="${property.image}"
+                            alt="${property.title}"
+                        >
+
+
+                        <div class="card-content">
+
+
+                            <span class="type">
+
+                                ${property.purpose}
+                                •
+                                ${property.type}
+
+                            </span>
+
+
+                            <h2>
+
+                                ${property.title}
+
+                            </h2>
+
+
+                            <div class="brand">
+
+                                ${property.brand}
+
+                            </div>
+
+
+                            <div class="location">
+
+                                📍
+                                ${property.location}
+
+                            </div>
+
+
+                            <div class="details">
+
+                                <span>
+
+                                    📐 ${property.area}
+
+                                </span>
+
+
+                                <span>
+
+                                    ${property.details}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="price">
+
+                                ${property.price}
+
+                            </div>
+
+
+                            <button
+                                class="view-btn"
+                                onclick="
+                                    event.stopPropagation();
+                                    openPropertyPopup(${index});
+                                "
+                            >
+
+                                View Details
+
+                            </button>
+
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+
+
+        /* =========================================
+           OPEN DIRECT PROPERTY POPUP
+        ========================================= */
+
+        function openPropertyPopup(index) {
+
+
+            /* Get selected property */
+
+            selectedProperty =
+                currentResults[index];
+
+
+
+            if (!selectedProperty) {
+
+                return;
+
+            }
+
+
+
+            /* =========================
+               SET IMAGE
+            ========================= */
+
+            document.getElementById(
+                "modalImage"
+            ).src =
+                selectedProperty.image;
+
+
+
+            /* =========================
+               SET TITLE
+            ========================= */
+
+            document.getElementById(
+                "modalTitle"
+            ).innerText =
+                selectedProperty.title;
+
+
+
+            /* =========================
+               SET BRAND
+            ========================= */
+
+            document.getElementById(
+                "modalBrand"
+            ).innerText =
+                selectedProperty.brand;
+
+
+
+            /* =========================
+               SET LOCATION
+            ========================= */
+
+            document.getElementById(
+                "modalLocation"
+            ).innerText =
+                "📍 " +
+                selectedProperty.location;
+
+
+
+            /* =========================
+               SET DETAILS
+            ========================= */
+
+            document.getElementById(
+                "modalDetails"
+            ).innerHTML = `
+
+                <span>
+                    ${selectedProperty.purpose}
+                </span>
+
+                <span>
+                    ${selectedProperty.type}
+                </span>
+
+                <span>
+                    📐 ${selectedProperty.area}
+                </span>
+
+                <span>
+                    ${selectedProperty.details}
+                </span>
+
+            `;
+
+
+
+            /* =========================
+               SET PRICE
+            ========================= */
+
+            document.getElementById(
+                "modalPrice"
+            ).innerText =
+                selectedProperty.price;
+
+
+
+            /* =========================
+               SET DESCRIPTION
+            ========================= */
+
+            document.getElementById(
+                "modalDescription"
+            ).innerText =
+                selectedProperty.description;
+
+
+
+            /* =========================
+               OWNER NAME
+            ========================= */
+
+            document.getElementById(
+                "modalOwnerName"
+            ).innerText =
+                selectedProperty.ownerName;
+
+
+
+            /* =========================
+               OWNER PHONE
+            ========================= */
+
+            document.getElementById(
+                "modalOwnerPhone"
+            ).innerText =
+                selectedProperty.ownerPhone;
+
+
+
+            /* =========================
+               CALL OWNER
+            ========================= */
+
+            document.getElementById(
+                "callOwnerBtn"
+            ).href =
+                "tel:" +
+                selectedProperty.ownerPhone;
+
+
+
+            /* =========================
+               CLEAR BOOKING DATE
+            ========================= */
+
+            document.getElementById(
+                "bookingDate"
+            ).value = "";
+
+
+
+            /* =========================
+               SHOW POPUP
+            ========================= */
+
+            document.getElementById(
+                "propertyModal"
+            ).style.display =
+                "flex";
+
+
+            /* Prevent background scrolling */
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+
+        /* =========================================
+           CLOSE POPUP
+        ========================================= */
+
+        function closePropertyModal() {
+
+
+            document.getElementById(
+                "propertyModal"
+            ).style.display =
+                "none";
+
+
+            /* Enable page scrolling */
+
+            document.body.style.overflow =
+                "auto";
+
+        }
+
+
+
+        /* =========================================
+           CLOSE POPUP WHEN CLICKING OUTSIDE
+        ========================================= */
+
+        document.getElementById(
+            "propertyModal"
+        ).addEventListener(
+            "click",
+            function(event) {
+
+
+                if (
+                    event.target ===
+                    this
+                ) {
+
+                    closePropertyModal();
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================
+           ESC KEY CLOSE
+        ========================================= */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    closePropertyModal();
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================
+           BOOK PROPERTY
+        ========================================= */
+
+        function bookProperty() {
+
+
+            const date =
+                document.getElementById(
+                    "bookingDate"
+                ).value;
+
+
+
+            if (!date) {
+
+                alert(
+                    "Please select a booking date."
+                );
+
+                return;
+
+            }
+
+
+
+            if (!selectedProperty) {
+
+                return;
+
+            }
+
+
+
+            alert(
+
+                "Booking request submitted for " +
+
+                selectedProperty.title +
+
+                " on " +
+
+                date +
+
+                "."
+
+            );
+
+        }
+
+
+
+        /* =========================================
+           PAYMENT
+        ========================================= */
+
+        function makePayment() {
+
+
+            if (!selectedProperty) {
+
+                return;
+
+            }
+
+
+
+            alert(
+
+                "Payment option selected for " +
+
+                selectedProperty.title +
+
+                "."
+
+            );
+
+        }
+
+
+
+        /* =========================================
+           SEARCH AGAIN
+        ========================================= */
+
+        function performSearch() {
+
+
+            const value =
+                document.getElementById(
+                    "searchInput"
+                ).value.trim();
+
+
+
+            if (value === "") {
+
+                alert(
+                    "Please enter a location."
+                );
+
+                return;
+
+            }
+
+
+
+            const newURL =
+                "search-results.html?location=" +
+                encodeURIComponent(value);
+
+
+
+            window.location.href =
+                newURL;
+
+        }
+
+
+
+        /* =========================================
+           ENTER KEY
+        ========================================= */
+
+        document.getElementById(
+            "searchInput"
+        ).addEventListener(
+            "keypress",
+            function(event) {
+
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    performSearch();
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================
+           INITIAL LOAD
+        ========================================= */
+
+        showResults(currentSearch);
+
+    </script>
+
+
+</body>
+
+</html>
