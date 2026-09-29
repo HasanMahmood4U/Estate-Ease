@@ -1,0 +1,737 @@
+      /* =====================================================
+           HOUSE DATA
+    ===================================================== */
+ const houses = [
+
+            {
+                title: "Premium Family House",
+                location: "HSR Layout, Bangalore",
+                beds: 3,
+                baths: 2,
+                area: "1,800",
+                price: "₹85 Lakhs",
+
+                ownerName: "Rahul Sharma",
+                ownerPhone: "9876543210",
+
+                images: [
+
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
+
+                ]
+            },
+
+
+            {
+                title: "Modern Independent House",
+                location: "Whitefield, Bangalore",
+                beds: 4,
+                baths: 3,
+                area: "2,400",
+                price: "₹1.25 Crore",
+
+                ownerName: "Priya Nair",
+                ownerPhone: "9887654321",
+
+                images: [
+
+                    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+
+                ]
+            },
+
+
+            {
+                title: "Green Valley House",
+                location: "Sarjapur Road, Bangalore",
+                beds: 3,
+                baths: 3,
+                area: "2,050",
+                price: "₹98 Lakhs",
+
+                ownerName: "Amit Verma",
+                ownerPhone: "9812345678",
+
+                images: [
+
+                    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+
+                ]
+            },
+
+
+            {
+                title: "Royal Garden House",
+                location: "Electronic City, Bangalore",
+                beds: 4,
+                baths: 3,
+                area: "2,500",
+                price: "₹1.35 Crore",
+
+                ownerName: "Karan Mehta",
+                ownerPhone: "9876123456",
+
+                images: [
+
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
+
+                ]
+            },
+
+
+            {
+                title: "Lake View Independent House",
+                location: "Devanahalli, Bangalore",
+                beds: 3,
+                baths: 2,
+                area: "1,900",
+                price: "₹92 Lakhs",
+
+                ownerName: "Suresh Kumar",
+                ownerPhone: "9900123456",
+
+                images: [
+
+                    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+
+                ]
+            },
+
+
+            {
+                title: "Luxury Family House",
+                location: "Indiranagar, Bangalore",
+                beds: 4,
+                baths: 4,
+                area: "3,000",
+                price: "₹2.10 Crore",
+
+                ownerName: "Mohammed Sameer",
+                ownerPhone: "9966332211",
+
+                images: [
+
+                    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80"
+
+                ]
+            },
+
+
+            {
+                title: "Urban Comfort House",
+                location: "Koramangala, Bangalore",
+                beds: 3,
+                baths: 3,
+                area: "2,200",
+                price: "₹1.50 Crore",
+
+                ownerName: "Vikram Reddy",
+                ownerPhone: "9987654321",
+
+                images: [
+
+                    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80"
+
+                ]
+            },
+
+
+            {
+                title: "Peaceful Greenwood House",
+                location: "Hosur Road, Bangalore",
+                beds: 4,
+                baths: 3,
+                area: "2,300",
+                price: "₹1.15 Crore",
+
+                ownerName: "Arjun Kumar",
+                ownerPhone: "9845012345",
+
+                images: [
+
+                    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80",
+
+                    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+
+                ]
+            }
+
+        ];
+
+
+        /* =====================================================
+           CARD IMAGE INDEX
+        ===================================================== */
+
+        const cardImageIndexes =
+            new Array(houses.length).fill(0);
+
+
+        /* =====================================================
+           RENDER HOUSES
+        ===================================================== */
+
+        function renderHouses(list = houses) {
+
+            const grid =
+                document.getElementById("propertyGrid");
+
+            grid.innerHTML = "";
+
+
+            if (list.length === 0) {
+
+                document.getElementById(
+                    "noResult"
+                ).style.display = "block";
+
+                return;
+            }
+
+
+            document.getElementById(
+                "noResult"
+            ).style.display = "none";
+
+
+            list.forEach((house) => {
+
+                const houseIndex =
+                    houses.indexOf(house);
+
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "property-card";
+
+
+                card.innerHTML = `
+
+                    <div class="property-slider">
+
+                        <img
+                            id="cardImage-${houseIndex}"
+                            src="${house.images[0]}"
+                            alt="${house.title}"
+                        >
+
+
+                        <span class="property-tag">
+                            Independent House
+                        </span>
+
+
+                        <button
+                            class="slider-btn prev"
+                            onclick="changeCardImage(
+                                ${houseIndex},
+                                -1
+                            )"
+                        >
+                            ❮
+                        </button>
+
+
+                        <button
+                            class="slider-btn next"
+                            onclick="changeCardImage(
+                                ${houseIndex},
+                                1
+                            )"
+                        >
+                            ❯
+                        </button>
+
+                    </div>
+
+
+                    <div class="property-info">
+
+                        <h3>
+                            ${house.title}
+                        </h3>
+
+
+                        <div class="location">
+                            📍 ${house.location}
+                        </div>
+
+
+                        <div class="property-details">
+
+                            <span>
+                                🛏 ${house.beds} Beds
+                            </span>
+
+                            <span>
+                                🚿 ${house.baths} Baths
+                            </span>
+
+                            <span>
+                                📐 ${house.area} sqft
+                            </span>
+
+                        </div>
+
+
+                        <div class="property-bottom">
+
+                            <div class="price">
+                                ${house.price}
+                            </div>
+
+
+                            <button
+                                class="view-btn"
+                                onclick="openProperty(
+                                    ${houseIndex}
+                                )"
+                            >
+                                View Details →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                grid.appendChild(card);
+
+            });
+
+        }
+
+
+        /* =====================================================
+           CARD SLIDER
+        ===================================================== */
+
+        function changeCardImage(
+            index,
+            direction
+        ) {
+
+            const house =
+                houses[index];
+
+
+            cardImageIndexes[index] +=
+                direction;
+
+
+            if (
+                cardImageIndexes[index] >=
+                house.images.length
+            ) {
+
+                cardImageIndexes[index] = 0;
+
+            }
+
+
+            if (
+                cardImageIndexes[index] < 0
+            ) {
+
+                cardImageIndexes[index] =
+                    house.images.length - 1;
+
+            }
+
+
+            document.getElementById(
+                `cardImage-${index}`
+            ).src =
+                house.images[
+                    cardImageIndexes[index]
+                ];
+
+        }
+
+
+        /* =====================================================
+           MODAL VARIABLES
+        ===================================================== */
+
+        let selectedHouse = null;
+
+        let modalImageIndex = 0;
+
+
+        /* =====================================================
+           OPEN PROPERTY
+        ===================================================== */
+
+        function openProperty(index) {
+
+            selectedHouse =
+                houses[index];
+
+
+            modalImageIndex = 0;
+
+
+            document.getElementById(
+                "modalTitle"
+            ).innerText =
+                selectedHouse.title;
+
+
+            document.getElementById(
+                "modalLocation"
+            ).innerText =
+                "📍 " +
+                selectedHouse.location;
+
+
+            document.getElementById(
+                "modalDetails"
+            ).innerHTML = `
+
+                <span>
+                    🛏 ${selectedHouse.beds} Beds
+                </span>
+
+                <span>
+                    🚿 ${selectedHouse.baths} Baths
+                </span>
+
+                <span>
+                    📐 ${selectedHouse.area} sqft
+                </span>
+
+            `;
+
+
+            document.getElementById(
+                "modalPrice"
+            ).innerText =
+                selectedHouse.price;
+
+
+            /* =================================================
+               OWNER DETAILS
+            ================================================= */
+
+            document.getElementById(
+                "modalOwnerName"
+            ).innerText =
+                selectedHouse.ownerName;
+
+
+            document.getElementById(
+                "modalOwnerPhone"
+            ).innerText =
+                selectedHouse.ownerPhone;
+
+
+            document.getElementById(
+                "callOwnerBtn"
+            ).href =
+                "tel:" +
+                selectedHouse.ownerPhone;
+
+
+            document.getElementById(
+                "modalPropertyImage"
+            ).src =
+                selectedHouse.images[0];
+
+
+            document.getElementById(
+                "propertyModal"
+            ).style.display =
+                "block";
+
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+        /* =====================================================
+           MODAL IMAGE SLIDER
+        ===================================================== */
+
+        function changeModalImage(direction) {
+
+            if (!selectedHouse) {
+                return;
+            }
+
+
+            modalImageIndex +=
+                direction;
+
+
+            if (
+                modalImageIndex >=
+                selectedHouse.images.length
+            ) {
+
+                modalImageIndex = 0;
+
+            }
+
+
+            if (modalImageIndex < 0) {
+
+                modalImageIndex =
+                    selectedHouse.images.length - 1;
+
+            }
+
+
+            document.getElementById(
+                "modalPropertyImage"
+            ).src =
+                selectedHouse.images[
+                    modalImageIndex
+                ];
+
+        }
+
+
+        /* =====================================================
+           CLOSE MODAL
+        ===================================================== */
+
+        function closeProperty() {
+
+            document.getElementById(
+                "propertyModal"
+            ).style.display =
+                "none";
+
+
+            document.body.style.overflow =
+                "auto";
+
+        }
+
+
+        /* =====================================================
+           SEARCH HOUSES
+        ===================================================== */
+
+        function searchHouses() {
+
+            const searchText =
+                document.getElementById(
+                    "searchInput"
+                ).value
+                .trim()
+                .toLowerCase();
+
+
+            const filteredHouses =
+                houses.filter((house) => {
+
+                    return (
+
+                        house.title
+                            .toLowerCase()
+                            .includes(searchText)
+
+                        ||
+
+                        house.location
+                            .toLowerCase()
+                            .includes(searchText)
+
+                    );
+
+                });
+
+
+            renderHouses(filteredHouses);
+
+        }
+
+
+        /* =====================================================
+           ENTER KEY SEARCH
+        ===================================================== */
+
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (event.key === "Enter") {
+
+                        searchHouses();
+
+                    }
+
+                }
+            );
+
+
+        /* =====================================================
+           BOOK HOUSE
+        ===================================================== */
+
+        function bookProperty() {
+
+            const date =
+                document.getElementById(
+                    "bookingDate"
+                ).value;
+
+
+            if (date === "") {
+
+                alert(
+                    "Please select a visit date."
+                );
+
+                return;
+            }
+
+
+            alert(
+                "House visit requested for " +
+                date
+            );
+
+        }
+
+
+        /* =====================================================
+           PAYMENT
+        ===================================================== */
+
+        function makePayment() {
+
+            alert(
+                "Payment gateway will be connected here."
+            );
+
+        }
+
+
+        /* =====================================================
+           URL SEARCH
+        ===================================================== */
+
+        function loadURLSearch() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const search =
+                params.get("search");
+
+
+            if (search) {
+
+                document.getElementById(
+                    "searchInput"
+                ).value =
+                    search;
+
+
+                const searchText =
+                    search.toLowerCase();
+
+
+                const filteredHouses =
+                    houses.filter((house) => {
+
+                        return (
+
+                            house.title
+                                .toLowerCase()
+                                .includes(searchText)
+
+                            ||
+
+                            house.location
+                                .toLowerCase()
+                                .includes(searchText)
+
+                        );
+
+                    });
+
+
+                renderHouses(
+                    filteredHouses
+                );
+
+            } else {
+
+                renderHouses();
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CLOSE MODAL ON OUTSIDE CLICK
+        ===================================================== */
+
+        document
+            .getElementById("propertyModal")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target === this
+                    ) {
+
+                        closeProperty();
+
+                    }
+
+                }
+            );
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        loadURLSearch(); 
