@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css/style.css">
 
     <title>Estate-Ease | Find Your Dream Property</title>
-
-    
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- ==================================================
+     NAVBAR
+================================================== -->
 
 <header>
 
@@ -23,16 +25,39 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#properties">Properties</a></li>
-            <li><a href="#categories">Categories</a></li>
-            <li><a href="#cta">About Us</a></li>
-            <li><a href="#">Contact</a></li>
+
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+
+            <li>
+                <a href="#properties">Properties</a>
+            </li>
+
+            <li>
+                <a href="#categories">Categories</a>
+            </li>
+
+            <li>
+                <a href="#cta">About Us</a>
+            </li>
+
+            <li>
+                <a href="#contact">Contact</a>
+            </li>
+
         </ul>
 
         <div class="nav-buttons">
-            <a href="login.html" class="login-btn">Login</a>
-            <a href="post.html" class="post-btn">Post Property</a>
+
+            <a href="login.html" class="login-btn">
+                Login
+            </a>
+
+            <a href="post.html" class="post-btn">
+                Post Property
+            </a>
+
         </div>
 
     </nav>
@@ -40,7 +65,9 @@
 </header>
 
 
-<!-- ================= HERO ================= -->
+<!-- ==================================================
+     HERO
+================================================== -->
 
 <section class="hero">
 
@@ -56,114 +83,204 @@
         </p>
 
 
-        <!-- SEARCH -->
+        <!-- SEARCH BOX -->
 
         <div class="search-box">
+
+
+            <!-- PROPERTY TABS -->
 
             <div class="property-tabs">
 
                 <button
+                    type="button"
                     class="property-tab active"
                     onclick="changeTab(this, 'Buy')">
+
                     Buy
+
                 </button>
 
+
                 <button
+                    type="button"
                     class="property-tab"
                     onclick="changeTab(this, 'Rent')">
+
                     Rent
+
                 </button>
 
+
                 <button
+                    type="button"
                     class="property-tab"
                     onclick="changeTab(this, 'Commercial')">
+
                     Commercial
+
                 </button>
 
             </div>
 
 
+            <!-- SEARCH FIELDS -->
+
             <div class="search-fields">
 
-                <!-- Location -->
+
+                <!-- LOCATION -->
 
                 <div class="field">
 
-                    <label>LOCATION</label>
+                    <label for="searchLocation">
+                        LOCATION
+                    </label>
 
                     <input
-    type="text"
-    id="searchLocation"
-    placeholder="Enter city or locality"
->
+                        type="text"
+                        id="searchLocation"
+                        placeholder="Enter city or locality"
+                    >
 
                 </div>
 
 
-                <!-- Category -->
+                <!-- PROPERTY TYPE -->
 
                 <div class="field">
 
-                    <label>PROPERTY TYPE</label>
+                    <label for="propertyType">
+                        PROPERTY TYPE
+                    </label>
 
                     <select id="propertyType">
 
-                        <option>All Types</option>
-                        <option>Apartment</option>
-                        <option>Villa</option>
-                        <option>Independent House</option>
-                        <option>Plot</option>
-                        <option>Office</option>
-                        <option>Shop</option>
+                        <option value="All Types">
+                            All Types
+                        </option>
+
+                        <option value="Apartment">
+                            Apartment
+                        </option>
+
+                        <option value="Villa">
+                            Villa
+                        </option>
+
+                        <option value="Independent House">
+                            Independent House
+                        </option>
+
+                        <option value="Plot">
+                            Plot
+                        </option>
+
+                        <option value="Office">
+                            Office
+                        </option>
+
+                        <option value="Shop">
+                            Shop
+                        </option>
+
+                        <option value="Commercial">
+                            Commercial
+                        </option>
 
                     </select>
 
                 </div>
 
 
-                <!-- Bedrooms -->
+                <!-- BEDROOMS -->
 
                 <div class="field">
 
-                    <label>BEDROOMS</label>
+                    <label for="bedrooms">
+                        BEDROOMS
+                    </label>
 
-                    <select>
+                    <select id="bedrooms">
 
-                        <option>Any</option>
-                        <option>1 BHK</option>
-                        <option>2 BHK</option>
-                        <option>3 BHK</option>
-                        <option>4 BHK</option>
-                        <option>5+ BHK</option>
+                        <option value="Any">
+                            Any
+                        </option>
+
+                        <option value="1 BHK">
+                            1 BHK
+                        </option>
+
+                        <option value="2 BHK">
+                            2 BHK
+                        </option>
+
+                        <option value="3 BHK">
+                            3 BHK
+                        </option>
+
+                        <option value="4 BHK">
+                            4 BHK
+                        </option>
+
+                        <option value="5+ BHK">
+                            5+ BHK
+                        </option>
 
                     </select>
 
                 </div>
 
 
-                <!-- Budget -->
+                <!-- BUDGET -->
 
                 <div class="field">
 
-                    <label>BUDGET</label>
+                    <label for="budget">
+                        BUDGET
+                    </label>
 
-                    <select>
+                    <select id="budget">
 
-                        <option>Any Budget</option>
-                        <option>Under ₹25 Lakh</option>
-                        <option>₹25 - ₹50 Lakh</option>
-                        <option>₹50 Lakh - ₹1 Cr</option>
-                        <option>₹1 Cr - ₹2 Cr</option>
-                        <option>Above ₹2 Cr</option>
+                        <option value="Any Budget">
+                            Any Budget
+                        </option>
+
+                        <option value="Under ₹25 Lakh">
+                            Under ₹25 Lakh
+                        </option>
+
+                        <option value="₹25 - ₹50 Lakh">
+                            ₹25 - ₹50 Lakh
+                        </option>
+
+                        <option value="₹50 Lakh - ₹1 Cr">
+                            ₹50 Lakh - ₹1 Cr
+                        </option>
+
+                        <option value="₹1 Cr - ₹2 Cr">
+                            ₹1 Cr - ₹2 Cr
+                        </option>
+
+                        <option value="Above ₹2 Cr">
+                            Above ₹2 Cr
+                        </option>
 
                     </select>
 
                 </div>
 
 
-<button onclick="globalSearch()">
-    🔍 Search
-</button>
+                <!-- SEARCH BUTTON -->
+
+                <button
+                    type="button"
+                    class="search-btn"
+                    onclick="globalSearch()">
+
+                    🔍 Search
+
+                </button>
 
             </div>
 
@@ -174,13 +291,20 @@
 </section>
 
 
-<!-- ================= CATEGORIES ================= -->
+<!-- ==================================================
+     CATEGORIES
+================================================== -->
 
-<section class="categories" id="categories">
+<section
+    class="categories"
+    id="categories"
+>
 
     <div class="section-title">
 
-        <h2>Search By Category</h2>
+        <h2>
+            Search By Category
+        </h2>
 
         <p>
             Explore properties that match your needs
@@ -191,62 +315,113 @@
 
     <div class="category-grid">
 
-        <div class="category-card"
-             onclick="window.location.href='apartments.html'">
 
-            <div class="category-icon">🏢</div>
+        <!-- APARTMENTS -->
 
-            <h3>Apartments</h3>
+        <div
+            class="category-card"
+            onclick="window.location.href='apartments.html'"
+        >
 
-            <p>Modern apartments</p>
+            <div class="category-icon">
+                🏢
+            </div>
 
-        </div>
+            <h3>
+                Apartments
+            </h3>
 
-
-        <div class="category-card"
-             onclick="window.location.href='villas.html'">
-
-            <div class="category-icon">🏡</div>
-
-            <h3>Villas</h3>
-
-            <p>Luxury villas</p>
-
-        </div>
-
-
-        <div class="category-card"
-             onclick="window.location.href='IndependentHouses.html'">
-
-            <div class="category-icon">🏠</div>
-
-            <h3>Independent Houses</h3>
-
-            <p>Comfortable homes</p>
+            <p>
+                Modern apartments
+            </p>
 
         </div>
 
 
-        <div class="category-card"
-             onclick="window.location.href='plots.html'">
+        <!-- VILLAS -->
 
-            <div class="category-icon">🌳</div>
+        <div
+            class="category-card"
+            onclick="window.location.href='villas.html'"
+        >
 
-            <h3>Plots</h3>
+            <div class="category-icon">
+                🏡
+            </div>
 
-            <p>Residential plots</p>
+            <h3>
+                Villas
+            </h3>
+
+            <p>
+                Luxury villas
+            </p>
 
         </div>
 
 
-        <div class="category-card"
-             onclick="window.location.href='commercial.html'">
+        <!-- INDEPENDENT HOUSES -->
 
-            <div class="category-icon">🏬</div>
+        <div
+            class="category-card"
+            onclick="window.location.href='IndependentHouses.html'"
+        >
 
-            <h3>Commercial</h3>
+            <div class="category-icon">
+                🏠
+            </div>
 
-            <p>Office & shops</p>
+            <h3>
+                Independent Houses
+            </h3>
+
+            <p>
+                Comfortable homes
+            </p>
+
+        </div>
+
+
+        <!-- PLOTS -->
+
+        <div
+            class="category-card"
+            onclick="window.location.href='plots.html'"
+        >
+
+            <div class="category-icon">
+                🌳
+            </div>
+
+            <h3>
+                Plots
+            </h3>
+
+            <p>
+                Residential plots
+            </p>
+
+        </div>
+
+
+        <!-- COMMERCIAL -->
+
+        <div
+            class="category-card"
+            onclick="window.location.href='commercial.html'"
+        >
+
+            <div class="category-icon">
+                🏬
+            </div>
+
+            <h3>
+                Commercial
+            </h3>
+
+            <p>
+                Office & shops
+            </p>
 
         </div>
 
@@ -255,455 +430,218 @@
 </section>
 
 
-<!-- ================= FEATURED PROPERTIES ================= -->
+<!-- ==================================================
+     LUXURY COLLECTION
+================================================== -->
 
-<!-- ================= FEATURED PROPERTIES ================= -->
+<section class="premium-showcase">
 
-<section class="featured" id="properties">
+    <div class="section-title">
+
+        <span class="small-heading">
+            ESTATE-EASE COLLECTION
+        </span>
+
+        <h2>
+            Handpicked Luxury Collection
+        </h2>
+
+        <p>
+            Three exceptional properties selected for
+            modern living and premium lifestyle.
+        </p>
+
+    </div>
+
+
+    <div class="luxury-grid">
+
+
+        <!-- LUXURY PROPERTY 1 -->
+
+        <article
+            class="luxury-card luxury-large"
+            onclick="openLuxuryProperty(0)"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85"
+                alt="Lakeview Signature Villa"
+            >
+
+            <div class="luxury-overlay">
+
+                <span>
+                    PREMIUM RESIDENCE
+                </span>
+
+                <h3>
+                    Lakeview Signature Villa
+                </h3>
+
+                <p>
+                    📍 Whitefield, Bangalore
+                </p>
+
+                <strong>
+                    ₹2.40 Crore
+                </strong>
+
+            </div>
+
+        </article>
+
+
+        <!-- LUXURY PROPERTY 2 -->
+
+        <article
+            class="luxury-card"
+            onclick="openLuxuryProperty(1)"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85"
+                alt="Greenwood Estate"
+            >
+
+            <div class="luxury-overlay">
+
+                <span>
+                    MODERN VILLA
+                </span>
+
+                <h3>
+                    Greenwood Estate
+                </h3>
+
+                <p>
+                    📍 Sarjapur Road, Bangalore
+                </p>
+
+                <strong>
+                    ₹1.85 Crore
+                </strong>
+
+            </div>
+
+        </article>
+
+
+        <!-- LUXURY PROPERTY 3 -->
+
+        <article
+            class="luxury-card"
+            onclick="openLuxuryProperty(2)"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=85"
+                alt="Skyline Premium Apartment"
+            >
+
+            <div class="luxury-overlay">
+
+                <span>
+                    URBAN LIVING
+                </span>
+
+                <h3>
+                    Skyline Premium Apartment
+                </h3>
+
+                <p>
+                    📍 Koramangala, Bangalore
+                </p>
+
+                <strong>
+                    ₹1.20 Crore
+                </strong>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     FEATURED PROPERTIES
+================================================== -->
+
+<section
+    class="featured"
+    id="properties"
+>
 
     <div class="featured-container">
 
         <div class="section-title">
 
-            <h2>Featured Properties</h2>
+            <h2>
+                Featured Properties
+            </h2>
 
-            <p>Handpicked properties for you</p>
+            <p>
+                Explore premium properties from trusted owners
+            </p>
 
         </div>
 
 
-        <div class="property-grid">
+        <!-- FEATURED SEARCH -->
 
+        <div class="featured-search">
 
-            <!-- PROPERTY 1 -->
+            <input
+                type="text"
+                id="featuredSearch"
+                placeholder="Search property, brand or location..."
+                oninput="filterFeaturedProperties()"
+            >
 
-            <div class="property-card">
 
-                <div class="property-image">
+            <select
+                id="featuredType"
+                onchange="filterFeaturedProperties()"
+            >
 
-                    <img
-                        src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
-                        alt="Premium 2 BHK Home"
-                    >
+                <option value="all">
+                    All Properties
+                </option>
 
-                    <span class="property-tag">
-                        FOR RENT
-                    </span>
+                <option value="Apartment">
+                    Apartments
+                </option>
 
-                    <div
-                        class="heart"
-                        onclick="event.stopPropagation(); favorite(this)"
-                    >
-                        ♡
-                    </div>
+                <option value="Villa">
+                    Villas
+                </option>
 
-                </div>
+                <option value="House">
+                    Independent Houses
+                </option>
 
+                <option value="Plot">
+                    Plots
+                </option>
 
-                <div class="property-info">
+                <option value="Commercial">
+                    Commercial
+                </option>
 
-                    <h3>Premium 2 BHK Home</h3>
+            </select>
 
-                    <div class="location">
-                        📍 HSR Layout, Bangalore
-                    </div>
+        </div>
 
-                    <div class="property-details">
 
-                        <span>🛏 2 Beds</span>
-                        <span>🚿 2 Baths</span>
-                        <span>📐 1,200 sqft</span>
+        <!-- PROPERTY GRID -->
 
-                    </div>
-
-
-                    <div class="property-bottom">
-
-                        <div class="price">
-                            ₹35,000/mo
-                        </div>
-
-
-                        <button
-                            type="button"
-                            class="view-btn"
-                            onclick="openProperty(
-                                'Premium 2 BHK Home',
-                                'HSR Layout, Bangalore',
-                                '2',
-                                '2',
-                                '1,200',
-                                '₹35,000/mo',
-                                [
-                                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80',
-                                    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80',
-                                    'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80'
-                                ]
-                            )"
-                        >
-                            View Details →
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- PROPERTY 2 -->
-
-            <div class="property-card">
-
-                <div class="property-image">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80"
-                        alt="Royal Heights"
-                    >
-
-                    <span class="property-tag">
-                        FOR SALE
-                    </span>
-
-                    <div
-                        class="heart"
-                        onclick="event.stopPropagation(); favorite(this)"
-                    >
-                        ♡
-                    </div>
-
-                </div>
-
-
-                <div class="property-info">
-
-                    <h3>Royal Heights</h3>
-
-                    <div class="location">
-                        📍 Kochi, Kerala
-                    </div>
-
-                    <div class="property-details">
-
-                        <span>🛏 3 Beds</span>
-                        <span>🚿 2 Baths</span>
-                        <span>📐 1,500 sqft</span>
-
-                    </div>
-
-
-                    <div class="property-bottom">
-
-                        <div class="price">
-                            ₹65 Lakhs
-                        </div>
-
-
-                        <button
-                            type="button"
-                            class="view-btn"
-                            onclick="openProperty(
-                                'Royal Heights',
-                                'Kochi, Kerala',
-                                '3',
-                                '2',
-                                '1,500',
-                                '₹65 Lakhs',
-                                [
-                                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
-                                    'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80',
-                                    'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80'
-                                ]
-                            )"
-                        >
-                            View Details →
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- PROPERTY 3 -->
-             <div class="property-card">
-  <div class="property-image">
-    <img src="https://img.squareyards.com/secondaryPortal/IN_638938171510608874-1809250632313231.jpg" alt="Green Valley Villa">
-    <span class="property-tag">FOR SALE</span>
-  </div>
-
-  <div class="property-info">
-    <h3>Green Valley Villa</h3>
-    <div class="location">📍 Chandapura, Bangalore</div>
-
-    <div class="property-details">
-      <span>🛏 3 Beds</span>
-      <span>🚿 3 Baths</span>
-      <span>📐 2,040 sqft</span>
-    </div>
-
-    <div class="property-bottom">
-      <div class="price">₹97 Lakhs</div>
-
-      <button type="button" class="view-btn"
-        onclick="openProperty(
-          'Green Valley Villa',
-          'Chandapura, Bangalore',
-          '3',
-          '3',
-          '2,040',
-          '₹97 Lakhs',
-          [
-            'https://img.squareyards.com/secondaryPortal/IN_638938171510608874-1809250632313231.jpg',
-            'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80',
-            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80'
-          ]
-        )">
-        View Details →
-      </button>
-    </div>
-  </div>
-</div>
-
-            <!-- PROPERTY 4 -->
-             <div class="property-card">
-  <div class="property-image">
-    <img src="https://cdn.webulous.io/sites/2T52AGE53B/images/img_4616.JPG" alt="Royal Garden Residence">
-    <span class="property-tag">FOR SALE</span>
-  </div>
-
-  <div class="property-info">
-    <h3>Royal Garden Residence</h3>
-    <div class="location">📍 Whitefield, Bangalore</div>
-
-    <div class="property-details">
-      <span>🛏 4 Beds</span>
-      <span>🚿 3 Baths</span>
-      <span>📐 2,500 sqft</span>
-    </div>
-
-    <div class="property-bottom">
-      <div class="price">₹1.35 Crore</div>
-
-      <button type="button" class="view-btn"
-        onclick="openProperty(
-          'Royal Garden Residence',
-          'Whitefield, Bangalore',
-          '4',
-          '3',
-          '2,500',
-          '₹1.35 Crore',
-          [
-            'https://cdn.webulous.io/sites/2T52AGE53B/images/img_4616.JPG',
-            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
-            'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80'
-          ]
-        )">
-        View Details →
-      </button>
-    </div>
-  </div>
-</div>
-
-            <!-- PROPERTY 5 -->
-             <div class="property-card">
-  <div class="property-image">
-    <img src="https://photos.zillowstatic.com/fp/a67a2482f0d9b37edb655af2b4e92fe5-cc_ft_960.jpg" alt="Skyline Penthouse">
-    <span class="property-tag">FOR SALE</span>
-  </div>
-
-  <div class="property-info">
-    <h3>Skyline Penthouse</h3>
-    <div class="location">📍 Indiranagar, Bangalore</div>
-
-    <div class="property-details">
-      <span>🛏 3 Beds</span>
-      <span>🚿 3 Baths</span>
-      <span>📐 2,200 sqft</span>
-    </div>
-
-    <div class="property-bottom">
-      <div class="price">₹2.10 Crore</div>
-
-      <button type="button" class="view-btn"
-        onclick="openProperty(
-          'Skyline Penthouse',
-          'Indiranagar, Bangalore',
-          '3',
-          '3',
-          '2,200',
-          '₹2.10 Crore',
-          [
-            'https://photos.zillowstatic.com/fp/a67a2482f0d9b37edb655af2b4e92fe5-cc_ft_960.jpg',
-            'https://a0.muscache.com/im/pictures/hosting/Hosting-1720437916397009300/original/9e8480a9-7ad8-4b29-9e43-8f68cca7e27c.png?im_w=720',
-            'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80'
-          ]
-        )">
-        View Details →
-      </button>
-    </div>
-  </div>
-</div>
-
-            <!-- PROPERTY 6 -->
-             <div class="property-card">
-  <div class="property-image">
-    <img src="https://i.pinimg.com/originals/c2/88/b9/c288b971371a35f38dbd0270f0a4370e.png" alt="Modern Lakeview House">
-    <span class="property-tag">FOR SALE</span>
-  </div>
-
-  <div class="property-info">
-    <h3>Modern Lakeview House</h3>
-    <div class="location">📍 Sarjapur Road, Bangalore</div>
-
-    <div class="property-details">
-      <span>🛏 3 Beds</span>
-      <span>🚿 2 Baths</span>
-      <span>📐 1,850 sqft</span>
-    </div>
-
-    <div class="property-bottom">
-      <div class="price">₹1.05 Crore</div>
-
-      <button type="button" class="view-btn"
-        onclick="openProperty(
-          'Modern Lakeview House',
-          'Sarjapur Road, Bangalore',
-          '3',
-          '2',
-          '1,850',
-          '₹1.05 Crore',
-          [
-            'https://i.pinimg.com/originals/c2/88/b9/c288b971371a35f38dbd0270f0a4370e.png',
-            'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80',
-            'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-          ]
-        )">
-        View Details →
-      </button>
-    </div>
-  </div>
-</div>
-
-            <!-- PROPERTY 7 -->
-             <div class="property-card">
-  <div class="property-image">
-    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1720437916397009300/original/9e8480a9-7ad8-4b29-9e43-8f68cca7e27c.png?im_w=720" alt="Urban Luxury Apartment">
-    <span class="property-tag">FOR RENT</span>
-  </div>
-
-  <div class="property-info">
-    <h3>Urban Luxury Apartment</h3>
-    <div class="location">📍 Koramangala, Bangalore</div>
-
-    <div class="property-details">
-      <span>🛏 2 Beds</span>
-      <span>🚿 2 Baths</span>
-      <span>📐 1,450 sqft</span>
-    </div>
-
-    <div class="property-bottom">
-      <div class="price">₹55,000/mo</div>
-
-      <button type="button" class="view-btn"
-        onclick="openProperty(
-          'Urban Luxury Apartment',
-          'Koramangala, Bangalore',
-          '2',
-          '2',
-          '1,450',
-          '₹55,000/mo',
-          [
-            'https://a0.muscache.com/im/pictures/hosting/Hosting-1720437916397009300/original/9e8480a9-7ad8-4b29-9e43-8f68cca7e27c.png?im_w=720',
-            'https://photos.zillowstatic.com/fp/a67a2482f0d9b37edb655af2b4e92fe5-cc_ft_960.jpg',
-            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80'
-          ]
-        )">
-        View Details →
-      </button>
-    </div>
-  </div>
-</div>
-
-            <!-- PROPERTY 8 -->
-
-            <div class="property-card">
-
-                <div class="property-image">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
-                        alt="City View Apartments"
-                    >
-
-                    <span class="property-tag">
-                        FOR SALE
-                    </span>
-
-                    <div
-                        class="heart"
-                        onclick="event.stopPropagation(); favorite(this)"
-                    >
-                        ♡
-                    </div>
-
-                </div>
-
-
-                <div class="property-info">
-
-                    <h3>City View Apartments</h3>
-
-                    <div class="location">
-                        📍 Bangalore, Karnataka
-                    </div>
-
-                    <div class="property-details">
-
-                        <span>🛏 2 Beds</span>
-                        <span>🚿 2 Baths</span>
-                        <span>📐 1,100 sqft</span>
-
-                    </div>
-
-
-                    <div class="property-bottom">
-
-                        <div class="price">
-                            ₹50 Lakhs
-                        </div>
-
-
-                        <button
-                            type="button"
-                            class="view-btn"
-                            onclick="openProperty(
-                                'City View Apartments',
-                                'Bangalore, Karnataka',
-                                '2',
-                                '2',
-                                '1,100',
-                                '₹50 Lakhs',
-                                [
-                                    'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80',
-                                    'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80',
-                                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'
-                                ]
-                            )"
-                        >
-                            View Details →
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+        <div
+            class="property-grid featured-property-grid"
+            id="featuredPropertyGrid"
+        >
 
         </div>
 
@@ -711,15 +649,171 @@
 
 </section>
 
-<div id="propertyModal" class="property-modal">
+
+<!-- ==================================================
+     LUXURY COLLECTION
+================================================== -->
+
+<section class="premium-showcase">
+
+    <div class="section-title">
+
+        <span class="small-heading">
+            ESTATE-EASE COLLECTION
+        </span>
+
+        <h2>
+            Handpicked Luxury Collection
+        </h2>
+
+        <p>
+            Three exceptional properties selected for
+            modern living and premium lifestyle.
+        </p>
+
+    </div>
+
+
+    <div class="luxury-grid">
+
+
+        <!-- LUXURY PROPERTY 1 -->
+
+        <article
+            class="luxury-card luxury-large"
+            onclick="openLuxuryProperty(0)"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85"
+                alt="Lakeview Signature Villa"
+            >
+
+            <div class="luxury-overlay">
+
+                <span>
+                    PREMIUM RESIDENCE
+                </span>
+
+                <h3>
+                    Lakeview Signature Villa
+                </h3>
+
+                <p>
+                    📍 Whitefield, Bangalore
+                </p>
+
+                <strong>
+                    ₹2.40 Crore
+                </strong>
+
+            </div>
+
+        </article>
+
+
+        <!-- LUXURY PROPERTY 2 -->
+
+        <article
+            class="luxury-card"
+            onclick="openLuxuryProperty(1)"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85"
+                alt="Greenwood Estate"
+            >
+
+            <div class="luxury-overlay">
+
+                <span>
+                    MODERN VILLA
+                </span>
+
+                <h3>
+                    Greenwood Estate
+                </h3>
+
+                <p>
+                    📍 Sarjapur Road, Bangalore
+                </p>
+
+                <strong>
+                    ₹1.85 Crore
+                </strong>
+
+            </div>
+
+        </article>
+
+
+        <!-- LUXURY PROPERTY 3 -->
+
+        <article
+            class="luxury-card"
+            onclick="openLuxuryProperty(2)"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=85"
+                alt="Skyline Premium Apartment"
+            >
+
+            <div class="luxury-overlay">
+
+                <span>
+                    URBAN LIVING
+                </span>
+
+                <h3>
+                    Skyline Premium Apartment
+                </h3>
+
+                <p>
+                    📍 Koramangala, Bangalore
+                </p>
+
+                <strong>
+                    ₹1.20 Crore
+                </strong>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     SINGLE PROPERTY POPUP
+     IMPORTANT:
+     KEEP ONLY ONE PROPERTY MODAL
+================================================== -->
+
+<div
+    id="propertyModal"
+    class="property-modal"
+>
 
     <div class="property-modal-content">
 
+
+        <!-- CLOSE -->
+
         <button
+            type="button"
             class="close-property"
-            onclick="closeProperty()">
+            onclick="closeProperty()"
+        >
             ×
         </button>
+
+
+        <!-- ==================================================
+             PROPERTY IMAGE SLIDER
+        ================================================== -->
 
         <div class="property-slider">
 
@@ -729,93 +823,18 @@
                 alt="Property"
             >
 
-            <button
-                class="slider-btn prev"
-                onclick="changeImage(-1)">
-                ❮
-            </button>
 
             <button
-                class="slider-btn next"
-                onclick="changeImage(1)">
-                ❯
-            </button>
-
-        </div>
-
-
-        <div class="property-popup-info">
-
-            <h2 id="popupTitle"></h2>
-
-            <div id="popupLocation"></div>
-
-            <div
-                id="popupDetails"
-                class="property-details">
-            </div>
-
-            <div
-                id="popupPrice"
-                class="modal-price">
-            </div>
-
-
-            <h3>Book Property</h3>
-
-            <label>Select Date</label>
-
-            <input
-                type="date"
-                id="bookingDate"
-            >
-
-            <button
-                class="booking-btn"
-                onclick="bookProperty()">
-                Book Now
-            </button>
-
-            <button
-                class="payment-btn"
-                onclick="makePayment()">
-                Proceed to Payment
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-<!-- ================= PROPERTY POPUP ================= -->
-
-<div id="propertyModal" class="property-modal">
-
-    <div class="property-modal-content">
-
-        <button class="close-property" onclick="closeProperty()">
-            ×
-        </button>
-
-
-        <!-- IMAGE SLIDER -->
-
-        <div class="property-slider">
-
-            <img
-                id="propertyImage"
-                src=""
-                alt="Property Image"
-            >
-
-            <button
+                type="button"
                 class="slider-btn prev"
                 onclick="changeImage(-1)"
             >
                 ❮
             </button>
 
+
             <button
+                type="button"
                 class="slider-btn next"
                 onclick="changeImage(1)"
             >
@@ -825,58 +844,131 @@
         </div>
 
 
-        <!-- PROPERTY DETAILS -->
+        <!-- ==================================================
+             PROPERTY INFORMATION
+        ================================================== -->
 
         <div class="property-popup-info">
 
-            <h2 id="popupTitle">
-                Property
-            </h2>
 
-            <div
-                class="popup-location"
-                id="popupLocation"
-            >
-                📍 Location
+            <div class="popup-top">
+
+                <div>
+
+                    <!-- PROPERTY TAG -->
+
+                    <span
+                        id="popupTag"
+                        class="popup-tag"
+                    >
+                        FOR SALE
+                    </span>
+
+
+                    <!-- TITLE -->
+
+                    <h2 id="popupTitle">
+                        Property
+                    </h2>
+
+
+                    <!-- LOCATION -->
+
+                    <div
+                        id="popupLocation"
+                        class="popup-location"
+                    >
+                    </div>
+
+                </div>
+
             </div>
 
 
+            <!-- PROPERTY DETAILS -->
+
             <div
-                class="popup-details"
                 id="popupDetails"
+                class="popup-details"
             >
             </div>
 
+
+            <!-- PRICE -->
 
             <div
-                class="modal-price"
                 id="popupPrice"
+                class="modal-price"
             >
-                ₹0
             </div>
 
 
-            <p class="popup-description">
+            <!-- ==================================================
+                 OWNER
+            ================================================== -->
 
-                This beautiful property is available
-                with modern facilities, excellent
-                location and premium amenities.
+            <div class="owner-box">
 
+
+                <div class="owner-avatar">
+                    👤
+                </div>
+
+
+                <div class="owner-information">
+
+                    <small>
+                        PROPERTY OWNER
+                    </small>
+
+                    <h3 id="popupOwner">
+                        Owner Name
+                    </h3>
+
+                    <p id="popupPhone">
+                        +91 0000000000
+                    </p>
+
+                </div>
+
+
+                <!-- CONTACT OWNER -->
+
+                <a
+                    id="contactOwnerBtn"
+                    class="contact-owner"
+                    href="#"
+                >
+                    📞 Contact Owner
+                </a>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <p
+                id="popupDescription"
+                class="popup-description"
+            >
             </p>
 
 
-            <!-- BOOKING -->
+            <!-- ==================================================
+                 BOOKING
+            ================================================== -->
 
             <div class="booking-box">
 
                 <h3>
-                    Book Property
+                    Book Property Visit
                 </h3>
 
 
-                <label>
-                    Select Date
+                <label for="bookingDate">
+                    Select Visit Date
                 </label>
+
 
                 <input
                     type="date"
@@ -885,18 +977,20 @@
 
 
                 <button
+                    type="button"
                     class="booking-btn"
                     onclick="bookProperty()"
                 >
-                    Book Now
+                    📅 Book Visit
                 </button>
 
 
                 <button
+                    type="button"
                     class="payment-btn"
                     onclick="makePayment()"
                 >
-                    Proceed to Payment
+                    💳 Proceed to Payment
                 </button>
 
             </div>
@@ -907,109 +1001,216 @@
 
 </div>
 
-<!-- ==============================
+
+<!-- ==================================================
      ESTATE-EASE PROPERTY SLIDER
-================================ -->
+================================================== -->
 
 <section class="estate-slider">
 
+
     <div class="estate-slides">
 
+
         <!-- SLIDE 1 -->
+
         <div class="estate-slide active">
-            <img src="images/slide4.jpg" alt="Luxury Apartment">
+
+            <img
+                src="images/slide4.jpg"
+                alt="Luxury Apartment"
+            >
 
             <div class="estate-slide-content">
-                <span>MODERN LIVING</span>
-                <h2>Find Your<br><strong>Dream Apartment</strong></h2>
-                <p>Modern amenities, prime locations and a better lifestyle.</p>
 
-                <a href="apartments.html">Explore Apartments →</a>
+                <span>
+                    MODERN LIVING
+                </span>
+
+                <h2>
+                    Find Your<br>
+                    <strong>Dream Apartment</strong>
+                </h2>
+
+                <p>
+                    Modern amenities, prime locations
+                    and a better lifestyle.
+                </p>
+
+                <a href="apartments.html">
+                    Explore Apartments →
+                </a>
+
             </div>
+
         </div>
 
 
         <!-- SLIDE 2 -->
+
         <div class="estate-slide">
-            <img src="images/slide1.jpg" alt="Luxury Villa">
+
+            <img
+                src="images/slide1.jpg"
+                alt="Luxury Villa"
+            >
 
             <div class="estate-slide-content">
-                <span>LUXURY LIVING</span>
-                <h2>Elegant Villas<br><strong>For Better Living</strong></h2>
-                <p>Spacious, private and luxurious villas for your family.</p>
 
-                <a href="villas.html">View Villas →</a>
+                <span>
+                    LUXURY LIVING
+                </span>
+
+                <h2>
+                    Elegant Villas<br>
+                    <strong>For Better Living</strong>
+                </h2>
+
+                <p>
+                    Spacious, private and luxurious
+                    villas for your family.
+                </p>
+
+                <a href="villas.html">
+                    View Villas →
+                </a>
+
             </div>
+
         </div>
 
 
         <!-- SLIDE 3 -->
+
         <div class="estate-slide">
-            <img src="images/slide2.jpg" alt="Premium Apartment">
+
+            <img
+                src="images/slide2.jpg"
+                alt="Premium Apartment"
+            >
 
             <div class="estate-slide-content">
-                <span>PREMIUM APARTMENTS</span>
-                <h2>Live In<br><strong>Comfort & Style</strong></h2>
-                <p>Thoughtfully designed apartments for modern families.</p>
 
-                <a href="apartments.html">Explore Now →</a>
+                <span>
+                    PREMIUM APARTMENTS
+                </span>
+
+                <h2>
+                    Live In<br>
+                    <strong>Comfort & Style</strong>
+                </h2>
+
+                <p>
+                    Thoughtfully designed apartments
+                    for modern families.
+                </p>
+
+                <a href="apartments.html">
+                    Explore Now →
+                </a>
+
             </div>
+
         </div>
 
 
         <!-- SLIDE 4 -->
+
         <div class="estate-slide">
-            <img src="images/slide3.jpg" alt="Beautiful Villa">
+
+            <img
+                src="images/slide3.jpg"
+                alt="Beautiful Villa"
+            >
 
             <div class="estate-slide-content">
-                <span>PREMIUM PROPERTIES</span>
-                <h2>Your Perfect Home<br><strong>In Nature's Lap</strong></h2>
-                <p>Experience peace, privacy and luxury in every corner.</p>
 
-                <a href="villas.html">View Properties →</a>
+                <span>
+                    PREMIUM PROPERTIES
+                </span>
+
+                <h2>
+                    Your Perfect Home<br>
+                    <strong>In Nature's Lap</strong>
+                </h2>
+
+                <p>
+                    Experience peace, privacy and luxury
+                    in every corner.
+                </p>
+
+                <a href="villas.html">
+                    View Properties →
+                </a>
+
             </div>
+
         </div>
 
     </div>
 
 
-    <!-- PREVIOUS BUTTON -->
-    <button class="estate-arrow estate-prev"
-            onclick="changeEstateSlide(-1)">
+    <!-- PREVIOUS -->
+
+    <button
+        type="button"
+        class="estate-arrow estate-prev"
+        onclick="changeEstateSlide(-1)"
+    >
         &#10094;
     </button>
 
 
-    <!-- NEXT BUTTON -->
-    <button class="estate-arrow estate-next"
-            onclick="changeEstateSlide(1)">
+    <!-- NEXT -->
+
+    <button
+        type="button"
+        class="estate-arrow estate-next"
+        onclick="changeEstateSlide(1)"
+    >
         &#10095;
     </button>
 
 
     <!-- DOTS -->
+
     <div class="estate-dots">
 
-        <span class="estate-dot active"
-              onclick="showEstateSlide(0)"></span>
+        <span
+            class="estate-dot active"
+            onclick="showEstateSlide(0)"
+        ></span>
 
-        <span class="estate-dot"
-              onclick="showEstateSlide(1)"></span>
+        <span
+            class="estate-dot"
+            onclick="showEstateSlide(1)"
+        ></span>
 
-        <span class="estate-dot"
-              onclick="showEstateSlide(2)"></span>
+        <span
+            class="estate-dot"
+            onclick="showEstateSlide(2)"
+        ></span>
 
-        <span class="estate-dot"
-              onclick="showEstateSlide(3)"></span>
+        <span
+            class="estate-dot"
+            onclick="showEstateSlide(3)"
+        ></span>
 
     </div>
 
 </section>
-<!-- ================= FOOTER ================= -->
 
-<footer>
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer id="contact">
 
     <div class="footer-container">
+
+
+        <!-- ABOUT -->
 
         <div class="footer-column">
 
@@ -1026,49 +1227,126 @@
         </div>
 
 
+        <!-- PROPERTIES -->
+
         <div class="footer-column">
 
-            <h3>Properties</h3>
+            <h3>
+                Properties
+            </h3>
 
             <ul>
-                <li><a href="#">Buy Property</a></li>
-                <li><a href="#">Rent Property</a></li>
-                <li><a href="#">Commercial</a></li>
-                <li><a href="#">Plots</a></li>
+
+                <li>
+                    <a href="#categories">
+                        Buy Property
+                    </a>
+                </li>
+
+                <li>
+                    <a href="index.html">
+                        Rent Property
+                    </a>
+                </li>
+
+                <li>
+                    <a href="commercial.html">
+                        Commercial
+                    </a>
+                </li>
+
+                <li>
+                    <a href="plots.html">
+                        Plots
+                    </a>
+                </li>
+
             </ul>
 
         </div>
 
 
+        <!-- COMPANY -->
+
         <div class="footer-column">
 
-            <h3>Company</h3>
+            <h3>
+                Company
+            </h3>
 
             <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Blog</a></li>
+
+                <li>
+                    <a href="#cta">
+                        About Us
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#contact">
+                        Contact
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Careers
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Blog
+                    </a>
+                </li>
+
             </ul>
 
         </div>
 
 
+        <!-- SUPPORT -->
+
         <div class="footer-column">
 
-            <h3>Support</h3>
+            <h3>
+                Support
+            </h3>
 
             <ul>
-                <li><a href="#">Help Center</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms</a></li>
-                <li><a href="#">Safety</a></li>
+
+                <li>
+                    <a href="#">
+                        Help Center
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Privacy Policy
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Terms
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Safety
+                    </a>
+                </li>
+
             </ul>
 
         </div>
 
     </div>
 
+
+    <!-- COPYRIGHT -->
 
     <div class="copyright">
 
@@ -1077,7 +1355,14 @@
     </div>
 
 </footer>
- 
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
 <script src="js/index.js"></script>
+
 </body>
+
 </html>
