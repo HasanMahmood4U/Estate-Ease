@@ -1,84 +1,187 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/login.css">
-  <title>Estate-Ease</title>
 
-  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/login.css">
+
+    <title>Estate-Ease | Login</title>
 </head>
 
 <body>
 
-  <div class="login-container">
+    <div class="login-container">
 
-    <!-- Property Image -->
-    <div class="login-image">
-      <h1>Find Your Dream Home</h1>
-      <p>
-        Discover beautiful properties and find the perfect place
-        to call home with Estate-Ease.
-      </p>
+        <!-- =========================
+             LEFT SIDE
+        ========================== -->
+
+        <div class="login-image">
+
+            <h1>Find Your Dream Home</h1>
+
+            <p>
+                Discover beautiful properties and find the perfect place
+                to call home with Estate-Ease.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             RIGHT SIDE
+        ========================== -->
+
+        <div class="login-form">
+
+            <!-- Back -->
+            <div class="login-back">
+                <a href="index.html">← Back</a>
+            </div>
+
+
+            <!-- Logo -->
+            <div class="logo">
+                Estate-Ease
+            </div>
+
+
+            <h2>Welcome Back</h2>
+
+            <p class="subtitle">
+                Login to manage your properties and account.
+            </p>
+
+
+            <!-- =========================
+                 LOGIN FORM
+            ========================== -->
+
+            <form onsubmit="login(event)">
+
+
+                <!-- Login Type -->
+
+                <div class="input-group">
+
+                    <label for="loginType">
+                        Login As
+                    </label>
+
+                    <select id="loginType" required>
+
+                        <option value="user">
+                            Normal User
+                        </option>
+
+                        <option value="admin">
+                            Admin
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Options -->
+
+                <div class="options">
+
+                    <label class="remember">
+
+                        <input type="checkbox" id="rememberMe">
+
+                        Remember me
+
+                    </label>
+
+
+                    <a href="#" class="forgot">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <!-- Login Button -->
+
+                <button
+                    type="submit"
+                    class="login-btn">
+
+                    Login
+
+                </button>
+
+            </form>
+
+
+            <!-- OR -->
+
+            <div class="divider">
+                OR
+            </div>
+
+
+            <!-- Create Account -->
+
+            <p class="signup">
+
+                Don't have an account?
+
+                <a href="signup.html">
+                    Create Account
+                </a>
+
+            </p>
+
+        </div>
+
     </div>
 
-    <!-- Login Form -->
-    <div class="login-form">
-    <div class="login-back"><a href="index.html" class="login-back">Back</a></div>
 
-      <div class="logo">Estate-Ease</div>
+    <!-- JavaScript -->
 
-      <h2>Welcome Back</h2>
-      <p class="subtitle">Login to manage your properties and account.</p>
+    <script src="js/login.js"></script>
 
-      <form onsubmit="login(event)">
-
-        <div class="input-group">
-          <label for="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            required
-          >
-        </div>
-
-        <div class="input-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            required
-          >
-        </div>
-
-        <div class="options">
-          <label class="remember">
-            <input type="checkbox">
-            Remember me
-          </label>
-
-          <a href="#" class="forgot">Forgot Password?</a>
-        </div>
-
-        <button type="submit" class="login-btn">
-          Login
-        </button>
-
-      </form>
-
-      <div class="divider">OR</div>
-
-      <p class="signup">
-        Don't have an account?
-        <a href="#">Create Account</a>
-      </p>
-
-    </div>
-  </div>
-
- 
-<script src="js/login.js"></script>
 </body>
+
 </html>

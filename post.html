@@ -9,11 +9,10 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
-<link rel="stylesheet" href="css/post.css">
+
+    <link rel="stylesheet" href="css/post.css">
+
     <title>Post Property - Estate-Ease</title>
-
-
-    
 
 </head>
 
@@ -69,9 +68,11 @@
         </h1>
 
         <p>
+
             List your property on
             <span>Estate-Ease</span>
             and reach potential buyers or tenants.
+
         </p>
 
     </section>
@@ -83,13 +84,13 @@
     <form
         class="form-container"
         id="propertyForm"
-        action="save-property.php"
-        method="POST"
         enctype="multipart/form-data"
     >
 
 
-        <!-- ================= PROPERTY DETAILS ================= -->
+        <!-- =================================================
+             PROPERTY DETAILS
+        ================================================= -->
 
         <div class="form-section">
 
@@ -101,16 +102,18 @@
             <div class="form-grid">
 
 
-                <!-- TITLE -->
+                <!-- PROPERTY TITLE -->
 
                 <div class="form-group full">
 
                     <label for="title">
 
                         Property Title
+
                         <span class="required">*</span>
 
                     </label>
+
 
                     <input
                         type="text"
@@ -131,6 +134,7 @@
                     <label for="type">
 
                         Property Type
+
                         <span class="required">*</span>
 
                     </label>
@@ -179,6 +183,7 @@
                     <label for="location">
 
                         Location
+
                         <span class="required">*</span>
 
                     </label>
@@ -203,6 +208,7 @@
                     <label for="area">
 
                         Area (sqft)
+
                         <span class="required">*</span>
 
                     </label>
@@ -274,6 +280,7 @@
                     <label for="price">
 
                         Price
+
                         <span class="required">*</span>
 
                     </label>
@@ -299,6 +306,7 @@
                     <label>
 
                         Property Purpose
+
                         <span class="required">*</span>
 
                     </label>
@@ -306,6 +314,8 @@
 
                     <div class="purpose-options">
 
+
+                        <!-- BUY -->
 
                         <div class="purpose-option">
 
@@ -317,13 +327,18 @@
                                 required
                             >
 
+
                             <label for="buy">
+
                                 🏠 Sell / Buy
+
                             </label>
 
                         </div>
 
 
+
+                        <!-- RENT -->
 
                         <div class="purpose-option">
 
@@ -334,8 +349,11 @@
                                 value="Rent"
                             >
 
+
                             <label for="rent">
+
                                 🔑 Rent
+
                             </label>
 
                         </div>
@@ -374,23 +392,23 @@
 
 
         <!-- =================================================
-             PHOTOS
+             PROPERTY PHOTO
         ================================================= -->
 
         <div class="form-section">
 
             <h2 class="section-title">
-                📸 Property Photos
+
+                📸 Property Photo
+
             </h2>
 
 
             <div class="photo-info">
 
-                Upload up to
-                <strong>3 photos</strong>
-                of your property.
-                Clear property photos help buyers understand
-                the property better.
+                Upload one clear photo of your property.
+                The photo will be reviewed by the admin
+                before the property appears on Estate-Ease.
 
             </div>
 
@@ -399,102 +417,38 @@
             <div class="photo-grid">
 
 
-                <!-- PHOTO 1 -->
+                <!-- SINGLE PHOTO -->
 
                 <div class="photo-box">
 
                     <span class="upload-icon">
+
                         📷
+
                     </span>
 
 
                     <h3>
-                        Photo 1
+
+                        Property Photo
+
                     </h3>
 
 
                     <input
                         type="file"
-                        id="image1"
-                        name="image1"
+                        id="image"
+                        name="image"
                         accept="image/*"
                         required
-                        onchange="previewImage(this, 'preview1')"
+                        onchange="previewImage(this, 'preview')"
                     >
 
 
                     <img
-                        id="preview1"
+                        id="preview"
                         class="preview"
-                        alt="Photo 1 Preview"
-                    >
-
-                </div>
-
-
-
-                <!-- PHOTO 2 -->
-
-                <div class="photo-box">
-
-                    <span class="upload-icon">
-                        📷
-                    </span>
-
-
-                    <h3>
-                        Photo 2
-                    </h3>
-
-
-                    <input
-                        type="file"
-                        id="image2"
-                        name="image2"
-                        accept="image/*"
-                        required
-                        onchange="previewImage(this, 'preview2')"
-                    >
-
-
-                    <img
-                        id="preview2"
-                        class="preview"
-                        alt="Photo 2 Preview"
-                    >
-
-                </div>
-
-
-
-                <!-- PHOTO 3 -->
-
-                <div class="photo-box">
-
-                    <span class="upload-icon">
-                        📷
-                    </span>
-
-
-                    <h3>
-                        Photo 3
-                    </h3>
-
-
-                    <input
-                        type="file"
-                        id="image3"
-                        name="image3"
-                        accept="image/*"
-                        required
-                        onchange="previewImage(this, 'preview3')"
-                    >
-
-
-                    <img
-                        id="preview3"
-                        class="preview"
-                        alt="Photo 3 Preview"
+                        alt="Property Photo Preview"
                     >
 
                 </div>
@@ -513,7 +467,9 @@
         <div class="form-section">
 
             <h2 class="section-title">
+
                 👤 Owner Details
+
             </h2>
 
 
@@ -529,6 +485,7 @@
                         <label for="owner_name">
 
                             Owner Name
+
                             <span class="required">*</span>
 
                         </label>
@@ -553,6 +510,7 @@
                         <label for="owner_phone">
 
                             Phone Number
+
                             <span class="required">*</span>
 
                         </label>
@@ -579,7 +537,9 @@
 
 
 
-        <!-- ================= SUBMIT ================= -->
+        <!-- =================================================
+             SUBMIT
+        ================================================= -->
 
         <div class="submit-section">
 
@@ -611,8 +571,14 @@
 
 
     </form>
- 
-<script src="js/post.js"></script>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/post.js"></script>
+
+
 </body>
 
 </html>
