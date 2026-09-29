@@ -1,293 +1,868 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buy Now</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/buy.css">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+    <title>Property Details | Estate-Ease</title>
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
 
-    .container {
-      width: 100%;
-      max-width: 1000px;
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .product {
-      padding: 50px;
-      background: #f7f8ff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .product-image {
-      width: 100%;
-      height: 280px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border-radius: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 80px;
-      margin-bottom: 30px;
-    }
-
-    .product h1 {
-      font-size: 34px;
-      color: #222;
-      margin-bottom: 15px;
-    }
-
-    .product p {
-      color: #666;
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .features {
-      list-style: none;
-    }
-
-    .features li {
-      margin: 12px 0;
-      color: #333;
-    }
-
-    .features li::before {
-      content: "✓";
-      color: #667eea;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-
-    .checkout {
-      padding: 50px;
-    }
-
-    .checkout h2 {
-      font-size: 30px;
-      color: #222;
-      margin-bottom: 25px;
-    }
-
-    .price {
-      font-size: 38px;
-      font-weight: bold;
-      color: #667eea;
-      margin-bottom: 30px;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 7px;
-      color: #333;
-      font-weight: bold;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 16px;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .buy-button {
-      width: 100%;
-      padding: 16px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .buy-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
-    }
-
-    .secure {
-      text-align: center;
-      color: #777;
-      font-size: 13px;
-      margin-top: 18px;
-    }
-
-    .success {
-      display: none;
-      text-align: center;
-      padding: 30px 0;
-    }
-
-    .success .check {
-      font-size: 60px;
-      color: #28a745;
-      margin-bottom: 15px;
-    }
-
-    .success h3 {
-      font-size: 25px;
-      margin-bottom: 10px;
-    }
-
-    @media (max-width: 750px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
-
-      .product,
-      .checkout {
-        padding: 30px;
-      }
-
-      .product-image {
-        height: 200px;
-        font-size: 60px;
-      }
-    }
-  </style>
 </head>
+
 
 <body>
 
-  <div class="container">
 
-    <!-- Product Section -->
-    <section class="product">
-      <div class="product-image">🛍️</div>
+<!-- =========================
+     NAVBAR
+========================= -->
 
-      <h1>Premium Product</h1>
+<nav>
 
-      <p>
-        Get our premium product today. Enjoy high-quality features,
-        excellent performance, and a great user experience.
-      </p>
+    <div class="logo">
+        Estate<span>-Ease</span>
+    </div>
 
-      <ul class="features">
-        <li>Premium quality</li>
-        <li>Fast delivery</li>
-        <li>Easy to use</li>
-        <li>24/7 customer support</li>
-      </ul>
-    </section>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search-results.html">Search</a></li>
+        <li><a href="apartments.html">Apartments</a></li>
+        <li><a href="villas.html">Villas</a></li>
+        <li><a href="post.html">Post Property</a></li>
+    </ul>
 
-    <!-- Checkout Section -->
-    <section class="checkout">
-      <a href="INDEX1.HTML">Back</a>
+</nav>
 
-      <div id="checkoutForm">
-        <h2>Complete Your Purchase</h2>
 
-        <div class="price">₹999</div>
 
-        <form onsubmit="buyProduct(event)">
+<div class="page">
 
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Enter your name"
-              required
-            >
-          </div>
 
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              required
-            >
-          </div>
+    <a href="javascript:history.back()" class="back-btn">
+        ← Back to Search
+    </a>
 
-          <div class="form-group">
-            <label for="quantity">Quantity</label>
-            <select id="quantity">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
 
-          <button type="submit" class="buy-button">
-            Buy Now
-          </button>
+    <!-- =========================
+         PROPERTY HEADER
+    ========================= -->
 
-        </form>
+    <div class="property-header">
 
-        <div class="secure">
-          🔒 Your information is secure
+        <div class="property-header-top">
+
+            <div>
+
+                <h1>
+                    Green Valley Premium Apartment
+                </h1>
+
+                <p class="location">
+                    📍 Kakkanad, Kochi, Kerala
+                </p>
+
+            </div>
+
+            <div class="price">
+                ₹85 Lakh
+            </div>
+
         </div>
-      </div>
-      
 
-      <!-- Success Message -->
-      <div class="success" id="successMessage">
-        <div class="check">✓</div>
-        <h3>Order Received!</h3>
-        <p>Thank you for your purchase.</p>
-      </div>
+    </div>
 
-    </section>
 
-  </div>
 
-  <script>
-    function buyProduct(event) {
-      event.preventDefault();
+    <!-- =========================
+         IMAGE SLIDER
+    ========================= -->
 
-      const name = document.getElementById("name").value;
+    <div class="property-gallery">
 
-      document.getElementById("checkoutForm").style.display = "none";
-      document.getElementById("successMessage").style.display = "block";
+        <img
+            src="images/apartment1.jpg"
+            class="gallery-image active"
+            alt="Living Room">
 
-      console.log("Order placed by:", name);
+        <img
+            src="images/apartment2.jpg"
+            class="gallery-image"
+            alt="Bedroom">
+
+        <img
+            src="images/apartment3.jpg"
+            class="gallery-image"
+            alt="Kitchen">
+
+
+        <button
+            class="gallery-btn gallery-prev"
+            onclick="changeGallery(-1)">
+            ❮
+        </button>
+
+        <button
+            class="gallery-btn gallery-next"
+            onclick="changeGallery(1)">
+            ❯
+        </button>
+
+
+        <div class="gallery-dots">
+
+            <span
+                class="gallery-dot active"
+                onclick="showGallery(0)">
+            </span>
+
+            <span
+                class="gallery-dot"
+                onclick="showGallery(1)">
+            </span>
+
+            <span
+                class="gallery-dot"
+                onclick="showGallery(2)">
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         QUICK DETAILS
+    ========================= -->
+
+    <div class="quick-details">
+
+        <div class="quick-box">
+            <div class="icon">🛏️</div>
+            <strong>3</strong>
+            <span>Bedrooms</span>
+        </div>
+
+        <div class="quick-box">
+            <div class="icon">🚿</div>
+            <strong>3</strong>
+            <span>Bathrooms</span>
+        </div>
+
+        <div class="quick-box">
+            <div class="icon">📐</div>
+            <strong>1,850</strong>
+            <span>Sqft</span>
+        </div>
+
+        <div class="quick-box">
+            <div class="icon">🏢</div>
+            <strong>8th</strong>
+            <span>Floor</span>
+        </div>
+
+        <div class="quick-box">
+            <div class="icon">🚗</div>
+            <strong>2</strong>
+            <span>Parking</span>
+        </div>
+
+        <div class="quick-box">
+            <div class="icon">🏗️</div>
+            <strong>2024</strong>
+            <span>Built</span>
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         DESCRIPTION
+    ========================= -->
+
+    <div class="section">
+
+        <h2>Property Description</h2>
+
+        <p style="line-height:1.8;color:#555;">
+
+            Beautiful 3 BHK premium apartment located in
+            Kakkanad, Kochi. The property offers modern
+            interiors, spacious rooms, excellent ventilation
+            and premium amenities.
+
+            It is suitable for families looking for a
+            comfortable home in a well-connected location.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================
+         ROOM SPECIFICATIONS
+    ========================= -->
+
+    <div class="section">
+
+        <h2>Room Specifications</h2>
+
+        <div class="room-grid">
+
+
+            <!-- LIVING ROOM -->
+
+            <div class="room-card">
+
+                <h3>🛋️ Living Room</h3>
+
+                <p>
+                    <strong>Size:</strong>
+                    18 × 14 ft
+                </p>
+
+                <p>
+                    <strong>Flooring:</strong>
+                    Premium Vitrified
+                </p>
+
+                <p>
+                    <strong>Windows:</strong>
+                    2 Large Windows
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    TV Unit, False Ceiling
+                </p>
+
+            </div>
+
+
+            <!-- MASTER BEDROOM -->
+
+            <div class="room-card">
+
+                <h3>🛏️ Master Bedroom</h3>
+
+                <p>
+                    <strong>Size:</strong>
+                    15 × 13 ft
+                </p>
+
+                <p>
+                    <strong>Flooring:</strong>
+                    Wooden Finish
+                </p>
+
+                <p>
+                    <strong>Bathroom:</strong>
+                    Attached
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    Wardrobe, Balcony
+                </p>
+
+            </div>
+
+
+            <!-- BEDROOM 2 -->
+
+            <div class="room-card">
+
+                <h3>🛏️ Bedroom 2</h3>
+
+                <p>
+                    <strong>Size:</strong>
+                    13 × 12 ft
+                </p>
+
+                <p>
+                    <strong>Flooring:</strong>
+                    Vitrified
+                </p>
+
+                <p>
+                    <strong>Bathroom:</strong>
+                    Common
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    Wardrobe Space
+                </p>
+
+            </div>
+
+
+            <!-- BEDROOM 3 -->
+
+            <div class="room-card">
+
+                <h3>🛏️ Bedroom 3</h3>
+
+                <p>
+                    <strong>Size:</strong>
+                    12 × 11 ft
+                </p>
+
+                <p>
+                    <strong>Flooring:</strong>
+                    Vitrified
+                </p>
+
+                <p>
+                    <strong>Bathroom:</strong>
+                    Common
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    Large Window
+                </p>
+
+            </div>
+
+
+            <!-- KITCHEN -->
+
+            <div class="room-card">
+
+                <h3>🍳 Kitchen</h3>
+
+                <p>
+                    <strong>Size:</strong>
+                    12 × 10 ft
+                </p>
+
+                <p>
+                    <strong>Type:</strong>
+                    Modular Kitchen
+                </p>
+
+                <p>
+                    <strong>Counter:</strong>
+                    Granite
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    Cabinets, Chimney Space
+                </p>
+
+            </div>
+
+
+            <!-- BALCONY -->
+
+            <div class="room-card">
+
+                <h3>🌿 Balcony</h3>
+
+                <p>
+                    <strong>Size:</strong>
+                    8 × 5 ft
+                </p>
+
+                <p>
+                    <strong>View:</strong>
+                    City View
+                </p>
+
+                <p>
+                    <strong>Flooring:</strong>
+                    Anti-Skid
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    Safety Grill
+                </p>
+
+            </div>
+
+
+            <!-- BATHROOM -->
+
+            <div class="room-card">
+
+                <h3>🚿 Bathrooms</h3>
+
+                <p>
+                    <strong>Total:</strong>
+                    3 Bathrooms
+                </p>
+
+                <p>
+                    <strong>Type:</strong>
+                    Modern
+                </p>
+
+                <p>
+                    <strong>Fittings:</strong>
+                    Premium
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    Geyser Provision
+                </p>
+
+            </div>
+
+
+            <!-- DINING -->
+
+            <div class="room-card">
+
+                <h3>🍽️ Dining Area</h3>
+
+                <p>
+                    <strong>Size:</strong>
+                    12 × 10 ft
+                </p>
+
+                <p>
+                    <strong>Location:</strong>
+                    Near Kitchen
+                </p>
+
+                <p>
+                    <strong>Lighting:</strong>
+                    Designer Lights
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    Dining Space
+                </p>
+
+            </div>
+
+
+            <!-- UTILITY -->
+
+            <div class="room-card">
+
+                <h3>🧺 Utility Area</h3>
+
+                <p>
+                    <strong>Size:</strong>
+                    7 × 5 ft
+                </p>
+
+                <p>
+                    <strong>Use:</strong>
+                    Washing Area
+                </p>
+
+                <p>
+                    <strong>Water:</strong>
+                    24 Hours
+                </p>
+
+                <p>
+                    <strong>Features:</strong>
+                    Drainage System
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         PROPERTY INFORMATION
+    ========================= -->
+
+    <div class="section">
+
+        <h2>Property Information</h2>
+
+        <div class="details-grid">
+
+            <div class="detail-row">
+                <span>Property Type</span>
+                <strong>Apartment</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Property Status</span>
+                <strong>Ready to Move</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Purpose</span>
+                <strong>For Sale</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Total Area</span>
+                <strong>1,850 sqft</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Bedrooms</span>
+                <strong>3 BHK</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Bathrooms</span>
+                <strong>3</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Floor</span>
+                <strong>8th Floor</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Total Floors</span>
+                <strong>12</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Furnishing</span>
+                <strong>Semi Furnished</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Construction Year</span>
+                <strong>2024</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Parking</span>
+                <strong>2 Cars</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Facing</span>
+                <strong>East</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         AMENITIES
+    ========================= -->
+
+    <div class="section">
+
+        <h2>Amenities</h2>
+
+        <div class="amenities">
+
+            <div class="amenity">🏊 Swimming Pool</div>
+
+            <div class="amenity">🏋️ Gym</div>
+
+            <div class="amenity">🔒 24×7 Security</div>
+
+            <div class="amenity">🛗 Lift</div>
+
+            <div class="amenity">⚡ Power Backup</div>
+
+            <div class="amenity">🌳 Garden</div>
+
+            <div class="amenity">🚗 Parking</div>
+
+            <div class="amenity">📹 CCTV</div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         OWNER
+    ========================= -->
+
+    <div class="section">
+
+        <h2>Property Owner</h2>
+
+        <div class="owner-box">
+
+            <h3>👤 Rahul Sharma</h3>
+
+            <p>
+                <strong>Phone:</strong>
+                +91 9876543210
+            </p>
+
+            <p>
+                <strong>Role:</strong>
+                Property Owner
+            </p>
+
+            <a
+                href="tel:+919876543210"
+                class="call-owner">
+                📞 Call Owner
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         BUY NOW
+    ========================= -->
+
+    <div class="buy-section">
+
+        <div>
+
+            <h2>Interested in this property?</h2>
+
+            <p>
+                Schedule your booking or proceed with
+                the property purchase.
+            </p>
+
+        </div>
+
+        <button
+            class="buy-btn"
+            onclick="openBuyModal()">
+
+            🏠 Buy Now
+
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================
+     BUY MODAL
+========================= -->
+
+<div class="buy-modal" id="buyModal">
+
+    <div class="buy-modal-content">
+
+        <span
+            class="close-modal"
+            onclick="closeBuyModal()">
+            ×
+        </span>
+
+        <h2>Book This Property</h2>
+
+        <label>Your Name</label>
+
+        <input
+            type="text"
+            id="buyerName"
+            placeholder="Enter your name">
+
+
+        <label>Phone Number</label>
+
+        <input
+            type="tel"
+            id="buyerPhone"
+            placeholder="Enter phone number">
+
+
+        <label>Preferred Date</label>
+
+        <input
+            type="date"
+            id="bookingDate">
+
+
+        <label>Payment Option</label>
+
+        <select id="paymentMethod">
+
+            <option value="">
+                Select Payment Method
+            </option>
+
+            <option>
+                Pay Booking Amount
+            </option>
+
+            <option>
+                Contact Owner
+            </option>
+
+        </select>
+
+
+        <button
+            class="payment-btn"
+            onclick="proceedPayment()">
+
+            Continue
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<footer>
+
+    © 2026 Estate-Ease |
+    Find Your Perfect Property
+
+</footer>
+
+
+
+<script>
+
+    /* =========================
+       IMAGE SLIDER
+    ========================= */
+
+    let galleryIndex = 0;
+
+    const galleryImages =
+        document.querySelectorAll(".gallery-image");
+
+    const galleryDots =
+        document.querySelectorAll(".gallery-dot");
+
+
+    function showGallery(index) {
+
+        galleryImages.forEach(function(image) {
+            image.classList.remove("active");
+        });
+
+        galleryDots.forEach(function(dot) {
+            dot.classList.remove("active");
+        });
+
+
+        galleryIndex = index;
+
+
+        galleryImages[galleryIndex]
+            .classList.add("active");
+
+        galleryDots[galleryIndex]
+            .classList.add("active");
+
     }
-  </script>
+
+
+    function changeGallery(direction) {
+
+        galleryIndex += direction;
+
+
+        if (galleryIndex >= galleryImages.length) {
+            galleryIndex = 0;
+        }
+
+
+        if (galleryIndex < 0) {
+            galleryIndex =
+                galleryImages.length - 1;
+        }
+
+
+        showGallery(galleryIndex);
+
+    }
+
+
+
+    /* AUTO IMAGE SLIDE */
+
+    setInterval(function() {
+
+        changeGallery(1);
+
+    }, 5000);
+
+
+
+    /* =========================
+       BUY MODAL
+    ========================= */
+
+    function openBuyModal() {
+
+        document.getElementById("buyModal")
+            .style.display = "flex";
+
+    }
+
+
+    function closeBuyModal() {
+
+        document.getElementById("buyModal")
+            .style.display = "none";
+
+    }
+
+
+
+    /* =========================
+       PAYMENT
+    ========================= */
+
+    function proceedPayment() {
+
+        const name =
+            document.getElementById("buyerName").value;
+
+        const phone =
+            document.getElementById("buyerPhone").value;
+
+        const date =
+            document.getElementById("bookingDate").value;
+
+        const payment =
+            document.getElementById("paymentMethod").value;
+
+
+        if (!name || !phone || !date || !payment) {
+
+            alert("Please fill all details.");
+
+            return;
+
+        }
+
+
+        alert(
+            "Booking request submitted successfully!"
+        );
+
+        closeBuyModal();
+
+    }
+
+</script>
+
 
 </body>
 </html>
