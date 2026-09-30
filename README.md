@@ -199,3 +199,40 @@ Estate-Ease/
 │   └── estate_ease.sql
 │
 └── README.md
+
+
+
+
+
+                     USER
+                       │
+                       ▼
+              ┌─────────────────┐
+              │   Estate-Ease   │
+              │    Homepage     │
+              └────────┬────────┘
+                       │
+             ┌─────────┴─────────┐
+             │                   │
+             ▼                   ▼
+        Search Property      Categories
+             │                   │
+             │          ┌────────┼────────┐
+             │          │        │        │
+             ▼          ▼        ▼        ▼
+       Search Results Apartments Villas  Houses
+             │
+             ▼
+      Property Details
+             │
+      ┌──────┼──────┐
+      │      │      │
+      ▼      ▼      ▼
+   Contact Booking Payment
+    Owner
+             │
+             ▼
+        PHP Backend
+             │
+             ▼
+       MySQL Database
