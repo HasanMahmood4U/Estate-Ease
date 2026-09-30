@@ -159,3 +159,43 @@ owner_name
 owner_phone
 image_url
 created_at
+
+
+project structure
+Estate-Ease/
+│
+├── index.html
+│
+├── apartments.html
+├── villas.html
+├── independenthouse.html
+├── plot.html
+├── commercial.html
+│
+├── post.html
+├── search-results.html
+│
+├── css/
+│   └── style.css
+│
+├── js/
+│   └── script.js
+│
+├── images/
+│   ├── apartments/
+│   ├── villas/
+│   ├── houses/
+│   ├── plots/
+│   └── commercial/
+│
+├── php/
+│   ├── db.php
+│   ├── post-property.php
+│   ├── search.php
+│   ├── get-properties.php
+│   └── delete-property.php
+│
+├── database/
+│   └── estate_ease.sql
+│
+└── README.md
