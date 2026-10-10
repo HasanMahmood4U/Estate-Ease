@@ -19,7 +19,6 @@
 </p>
 
 ---
-
 ## 📌 About the Project
 
 **Estate-Ease** is a real-estate website project designed to make
@@ -56,7 +55,6 @@ user experience.
 - 🗄️ PHP & MySQL Database Integration
 
 ---
-
 ## 🏘️ Property Categories
 
 | Category | Description |
@@ -78,9 +76,7 @@ user experience.
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 </p>
-
 ### HTML5
-
 Used to create the basic structure and content of the website.
 
 ### CSS3
@@ -96,7 +92,6 @@ Used for:
 - Modals
 - Property sliders
 - Mobile-friendly design
-
 ### JavaScript
 
 Used for:
@@ -117,7 +112,6 @@ Used for:
 <p>
   <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white">
 </p>
-
 ### PHP
 
 PHP is used for server-side processing and communication between
@@ -131,9 +125,7 @@ It can be used for:
 - Updating property information
 - Deleting property information
 - Database communication
-
 ---
-
 ## 🗄️ Database
 
 <p>
