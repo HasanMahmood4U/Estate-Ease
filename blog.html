@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About the Creator | Estate-Ease</title>
+
+    <meta name="description"
+          content="Learn about Hasan Mahmood, the creator of Estate-Ease, a real-estate website project.">
+
+    <style>
+        :root {
+            --green: #0d6b4b;
+            --green-dark: #084b36;
+            --orange: #f4a62a;
+            --background: #f6f8f7;
+            --text: #24332c;
+            --muted: #68766f;
+            --white: #ffffff;
+            --border: #e3eae6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--white);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            min-height: 75px;
+            margin: auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: var(--green);
+            white-space: nowrap;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            color: #37463e;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--green);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 15px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .login-btn {
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .post-btn {
+            color: white;
+            background: var(--green);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 27px;
+            color: var(--green);
+            cursor: pointer;
+        }
+
+        /* HERO SECTION */
+
+        .hero {
+            padding: 90px 24px;
+            color: white;
+            background:
+                linear-gradient(
+                    115deg,
+                    rgba(5, 52, 36, 0.96),
+                    rgba(13, 107, 75, 0.84)
+                ),
+                url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85")
+                center/cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 7px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            color: #ffe0a5;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-bottom: 20px;
+            font-size: clamp(36px, 5vw, 58px);
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--orange);
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: auto;
+            color: #e5f1eb;
+            font-size: 17px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-orange {
+            background: var(--orange);
+            color: #222;
+        }
+
+        .btn-orange:hover {
+            background: #ffc05b;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            color: white;
+            border: 1px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--green);
+        }
+
+        /* GENERAL SECTIONS */
+
+        .container {
+            max-width: 1120px;
+            margin: auto;
+            padding: 60px 24px;
+        }
+
+        .section-heading {
+            margin-bottom: 25px;
+        }
+
+        .section-heading small {
+            color: var(--green);
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            margin-top: 8px;
+            color: #193d2e;
+            font-size: clamp(27px, 3vw, 36px);
+            line-height: 1.3;
+        }
+
+        .section-heading p {
+            max-width: 780px;
+            margin-top: 12px;
+            color: var(--muted);
+        }
+
+        .content-card {
+            padding: 30px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 8px 28px rgba(20, 60, 40, 0.04);
+        }
+
+        .content-card h3 {
+            margin: 20px 0 10px;
+            color: var(--green);
+            font-size: 21px;
+        }
+
+        .content-card h3:first-child {
+            margin-top: 0;
+        }
+
+        .content-card p {
+            margin-bottom: 14px;
+            color: #536159;
+        }
+
+        .content-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* CREATOR PROFILE */
+
+        .creator-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.5fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .creator-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 35px 25px;
+            text-align: center;
+            background: #e8f3ed;
+            border-radius: 14px;
+        }
+
+        .creator-photo {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            object-position: center 30%;
+            border: 5px solid white;
+            border-radius: 50%;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 24px rgba(13, 107, 75, 0.18);
+        }
+
+        .creator-panel h3 {
+            margin-bottom: 5px;
+            color: var(--green-dark);
+            font-size: 23px;
+        }
+
+        .creator-panel p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .creator-badge {
+            margin-top: 17px;
+            padding: 7px 14px;
+            border-radius: 30px;
+            background: white;
+            color: var(--green);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* FEATURE CARDS */
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 25px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            background: #e8f3ed;
+            font-size: 24px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 8px;
+            color: var(--green);
+            font-size: 18px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* TECHNOLOGIES */
+
+        .technology-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .technology-tag {
+            padding: 9px 15px;
+            border: 1px solid #cfe3d7;
+            border-radius: 30px;
+            background: #f1f8f4;
+            color: var(--green-dark);
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* JOURNEY */
+
+        .journey-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .journey-list li {
+            position: relative;
+            margin-bottom: 22px;
+            padding-left: 36px;
+        }
+
+        .journey-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .journey-list li::before {
+            content: "✓";
+            position: absolute;
+            top: 2px;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #e2f2e9;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .journey-list strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #263d31;
+        }
+
+        .journey-list span {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* QUOTE */
+
+        .quote-box {
+            margin-top: 28px;
+            padding: 30px;
+            border-left: 5px solid var(--orange);
+            border-radius: 0 12px 12px 0;
+            background: #fff8eb;
+        }
+
+        .quote-box p {
+            color: #56462d;
+            font-size: 19px;
+            font-weight: 600;
+        }
+
+        /* CALL TO ACTION */
+
+        .cta {
+            padding: 48px 25px;
+            text-align: center;
+            color: white;
+            background: var(--green-dark);
+            border-radius: 16px;
+        }
+
+        .cta h2 {
+            margin-bottom: 12px;
+            font-size: clamp(26px, 3vw, 34px);
+        }
+
+        .cta p {
+            max-width: 650px;
+            margin: 0 auto 25px;
+            color: #d9e9df;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            margin-top: 20px;
+            padding: 55px 24px 20px;
+            background: #102c20;
+            color: white;
+        }
+
+        .footer-container {
+            max-width: 1120px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            gap: 35px;
+        }
+
+        .footer .logo {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer p {
+            max-width: 320px;
+            color: #c2d2c8;
+            font-size: 14px;
+        }
+
+        .footer h3 {
+            margin-bottom: 15px;
+            color: #ffd28a;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #c2d2c8;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            max-width: 1120px;
+            margin: 35px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+            color: #b6c8bd;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 1000px) {
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .creator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-left: auto;
+            }
+
+            .nav-links {
+                display: none;
+                order: 3;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 5px;
+                border-top: 1px solid #edf1ee;
+            }
+
+            .nav-actions {
+                display: none;
+                order: 4;
+                width: 100%;
+            }
+
+            .nav-actions.open {
+                display: flex;
+            }
+
+            .nav-btn {
+                flex: 1;
+                text-align: center;
+            }
+
+            .hero {
+                padding: 65px 20px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .container {
+                padding: 40px 18px;
+            }
+
+            .content-card {
+                padding: 23px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .quote-box {
+                padding: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                Estate<span>-Ease</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Toggle navigation"
+                aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="index.html#properties">Properties</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="blog.html" class="active">Our Story</a>
+            </nav>
+
+            <div class="nav-actions" id="navActions">
+                <a href="login.html" class="nav-btn login-btn">Login</a>
+                <a href="post.html" class="nav-btn post-btn">Post Property</a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+
+            <span class="hero-label">
+                The Story Behind Estate-Ease
+            </span>
+
+            <h1>
+                Turning My Learning Journey Into
+                <span>Something Real</span>
+            </h1>
+
+            <p>
+                Discover the story behind Estate-Ease, why I created
+                this real-estate website, the technologies I used,
+                and what I learned while developing the project.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#my-story" class="btn btn-orange">
+                    Read My Story
+                </a>
+
+                <a href="index.html" class="btn btn-outline">
+                    Explore Estate-Ease
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- ABOUT CREATOR -->
+        <section id="my-story">
+
+            <div class="section-heading">
+                <small>About the Creator</small>
+                <h2>Hello, I'm Hasan Mahmood</h2>
+                <p>
+                    A BCA student Full Stack Web Developer,
+                    learning by building, and creating useful
+                    digital experiences.
+                </p>
+            </div>
+
+            <div class="creator-grid">
+
+                <aside class="creator-panel">
+
+                    <!-- Save your photo as images/hasan-mahmood.jpg -->
+                    <img
+                        src="images/hasan-mahmood.jpg"
+                        alt="Hasan Mahmood, creator of Estate-Ease"
+                        class="creator-photo">
+
+                    <h3>Hasan Mahmood</h3>
+
+                    <p>Student &amp; Full Stack Web Developer</p>
+
+                    <span class="creator-badge">
+                        Creator of Estate-Ease
+                    </span>
+
+                </aside>
+
+                <article class="content-card">
+
+                    <h3>Welcome to My Journey</h3>
+
+                    <p>
+                        Hello and welcome to Estate-Ease! I'm Hasan
+                        Mahmood, a BCA student  (FULL STACK DEVELOPER) and creating useful digital
+                        experiences.
+                    </p>
+
+                    <p>
+                        I created Estate-Ease as a real-estate website
+                        project to apply my web development knowledge
+                        to a practical idea. Instead of learning
+                        concepts only through theory, I wanted to
+                        understand how a complete website works—from
+                        its design and interactive features to its
+                        backend and database.
+                    </p>
+
+                    <p>
+                        Estate-Ease represents my effort to bring
+                        together design, functionality, and technology
+                        in one project. Building it has helped me
+                        understand that a website requires planning,
+                        problem-solving, testing, and continuous
+                        improvement—not just writing code.
+                    </p>
+
+                </article>
+
+            </div>
+        </section>
+
+        <!-- WHY ESTATE-EASE -->
+        <section id="why-estate-ease" style="margin-top: 65px;">
+
+            <div class="section-heading">
+                <small>My Inspiration</small>
+                <h2>Why I Created Estate-Ease</h2>
+                <p>
+                    My goal was to explore how a single platform
+                    could help users discover different kinds
+                    of properties.
+                </p>
+            </div>
+
+            <article class="content-card">
+
+                <p>
+                    Searching for a suitable property can involve
+                    comparing locations, prices, sizes, photographs,
+                    and other important details. I chose the
+                    real-estate domain because it offers a meaningful
+                    opportunity to build a website with practical
+                    features.
+                </p>
+
+                <p>
+                    With Estate-Ease, users can explore categories
+                    such as apartments, villas, independent houses,
+                    residential plots, and commercial properties.
+                    The website is designed around property discovery,
+                    helping users browse listings and review
+                    relevant information.
+                </p>
+
+                <p>
+                    I wanted the interface to feel clean and
+                    straightforward. The green and orange colour
+                    theme gives the website its identity, while
+                    responsive layouts help it adapt to different
+                    screen sizes.
+                </p>
+
+                <p>
+                    This is a learning project, and I see it as
+                    a foundation that can be improved with
+                    additional features, feedback, and testing.
+                </p>
+
+            </article>
+        </section>
+
+        <!-- FEATURES -->
+        <section id="features" style="margin-top: 65px;">
+
+            <div class="section-heading">
+                <small>Inside the Website</small>
+                <h2>What Estate-Ease Offers</h2>
+                <p>
+                    The website brings several property-discovery
+                    features together in one interface.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3>Property Categories</h3>
+                    <p>
+                        Explore apartments, villas, independent
+                        houses, plots, and commercial properties
+                        in their respective categories.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🔎</div>
+                    <h3>Property Search</h3>
+                    <p>
+                        Search and explore listings using available
+                        search fields, such as location and
+                        property type.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>Property Photos</h3>
+                    <p>
+                        View property images and use visual details
+                        to understand a listing before contacting
+                        its owner.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Post a Property</h3>
+                    <p>
+                        The property submission feature is designed
+                        to let users provide listing information
+                        for review.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>User and Admin Features</h3>
+                    <p>
+                        Authentication and administrative
+                        functionality support account access
+                        and property-listing management.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Responsive Design</h3>
+                    <p>
+                        Responsive layouts help keep the website
+                        usable on desktops, tablets, and
+                        mobile screens.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- TECHNOLOGIES -->
+        <section id="technology" style="margin-top: 65px;">
+
+            <div class="section-heading">
+                <small>Behind the Code</small>
+                <h2>Technologies Used</h2>
+                <p>
+                    Estate-Ease gave me an opportunity to connect
+                    frontend development with server-side
+                    programming and database operations.
+                </p>
+            </div>
+
+            <article class="content-card">
+
+                <h3>HTML — Website Structure</h3>
+                <p>
+                    HTML provides the structure of the website,
+                    including navigation, headings, forms,
+                    property cards, sections, and content.
+                </p>
+
+                <h3>CSS — Design and Responsiveness</h3>
+                <p>
+                    CSS styles the pages, defines the colour theme,
+                    arranges property cards, and adapts the
+                    interface to different screen sizes.
+                </p>
+
+                <h3>JavaScript — Interactivity</h3>
+                <p>
+                    JavaScript handles interactive behaviour such
+                    as search actions, form validation, dynamic
+                    content, navigation, and other frontend features.
+                </p>
+
+                <h3>Node.js and Express.js — Backend</h3>
+                <p>
+                    Node.js and Express.js provide the server-side
+                    environment for handling requests, user
+                    authentication, property submissions, and
+                    communication with the database.
+                </p>
+
+                <h3>MySQL — Database Management</h3>
+                <p>
+                    MySQL stores structured application information,
+                    such as user accounts, property listings, and
+                    booking records, according to the project's
+                    database design.
+                </p>
+
+                <div class="technology-list">
+                    <span class="technology-tag">HTML5</span>
+                    <span class="technology-tag">CSS3</span>
+                    <span class="technology-tag">JavaScript</span>
+                    <span class="technology-tag">Node.js</span>
+                    <span class="technology-tag">Express.js</span>
+                    <span class="technology-tag">MySQL</span>
+                    <span class="technology-tag">Git &amp; GitHub</span>
+                </div>
+
+            </article>
+        </section>
+
+        <!-- DEVELOPMENT JOURNEY -->
+        <section id="journey" style="margin-top: 65px;">
+
+            <div class="section-heading">
+                <small>Learning by Building</small>
+                <h2>My Development Journey</h2>
+                <p>
+                    Each part of this project has helped me
+                    understand another stage of building
+                    a web application.
+                </p>
+            </div>
+
+            <article class="content-card">
+
+                <ul class="journey-list">
+
+                    <li>
+                        <strong>Planning the Idea</strong>
+                        <span>
+                            I chose a real-estate website concept
+                            and identified the main pages and
+                            features users would need.
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Designing the Interface</strong>
+                        <span>
+                            I worked on the homepage, navigation,
+                            property categories, listing cards,
+                            forms, and responsive layouts.
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Adding Interactivity</strong>
+                        <span>
+                            I used JavaScript to connect user
+                            actions with the relevant website
+                            behaviour.
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Connecting the Backend</strong>
+                        <span>
+                            I worked with server-side routes to
+                            process application requests, manage
+                            authentication, and handle property
+                            submissions.
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Working with the Database</strong>
+                        <span>
+                            I learned how a relational database
+                            can store and retrieve information
+                            used by different parts of a website.
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Testing and Improving</strong>
+                        <span>
+                            I refined the project by checking
+                            navigation, forms, search behaviour,
+                            layouts, and other features.
+                        </span>
+                    </li>
+
+                </ul>
+
+            </article>
+        </section>
+
+        <!-- CHALLENGES -->
+        <section id="challenges" style="margin-top: 65px;">
+
+            <div class="section-heading">
+                <small>Lessons Learned</small>
+                <h2>Challenges That Helped Me Grow</h2>
+            </div>
+
+            <article class="content-card">
+
+                <p>
+                    One important lesson was understanding how
+                    different parts of a website depend on one
+                    another. A search interface needs to collect
+                    the correct inputs, process the search request,
+                    retrieve matching property information, and
+                    display results properly.
+                </p>
+
+                <p>
+                    I also learned that frontend design and backend
+                    functionality must work together. A good-looking
+                    page is not enough if its buttons, forms,
+                    database operations, or navigation do not
+                    behave as expected.
+                </p>
+
+                <p>
+                    Debugging has become an important part of the
+                    process. Finding errors, checking data, testing
+                    different situations, and correcting problems
+                    have helped me improve my problem-solving skills.
+                </p>
+
+                <p>
+                    This project has taught me to approach
+                    development step by step rather than expecting
+                    everything to work perfectly on the first attempt.
+                </p>
+
+            </article>
+
+            <div class="quote-box">
+                <p>
+                    “Every project is an opportunity to turn
+                    what you have learned into something useful.”
+                </p>
+            </div>
+
+        </section>
+
+        <!-- FUTURE PLANS -->
+        <section id="future" style="margin-top: 65px;">
+
+            <div class="section-heading">
+                <small>What's Next?</small>
+                <h2>My Vision for Estate-Ease</h2>
+            </div>
+
+            <article class="content-card">
+
+                <p>
+                    I want Estate-Ease to continue evolving as I
+                    develop my technical skills and learn more
+                    about building reliable web applications.
+                </p>
+
+                <p>
+                    Possible future improvements include more
+                    advanced property filters, improved listing
+                    photographs, smoother property-detail pages,
+                    better mobile usability, and additional tools
+                    for managing property submissions.
+                </p>
+
+                <p>
+                    I would also like to keep improving validation,
+                    error handling, security, accessibility, and
+                    the overall user experience. Future features
+                    will need to be implemented and tested before
+                    being presented as available functionality.
+                </p>
+
+                <p>
+                    My long-term goal is to become a skilled web
+                    developer who can design, build, and maintain
+                    useful applications. Estate-Ease is one step
+                    in that journey.
+                </p>
+
+            </article>
+        </section>
+
+        <!-- FINAL CALL TO ACTION -->
+        <section class="cta" style="margin-top: 65px;">
+
+            <h2>Thank You for Visiting Estate-Ease</h2>
+
+            <p>
+                Thank you for taking the time to learn about my
+                project and the journey behind it. Explore the
+                website and see how I am putting my web
+                development knowledge into practice.
+            </p>
+
+            <a href="index.html" class="btn btn-orange">
+                Explore Properties
+            </a>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div>
+                <a href="index.html" class="logo">
+                    Estate<span>-Ease</span>
+                </a>
+
+                <p>
+                    A real-estate website project created to explore
+                    property discovery, web development, and
+                    practical application design.
+                </p>
+            </div>
+
+            <div>
+                <h3>Properties</h3>
+
+                <div class="footer-links">
+                    <a href="index.html#categories">Apartments</a>
+                    <a href="index.html#categories">Villas</a>
+                    <a href="index.html#categories">Independent Houses</a>
+                    <a href="index.html#categories">Plots</a>
+                </div>
+            </div>
+
+            <div>
+                <h3>Explore</h3>
+
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#properties">Featured Properties</a>
+                    <a href="blog.html">Our Story</a>
+                    <a href="post.html">Post Property</a>
+                </div>
+            </div>
+
+            <div>
+                <h3>About</h3>
+
+                <div class="footer-links">
+                    <a href="#my-story">About the Creator</a>
+                    <a href="#technology">Technologies</a>
+                    <a href="#journey">Development Journey</a>
+                    <a href="#future">Future Vision</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            &copy; <span id="currentYear"></span> Estate-Ease.
+            Created by Hasan Mahmood. All rights reserved.
+        </div>
+
+    </footer>
+
+    <script>
+        // Mobile navigation
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+        const navActions = document.getElementById("navActions");
+
+        menuToggle.addEventListener("click", function () {
+            const isOpen = navLinks.classList.toggle("open");
+
+            navActions.classList.toggle("open", isOpen);
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            menuToggle.textContent = isOpen ? "✕" : "☰";
+        });
+
+        // Close mobile navigation after clicking a link
+        navLinks.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("open");
+                navActions.classList.remove("open");
+
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.textContent = "☰";
+            });
+        });
+
+        // Automatically update copyright year
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>

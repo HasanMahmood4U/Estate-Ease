@@ -1,3 +1,7 @@
+// ============================================================
+// ESTATE-EASE SERVER
+// ============================================================
+
 const express = require("express");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
@@ -5,15 +9,17 @@ const mysql = require("mysql2/promise");
 const path = require("path");
 const multer = require("multer");
 const fs = require("fs");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
-
 const PORT = 3000;
 
 
-// ======================================================
+// ============================================================
 // MIDDLEWARE
-// ======================================================
+// ============================================================
 
 app.use(express.json());
 
@@ -24,48 +30,68 @@ app.use(
 );
 
 
-// ======================================================
+// ============================================================
 // SESSION
-// ======================================================
+// ============================================================
 
 app.use(
     session({
 
-        secret: "estate-ease-secret-key",
+        secret:
+            process.env.SESSION_SECRET ||
+            "estate-ease-secret-key",
 
         resave: false,
 
         saveUninitialized: false,
 
         cookie: {
+
             httpOnly: true,
-            maxAge: 1000 * 60 * 60
+
+            // Default session duration = 1 day
+            maxAge: 1000 * 60 * 60 * 24
+
         }
 
     })
 );
 
 
-// ======================================================
-// MYSQL CONNECTION
-// ======================================================
+// ============================================================
+// MYSQL DATABASE
+// ============================================================
 
 const db = mysql.createPool({
 
-    host: "localhost",
+    host:
+        process.env.DB_HOST ||
+        "localhost",
 
-    user: "root",
+    user:
+        process.env.DB_USER ||
+        "root",
 
-    password: "",
+    password:
+        process.env.DB_PASSWORD ||
+        "",
 
-    database: "estate_ease"
+    database:
+        process.env.DB_NAME ||
+        "estate_ease",
+
+    waitForConnections: true,
+
+    connectionLimit: 10,
+
+    queueLimit: 0
 
 });
 
 
-// ======================================================
-// TEST MYSQL CONNECTION
-// ======================================================
+// ============================================================
+// TEST DATABASE CONNECTION
+// ============================================================
 
 async function testDatabase() {
 
@@ -80,7 +106,9 @@ async function testDatabase() {
 
         connection.release();
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(
             "MySQL connection failed:",
@@ -94,30 +122,173 @@ async function testDatabase() {
 testDatabase();
 
 
-// ======================================================
-// LOGIN API
-// ======================================================
+// ============================================================
+// HELPER - CREATE USER SESSION
+// ============================================================
+
+function createLoginSession(
+    req,
+    user,
+    remember
+) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            req.session.regenerate(
+                error => {
+
+                    if (error) {
+
+                        return reject(error);
+
+                    }
+
+
+                    req.session.user = {
+
+                        id:
+                            user.id,
+
+                        name:
+                            user.name,
+
+                        email:
+                            user.email,
+
+                        role:
+                            user.role
+
+                    };
+
+
+                    // ------------------------------------------------
+                    // REMEMBER ME
+                    // ------------------------------------------------
+
+                    if (remember) {
+
+                        // 30 days
+                        req.session.cookie.maxAge =
+                            1000 *
+                            60 *
+                            60 *
+                            24 *
+                            30;
+
+                    }
+
+                    else {
+
+                        // 1 day
+                        req.session.cookie.maxAge =
+                            1000 *
+                            60 *
+                            60 *
+                            24;
+
+                    }
+
+
+                    req.session.save(
+                        saveError => {
+
+                            if (saveError) {
+
+                                return reject(
+                                    saveError
+                                );
+
+                            }
+
+                            resolve();
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// LOGIN / AUTO ACCOUNT CREATION
+// ============================================================
+//
+// NEW USER:
+// Email not found -> automatically create account.
+//
+// EXISTING USER:
+// Email found -> password is checked.
+//
+// No separate signup page is required.
+// ============================================================
 
 app.post(
     "/api/login",
+
     async (req, res) => {
 
-        const {
-            email,
-            password
-        } = req.body;
+        const email =
+            String(
+                req.body.email || ""
+            )
+            .trim()
+            .toLowerCase();
+
+        const password =
+            String(
+                req.body.password || ""
+            );
+
+        const remember =
+            req.body.remember === true ||
+            req.body.remember === "true";
 
 
-        // Required fields
+        // ------------------------------------------------
+        // BASIC VALIDATION
+        // ------------------------------------------------
 
-        if (!email || !password) {
+        if (
+            !email ||
+            !password
+        ) {
 
             return res.status(400).json({
 
                 success: false,
 
                 message:
-                    "Email and password are required"
+                    "Email and password are required."
+
+            });
+
+        }
+
+
+        // ------------------------------------------------
+        // EMAIL VALIDATION
+        // ------------------------------------------------
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (
+            !emailPattern.test(email)
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Please enter a valid email address."
 
             });
 
@@ -126,38 +297,179 @@ app.post(
 
         try {
 
-            // Find user
+            // ------------------------------------------------
+            // FIND USER
+            // ------------------------------------------------
 
             const [rows] =
                 await db.execute(
 
-                    "SELECT * FROM users WHERE email = ?",
+                    `SELECT *
+                     FROM users
+                     WHERE email = ?
+                     LIMIT 1`,
 
-                    [email]
+                    [
+                        email
+                    ]
 
                 );
 
 
-            // User not found
+            // =================================================
+            // NEW USER
+            // =================================================
 
-            if (rows.length === 0) {
+            if (
+                rows.length === 0
+            ) {
 
-                return res.status(401).json({
+                // New account requires minimum 6 characters
+                if (
+                    password.length < 6
+                ) {
 
-                    success: false,
+                    return res.status(400).json({
+
+                        success: false,
+
+                        message:
+                            "For a new account, password must be at least 6 characters."
+
+                    });
+
+                }
+
+
+                // ------------------------------------------------
+                // CREATE PASSWORD HASH
+                // ------------------------------------------------
+
+                const hashedPassword =
+                    await bcrypt.hash(
+                        password,
+                        10
+                    );
+
+
+                // ------------------------------------------------
+                // CREATE USER NAME FROM EMAIL
+                // ------------------------------------------------
+
+                const emailName =
+                    email
+                        .split("@")[0]
+                        .replace(
+                            /[._-]+/g,
+                            " "
+                        )
+                        .trim();
+
+
+                const generatedName =
+                    emailName
+                        ? emailName
+                            .split(" ")
+                            .map(
+                                word =>
+                                    word.charAt(0).toUpperCase() +
+                                    word.slice(1)
+                            )
+                            .join(" ")
+                        : "Estate-Ease User";
+
+
+                // ------------------------------------------------
+                // INSERT NEW USER
+                // ------------------------------------------------
+
+                const [result] =
+                    await db.execute(
+
+                        `INSERT INTO users
+                        (
+                            name,
+                            email,
+                            password,
+                            role
+                        )
+                        VALUES
+                        (
+                            ?,
+                            ?,
+                            ?,
+                            'user'
+                        )`,
+
+                        [
+
+                            generatedName,
+
+                            email,
+
+                            hashedPassword
+
+                        ]
+
+                    );
+
+
+                // ------------------------------------------------
+                // CREATE SESSION
+                // ------------------------------------------------
+
+                const newUser = {
+
+                    id:
+                        result.insertId,
+
+                    name:
+                        generatedName,
+
+                    email:
+                        email,
+
+                    role:
+                        "user"
+
+                };
+
+
+                await createLoginSession(
+                    req,
+                    newUser,
+                    remember
+                );
+
+
+                return res.status(201).json({
+
+                    success: true,
+
+                    created: true,
 
                     message:
-                        "Invalid email or password"
+                        "Account created and login successful.",
+
+                    user:
+                        req.session.user
 
                 });
 
             }
 
 
-            const user = rows[0];
+            // =================================================
+            // EXISTING USER
+            // =================================================
+
+            const user =
+                rows[0];
 
 
-            // Check password
+            // ------------------------------------------------
+            // CHECK PASSWORD
+            // ------------------------------------------------
 
             const validPassword =
                 await bcrypt.compare(
@@ -173,47 +485,35 @@ app.post(
                     success: false,
 
                     message:
-                        "Invalid email or password"
+                        "Invalid email or password."
 
                 });
 
             }
 
 
-            // Create session
+            // ------------------------------------------------
+            // LOGIN EXISTING USER
+            // ------------------------------------------------
 
-            req.session.user = {
-
-                id: user.id,
-
-                name: user.name,
-
-                email: user.email,
-
-                role: user.role
-
-            };
+            await createLoginSession(
+                req,
+                user,
+                remember
+            );
 
 
-            // Send response
-
-            res.json({
+            return res.json({
 
                 success: true,
 
-                message: "Login successful",
+                created: false,
 
-                user: {
+                message:
+                    "Login successful.",
 
-                    id: user.id,
-
-                    name: user.name,
-
-                    email: user.email,
-
-                    role: user.role
-
-                }
+                user:
+                    req.session.user
 
             });
 
@@ -227,12 +527,29 @@ app.post(
             );
 
 
+            // Duplicate email protection
+            if (
+                error.code === "ER_DUP_ENTRY"
+            ) {
+
+                return res.status(409).json({
+
+                    success: false,
+
+                    message:
+                        "This email is already registered. Please login again."
+
+                });
+
+            }
+
+
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Server error"
+                    "Server error."
 
             });
 
@@ -242,15 +559,18 @@ app.post(
 );
 
 
-// ======================================================
+// ============================================================
 // CHECK LOGIN
-// ======================================================
+// ============================================================
 
 app.get(
     "/api/me",
+
     (req, res) => {
 
-        if (!req.session.user) {
+        if (
+            !req.session.user
+        ) {
 
             return res.status(401).json({
 
@@ -265,7 +585,8 @@ app.get(
 
             loggedIn: true,
 
-            user: req.session.user
+            user:
+                req.session.user
 
         });
 
@@ -273,29 +594,40 @@ app.get(
 );
 
 
-// ======================================================
+// ============================================================
 // LOGOUT
-// ======================================================
+// ============================================================
 
 app.post(
     "/api/logout",
+
     (req, res) => {
 
         req.session.destroy(
-            (error) => {
+            error => {
 
                 if (error) {
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
 
                     return res.status(500).json({
 
                         success: false,
 
                         message:
-                            "Logout failed"
+                            "Logout failed."
 
                     });
 
                 }
+
+
+                res.clearCookie(
+                    "connect.sid"
+                );
 
 
                 res.json({
@@ -303,7 +635,7 @@ app.post(
                     success: true,
 
                     message:
-                        "Logged out successfully"
+                        "Logged out successfully."
 
                 });
 
@@ -314,9 +646,9 @@ app.post(
 );
 
 
-// ======================================================
-// NORMAL USER LOGIN PROTECTION
-// ======================================================
+// ============================================================
+// LOGIN PROTECTION
+// ============================================================
 
 function requireLogin(
     req,
@@ -324,7 +656,9 @@ function requireLogin(
     next
 ) {
 
-    if (!req.session.user) {
+    if (
+        !req.session.user
+    ) {
 
         return res.status(401).json({
 
@@ -343,9 +677,9 @@ function requireLogin(
 }
 
 
-// ======================================================
+// ============================================================
 // ADMIN PROTECTION
-// ======================================================
+// ============================================================
 
 function requireAdmin(
     req,
@@ -353,23 +687,21 @@ function requireAdmin(
     next
 ) {
 
-    // Not logged in
-
-    if (!req.session.user) {
+    if (
+        !req.session.user
+    ) {
 
         return res.status(401).json({
 
             success: false,
 
             message:
-                "Login required"
+                "Login required."
 
         });
 
     }
 
-
-    // Logged in but not admin
 
     if (
         req.session.user.role !== "admin"
@@ -380,7 +712,7 @@ function requireAdmin(
             success: false,
 
             message:
-                "Admin access required"
+                "Admin access required."
 
         });
 
@@ -392,20 +724,23 @@ function requireAdmin(
 }
 
 
-// ======================================================
-// ADMIN SESSION CHECK
-// ======================================================
+// ============================================================
+// ADMIN LOGIN CHECK
+// ============================================================
 
 app.get(
     "/api/admin/me",
+
     requireAdmin,
+
     (req, res) => {
 
         res.json({
 
             success: true,
 
-            user: req.session.user
+            user:
+                req.session.user
 
         });
 
@@ -413,134 +748,91 @@ app.get(
 );
 
 
-// ======================================================
-// ADMIN STATISTICS
-// ======================================================
+// ============================================================
+// ADMIN DASHBOARD STATS
+// ============================================================
 
 app.get(
     "/api/admin/stats",
+
     requireAdmin,
+
     async (req, res) => {
 
         try {
 
-            // -----------------------------
-            // TOTAL USERS
-            // -----------------------------
-
             const [userRows] =
                 await db.execute(
-
-                    "SELECT COUNT(*) AS total FROM users"
-
+                    `SELECT COUNT(*) AS total
+                     FROM users`
                 );
 
 
-            const totalUsers =
-                userRows[0].total;
-
-
-            // -----------------------------
-            // PROPERTY COUNTS
-            // -----------------------------
-
-            let totalProperties = 0;
-
-            let pendingProperties = 0;
-
-            let approvedProperties = 0;
-
-            let rejectedProperties = 0;
-
-
-            try {
-
-                // Total properties
-
-                const [propertyRows] =
-                    await db.execute(
-
-                        "SELECT COUNT(*) AS total FROM properties"
-
-                    );
-
-
-                totalProperties =
-                    propertyRows[0].total;
-
-
-                // Pending
-
-                const [pendingRows] =
-                    await db.execute(
-
-                        `SELECT COUNT(*) AS total
-                         FROM properties
-                         WHERE status = 'pending'`
-
-                    );
-
-
-                pendingProperties =
-                    pendingRows[0].total;
-
-
-                // Approved
-
-                const [approvedRows] =
-                    await db.execute(
-
-                        `SELECT COUNT(*) AS total
-                         FROM properties
-                         WHERE status = 'approved'`
-
-                    );
-
-
-                approvedProperties =
-                    approvedRows[0].total;
-
-
-                // Rejected
-
-                const [rejectedRows] =
-                    await db.execute(
-
-                        `SELECT COUNT(*) AS total
-                         FROM properties
-                         WHERE status = 'rejected'`
-
-                    );
-
-
-                rejectedProperties =
-                    rejectedRows[0].total;
-
-            }
-
-            catch (propertyError) {
-
-                console.log(
-                    "Properties table error:",
-                    propertyError.message
+            const [propertyRows] =
+                await db.execute(
+                    `SELECT
+                        COUNT(*) AS totalProperties,
+                        SUM(status = 'pending') AS pendingProperties,
+                        SUM(status = 'approved') AS approvedProperties,
+                        SUM(status = 'rejected') AS rejectedProperties
+                     FROM properties`
                 );
 
-            }
+
+            const [bookingRows] =
+                await db.execute(
+                    `SELECT
+                        COUNT(*) AS totalBookings,
+                        SUM(status = 'pending') AS pendingBookings
+                     FROM bookings`
+                );
+
+
+            const propertyStats =
+                propertyRows[0];
+
+            const bookingStats =
+                bookingRows[0];
 
 
             res.json({
 
                 success: true,
 
-                totalUsers,
+                totalUsers:
+                    Number(
+                        userRows[0].total || 0
+                    ),
 
-                totalProperties,
+                totalProperties:
+                    Number(
+                        propertyStats.totalProperties || 0
+                    ),
 
-                pendingProperties,
+                pendingProperties:
+                    Number(
+                        propertyStats.pendingProperties || 0
+                    ),
 
-                approvedProperties,
+                approvedProperties:
+                    Number(
+                        propertyStats.approvedProperties || 0
+                    ),
 
-                rejectedProperties
+                rejectedProperties:
+                    Number(
+                        propertyStats.rejectedProperties || 0
+                    ),
+
+                totalBookings:
+                    Number(
+                        bookingStats.totalBookings || 0
+                    ),
+
+                pendingBookings:
+                    Number(
+                        bookingStats.pendingBookings || 0
+                    )
 
             });
 
@@ -553,13 +845,12 @@ app.get(
                 error
             );
 
-
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to load statistics"
+                    "Unable to load statistics."
 
             });
 
@@ -569,13 +860,15 @@ app.get(
 );
 
 
-// ======================================================
+// ============================================================
 // ADMIN USERS
-// ======================================================
+// ============================================================
 
 app.get(
     "/api/admin/users",
+
     requireAdmin,
+
     async (req, res) => {
 
         try {
@@ -601,7 +894,8 @@ app.get(
 
                 success: true,
 
-                users: rows
+                users:
+                    rows
 
             });
 
@@ -614,13 +908,12 @@ app.get(
                 error
             );
 
-
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to load users"
+                    "Unable to load users."
 
             });
 
@@ -630,13 +923,15 @@ app.get(
 );
 
 
-// ======================================================
-// ADMIN GET ALL PROPERTIES
-// ======================================================
+// ============================================================
+// ADMIN - GET ALL PROPERTIES
+// ============================================================
 
 app.get(
     "/api/admin/properties",
+
     requireAdmin,
+
     async (req, res) => {
 
         try {
@@ -645,6 +940,7 @@ app.get(
                 await db.execute(`
 
                     SELECT
+
                         p.id,
                         p.title,
                         p.type,
@@ -661,6 +957,7 @@ app.get(
                         p.status,
                         p.user_id,
                         p.created_at,
+
                         u.name AS posted_by,
                         u.email AS posted_email
 
@@ -678,7 +975,8 @@ app.get(
 
                 success: true,
 
-                properties: rows
+                properties:
+                    rows
 
             });
 
@@ -691,13 +989,12 @@ app.get(
                 error
             );
 
-
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to load properties"
+                    "Unable to load properties."
 
             });
 
@@ -707,19 +1004,39 @@ app.get(
 );
 
 
-// ======================================================
-// ADMIN APPROVE PROPERTY
-// ======================================================
+// ============================================================
+// ADMIN - APPROVE PROPERTY
+// ============================================================
 
 app.put(
     "/api/admin/properties/:id/approve",
+
     requireAdmin,
+
     async (req, res) => {
 
         try {
 
             const propertyId =
-                req.params.id;
+                Number(
+                    req.params.id
+                );
+
+
+            if (
+                !propertyId
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid property ID."
+
+                });
+
+            }
 
 
             const [result] =
@@ -729,7 +1046,9 @@ app.put(
                      SET status = 'approved'
                      WHERE id = ?`,
 
-                    [propertyId]
+                    [
+                        propertyId
+                    ]
 
                 );
 
@@ -743,7 +1062,7 @@ app.put(
                     success: false,
 
                     message:
-                        "Property not found"
+                        "Property not found."
 
                 });
 
@@ -755,7 +1074,7 @@ app.put(
                 success: true,
 
                 message:
-                    "Property approved successfully"
+                    "Property approved successfully."
 
             });
 
@@ -768,13 +1087,12 @@ app.put(
                 error
             );
 
-
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to approve property"
+                    "Unable to approve property."
 
             });
 
@@ -784,19 +1102,39 @@ app.put(
 );
 
 
-// ======================================================
-// ADMIN REJECT PROPERTY
-// ======================================================
+// ============================================================
+// ADMIN - REJECT PROPERTY
+// ============================================================
 
 app.put(
     "/api/admin/properties/:id/reject",
+
     requireAdmin,
+
     async (req, res) => {
 
         try {
 
             const propertyId =
-                req.params.id;
+                Number(
+                    req.params.id
+                );
+
+
+            if (
+                !propertyId
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid property ID."
+
+                });
+
+            }
 
 
             const [result] =
@@ -806,7 +1144,9 @@ app.put(
                      SET status = 'rejected'
                      WHERE id = ?`,
 
-                    [propertyId]
+                    [
+                        propertyId
+                    ]
 
                 );
 
@@ -820,7 +1160,7 @@ app.put(
                     success: false,
 
                     message:
-                        "Property not found"
+                        "Property not found."
 
                 });
 
@@ -832,7 +1172,7 @@ app.put(
                 success: true,
 
                 message:
-                    "Property rejected successfully"
+                    "Property rejected successfully."
 
             });
 
@@ -845,13 +1185,12 @@ app.put(
                 error
             );
 
-
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to reject property"
+                    "Unable to reject property."
 
             });
 
@@ -861,27 +1200,81 @@ app.put(
 );
 
 
-// ======================================================
-// ADMIN DELETE PROPERTY
-// ======================================================
+// ============================================================
+// ADMIN - DELETE PROPERTY
+// ============================================================
 
 app.delete(
     "/api/admin/properties/:id",
+
     requireAdmin,
+
     async (req, res) => {
 
         try {
 
             const propertyId =
-                req.params.id;
+                Number(
+                    req.params.id
+                );
+
+
+            if (
+                !propertyId
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid property ID."
+
+                });
+
+            }
+
+
+            const [bookingRows] =
+                await db.execute(
+
+                    `SELECT id
+                     FROM bookings
+                     WHERE property_id = ?
+                     LIMIT 1`,
+
+                    [
+                        propertyId
+                    ]
+
+                );
+
+
+            if (
+                bookingRows.length > 0
+            ) {
+
+                return res.status(409).json({
+
+                    success: false,
+
+                    message:
+                        "This property cannot be deleted because it has bookings."
+
+                });
+
+            }
 
 
             const [result] =
                 await db.execute(
 
-                    "DELETE FROM properties WHERE id = ?",
+                    `DELETE FROM properties
+                     WHERE id = ?`,
 
-                    [propertyId]
+                    [
+                        propertyId
+                    ]
 
                 );
 
@@ -895,7 +1288,7 @@ app.delete(
                     success: false,
 
                     message:
-                        "Property not found"
+                        "Property not found."
 
                 });
 
@@ -907,7 +1300,7 @@ app.delete(
                 success: true,
 
                 message:
-                    "Property deleted successfully"
+                    "Property deleted successfully."
 
             });
 
@@ -920,13 +1313,12 @@ app.delete(
                 error
             );
 
-
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to delete property"
+                    "Unable to delete property."
 
             });
 
@@ -936,9 +1328,9 @@ app.delete(
 );
 
 
-// ======================================================
+// ============================================================
 // UPLOAD FOLDER
-// ======================================================
+// ============================================================
 
 const uploadFolder =
     path.join(
@@ -958,16 +1350,12 @@ if (
         }
     );
 
-    console.log(
-        "Uploads folder created."
-    );
-
 }
 
 
-// ======================================================
-// MULTER IMAGE UPLOAD CONFIGURATION
-// ======================================================
+// ============================================================
+// MULTER STORAGE
+// ============================================================
 
 const storage =
     multer.diskStorage({
@@ -1023,7 +1411,7 @@ const storage =
 const upload =
     multer({
 
-        storage: storage,
+        storage,
 
         limits: {
 
@@ -1041,6 +1429,7 @@ const upload =
             ) {
 
                 if (
+                    file.mimetype &&
                     file.mimetype.startsWith(
                         "image/"
                     )
@@ -1068,13 +1457,15 @@ const upload =
     });
 
 
-// ======================================================
+// ============================================================
 // POST PROPERTY
-// ======================================================
+// ============================================================
 
 app.post(
     "/api/properties",
+
     requireLogin,
+
     upload.single("image"),
 
     async (req, res) => {
@@ -1084,48 +1475,28 @@ app.post(
             const {
 
                 title,
-
                 type,
-
                 purpose,
-
                 location,
-
                 price,
-
                 bedrooms,
-
                 area,
-
                 description,
-
                 owner_name,
-
                 owner_phone
 
             } = req.body;
 
 
-            // ------------------------------------------
-            // REQUIRED FIELDS
-            // ------------------------------------------
-
             if (
 
                 !title ||
-
                 !type ||
-
                 !purpose ||
-
                 !location ||
-
                 !price ||
-
                 !area ||
-
                 !owner_name ||
-
                 !owner_phone
 
             ) {
@@ -1142,11 +1513,9 @@ app.post(
             }
 
 
-            // ------------------------------------------
-            // IMAGE REQUIRED
-            // ------------------------------------------
-
-            if (!req.file) {
+            if (
+                !req.file
+            ) {
 
                 return res.status(400).json({
 
@@ -1160,23 +1529,16 @@ app.post(
             }
 
 
-            // ------------------------------------------
-            // IMAGE PATH
-            // ------------------------------------------
-
             const imagePath =
                 "/uploads/" +
                 req.file.filename;
 
 
-            // ------------------------------------------
-            // INSERT PROPERTY
-            // ------------------------------------------
-
             const [result] =
                 await db.execute(
 
                     `INSERT INTO properties
+
                     (
                         title,
                         type,
@@ -1193,7 +1555,9 @@ app.post(
                         status,
                         user_id
                     )
+
                     VALUES
+
                     (
                         ?,
                         ?,
@@ -1244,16 +1608,12 @@ app.post(
                 );
 
 
-            // ------------------------------------------
-            // SUCCESS
-            // ------------------------------------------
-
             res.status(201).json({
 
                 success: true,
 
                 message:
-                    "Property submitted successfully.",
+                    "Property submitted successfully. Waiting for admin approval.",
 
                 propertyId:
                     result.insertId,
@@ -1272,7 +1632,6 @@ app.post(
                 error
             );
 
-
             res.status(500).json({
 
                 success: false,
@@ -1288,13 +1647,15 @@ app.post(
 );
 
 
-// ======================================================
+// ============================================================
 // USER'S OWN PROPERTIES
-// ======================================================
+// ============================================================
 
 app.get(
     "/api/my-properties",
+
     requireLogin,
+
     async (req, res) => {
 
         try {
@@ -1318,7 +1679,8 @@ app.get(
 
                 success: true,
 
-                properties: rows
+                properties:
+                    rows
 
             });
 
@@ -1331,13 +1693,12 @@ app.get(
                 error
             );
 
-
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to load your properties"
+                    "Unable to load your properties."
 
             });
 
@@ -1347,20 +1708,22 @@ app.get(
 );
 
 
-// ======================================================
-// APPROVED PROPERTIES FOR WEBSITE
-// ======================================================
+// ============================================================
+// PUBLIC APPROVED PROPERTIES
+// ============================================================
 
 app.get(
     "/api/properties",
+
     async (req, res) => {
 
         try {
 
             const [rows] =
-                await db.execute(
+                await db.execute(`
 
-                    `SELECT
+                    SELECT
+
                         id,
                         title,
                         type,
@@ -1374,22 +1737,25 @@ app.get(
                         owner_name,
                         owner_phone,
                         image,
+                        status,
+                        user_id,
                         created_at
 
-                     FROM properties
+                    FROM properties
 
-                     WHERE status = 'approved'
+                    WHERE status = 'approved'
 
-                     ORDER BY id DESC`
+                    ORDER BY id DESC
 
-                );
+                `);
 
 
             res.json({
 
                 success: true,
 
-                properties: rows
+                properties:
+                    rows
 
             });
 
@@ -1398,17 +1764,16 @@ app.get(
         catch (error) {
 
             console.error(
-                "Properties error:",
+                "Public properties error:",
                 error
             );
-
 
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to load properties"
+                    "Unable to load properties."
 
             });
 
@@ -1418,15 +1783,609 @@ app.get(
 );
 
 
-// ======================================================
+// ============================================================
+// CREATE PROPERTY VISIT BOOKING
+// ============================================================
+
+app.post(
+    "/api/bookings",
+
+    requireLogin,
+
+    async (req, res) => {
+
+        try {
+
+            const {
+                property_id,
+                booking_date
+            } = req.body;
+
+
+            if (
+                !property_id ||
+                !booking_date
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Property and visit date are required."
+
+                });
+
+            }
+
+
+            const propertyId =
+                Number(
+                    property_id
+                );
+
+
+            if (
+                !propertyId
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid property ID."
+
+                });
+
+            }
+
+
+            // ------------------------------------------------
+            // DATE VALIDATION
+            // ------------------------------------------------
+
+            const selectedDate =
+                new Date(
+                    booking_date +
+                    "T00:00:00"
+                );
+
+
+            if (
+                Number.isNaN(
+                    selectedDate.getTime()
+                )
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid booking date."
+
+                });
+
+            }
+
+
+            const today =
+                new Date();
+
+
+            today.setHours(
+                0,
+                0,
+                0,
+                0
+            );
+
+
+            if (
+                selectedDate < today
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Booking date cannot be in the past."
+
+                });
+
+            }
+
+
+            // ------------------------------------------------
+            // CHECK PROPERTY
+            // ------------------------------------------------
+
+            const [propertyRows] =
+                await db.execute(
+
+                    `SELECT
+
+                        id,
+                        title,
+                        type,
+                        purpose,
+                        location,
+                        price,
+                        status
+
+                     FROM properties
+
+                     WHERE id = ?
+
+                     AND status = 'approved'
+
+                     LIMIT 1`,
+
+                    [
+                        propertyId
+                    ]
+
+                );
+
+
+            if (
+                propertyRows.length === 0
+            ) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Property not found or not approved."
+
+                });
+
+            }
+
+
+            const property =
+                propertyRows[0];
+
+
+            // ------------------------------------------------
+            // SAME-DAY BOOKING CHECK
+            // ------------------------------------------------
+
+            const [existingBookings] =
+                await db.execute(
+
+                    `SELECT id
+                     FROM bookings
+                     WHERE property_id = ?
+                     AND start_date = ?
+                     AND status IN
+                     ('pending', 'confirmed')
+                     LIMIT 1`,
+
+                    [
+
+                        property.id,
+
+                        booking_date
+
+                    ]
+
+                );
+
+
+            if (
+                existingBookings.length > 0
+            ) {
+
+                return res.status(409).json({
+
+                    success: false,
+
+                    message:
+                        "This property is already booked for this date."
+
+                });
+
+            }
+
+
+            // ------------------------------------------------
+            // INSERT BOOKING
+            // ------------------------------------------------
+
+            const [result] =
+                await db.execute(
+
+                    `INSERT INTO bookings
+
+                    (
+                        property_id,
+                        user_id,
+                        start_date,
+                        end_date,
+                        duration,
+                        total_amount,
+                        status,
+                        payment_status
+                    )
+
+                    VALUES
+
+                    (
+                        ?,
+                        ?,
+                        ?,
+                        ?,
+                        1,
+                        0,
+                        'pending',
+                        'unpaid'
+                    )`,
+
+                    [
+
+                        property.id,
+
+                        req.session.user.id,
+
+                        booking_date,
+
+                        booking_date
+
+                    ]
+
+                );
+
+
+            res.status(201).json({
+
+                success: true,
+
+                message:
+                    "Property visit booked successfully.",
+
+                booking: {
+
+                    id:
+                        result.insertId,
+
+                    property_id:
+                        property.id,
+
+                    property_title:
+                        property.title,
+
+                    booking_date:
+                        booking_date,
+
+                    status:
+                        "pending",
+
+                    payment_status:
+                        "unpaid"
+
+                }
+
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Booking error:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Failed to create booking."
+
+            });
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// USER BOOKINGS
+// ============================================================
+
+app.get(
+    "/api/my-bookings",
+
+    requireLogin,
+
+    async (req, res) => {
+
+        try {
+
+            const [rows] =
+                await db.execute(
+
+                    `SELECT
+
+                        b.id,
+                        b.property_id,
+                        b.start_date,
+                        b.end_date,
+                        b.duration,
+                        b.total_amount,
+                        b.status,
+                        b.payment_status,
+                        b.created_at,
+
+                        p.title AS property_title,
+                        p.location,
+                        p.type,
+                        p.purpose,
+                        p.price,
+                        p.image
+
+                    FROM bookings b
+
+                    JOIN properties p
+                    ON b.property_id = p.id
+
+                    WHERE b.user_id = ?
+
+                    ORDER BY b.id DESC`,
+
+                    [
+                        req.session.user.id
+                    ]
+
+                );
+
+
+            res.json({
+
+                success: true,
+
+                bookings:
+                    rows
+
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "My bookings error:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to load your bookings."
+
+            });
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// ADMIN BOOKINGS
+// ============================================================
+
+app.get(
+    "/api/admin/bookings",
+
+    requireAdmin,
+
+    async (req, res) => {
+
+        try {
+
+            const [rows] =
+                await db.execute(`
+
+                    SELECT
+
+                        b.id,
+                        b.property_id,
+                        b.user_id,
+                        b.start_date,
+                        b.end_date,
+                        b.duration,
+                        b.total_amount,
+                        b.status,
+                        b.payment_status,
+                        b.created_at,
+
+                        p.title AS property_title,
+                        p.location,
+                        p.type,
+                        p.purpose,
+
+                        u.name AS user_name,
+                        u.email AS user_email
+
+                    FROM bookings b
+
+                    JOIN properties p
+                    ON b.property_id = p.id
+
+                    JOIN users u
+                    ON b.user_id = u.id
+
+                    ORDER BY b.id DESC
+
+                `);
+
+
+            res.json({
+
+                success: true,
+
+                bookings:
+                    rows
+
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Admin bookings error:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to load bookings."
+
+            });
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// ADMIN UPDATE BOOKING STATUS
+// ============================================================
+
+app.put(
+    "/api/admin/bookings/:id/status",
+
+    requireAdmin,
+
+    async (req, res) => {
+
+        try {
+
+            const {
+                status
+            } = req.body;
+
+
+            const allowedStatuses = [
+
+                "pending",
+                "confirmed",
+                "cancelled"
+
+            ];
+
+
+            if (
+                !allowedStatuses.includes(
+                    status
+                )
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid booking status."
+
+                });
+
+            }
+
+
+            const [result] =
+                await db.execute(
+
+                    `UPDATE bookings
+                     SET status = ?
+                     WHERE id = ?`,
+
+                    [
+
+                        status,
+
+                        req.params.id
+
+                    ]
+
+                );
+
+
+            if (
+                result.affectedRows === 0
+            ) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Booking not found."
+
+                });
+
+            }
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Booking status updated."
+
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Booking status error:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to update booking status."
+
+            });
+
+        }
+
+    }
+);
+
+
+// ============================================================
 // PROTECTED HOME
-// ======================================================
+// ============================================================
 
 app.get(
     "/home",
+
     (req, res) => {
 
-        if (!req.session.user) {
+        if (
+            !req.session.user
+        ) {
 
             return res.redirect(
                 "/login.html"
@@ -1448,20 +2407,18 @@ app.get(
 );
 
 
-// ======================================================
+// ============================================================
 // ADMIN FOLDER PROTECTION
-// ======================================================
-// IMPORTANT:
-// This must come BEFORE general static files.
+// ============================================================
 
 app.use(
     "/admin",
 
     (req, res, next) => {
 
-        // Not logged in
-
-        if (!req.session.user) {
+        if (
+            !req.session.user
+        ) {
 
             return res.redirect(
                 "/login.html"
@@ -1469,8 +2426,6 @@ app.use(
 
         }
 
-
-        // Normal user
 
         if (
             req.session.user.role !== "admin"
@@ -1483,53 +2438,59 @@ app.use(
         }
 
 
-        // Admin
-
         next();
 
     },
 
-
     express.static(
-
         path.join(
             __dirname,
             "admin"
         )
-
     )
 
 );
 
 
-// ======================================================
-// SERVE UPLOADED IMAGES
-// ======================================================
+// ============================================================
+// UPLOADS
+// ============================================================
 
 app.use(
     "/uploads",
-    express.static(uploadFolder)
+
+    express.static(
+        uploadFolder
+    )
 );
 
 
-// ======================================================
-// SERVE OTHER PROJECT FILES
-// ======================================================
+// ============================================================
+// STATIC PROJECT FILES
+// ============================================================
 
 app.use(
-    express.static(__dirname)
+    express.static(
+        __dirname
+    )
 );
 
 
-// ======================================================
-// ERROR HANDLER FOR MULTER
-// ======================================================
+// ============================================================
+// MULTER / SERVER ERROR HANDLER
+// ============================================================
 
 app.use(
-    (error, req, res, next) => {
+    (
+        error,
+        req,
+        res,
+        next
+    ) => {
 
         if (
-            error instanceof multer.MulterError
+            error instanceof
+            multer.MulterError
         ) {
 
             return res.status(400).json({
@@ -1563,18 +2524,32 @@ app.use(
         }
 
 
-        next(error);
+        console.error(
+            "Server error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Internal server error."
+
+        });
 
     }
 );
 
 
-// ======================================================
+// ============================================================
 // START SERVER
-// ======================================================
+// ============================================================
 
 app.listen(
     PORT,
+
     () => {
 
         console.log(

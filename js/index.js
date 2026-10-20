@@ -2382,3 +2382,990 @@ document.addEventListener(
 
     }
 );
+ 
+async function logoutUser() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/logout",
+                {
+                    method: "POST",
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            alert(
+                "Logged out successfully."
+            );
+
+            window.location.href =
+                "/login.html";
+
+        }
+
+        else {
+
+            alert(
+                data.message ||
+                "Logout failed."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Unable to logout."
+        );
+
+    }
+
+}
+// ============================================================
+// ESTATE-EASE FEATURED PROPERTIES
+// OLD + NEW APPROVED UPLOADED PROPERTIES
+// ============================================================
+
+
+// ============================================================
+// OLD FEATURED PROPERTIES
+// ============================================================
+
+const oldFeaturedProperties = [
+
+    {
+        id: "featured-1",
+
+        title: "Premium 2 BHK Home",
+
+        type: "Apartment",
+
+        purpose: "Rent",
+
+        location: "HSR Layout, Bangalore",
+
+        price: "₹35,000/mo",
+
+        bedrooms: "2",
+
+        bathrooms: "2",
+
+        area: "1,200 sqft",
+
+        description:
+            "Premium 2 BHK home with modern facilities and convenient location.",
+
+        owner_name:
+            "Estate-Ease Owner",
+
+        owner_phone:
+            "+91 9876543210",
+
+        image:
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
+
+        source:
+            "featured"
+
+    },
+
+
+    {
+        id: "featured-2",
+
+        title: "Lakeview Signature Villa",
+
+        type: "Villa",
+
+        purpose: "Sale",
+
+        location: "Whitefield, Bangalore",
+
+        price: "₹2.40 Crore",
+
+        bedrooms: "4",
+
+        bathrooms: "4",
+
+        area: "3,200 sqft",
+
+        description:
+            "Luxury villa with spacious rooms and premium lifestyle facilities.",
+
+        owner_name:
+            "Estate-Ease Owner",
+
+        owner_phone:
+            "+91 9876543211",
+
+        image:
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85",
+
+        source:
+            "featured"
+
+    },
+
+
+    {
+        id: "featured-3",
+
+        title: "Greenwood Estate",
+
+        type: "Villa",
+
+        purpose: "Sale",
+
+        location: "Sarjapur Road, Bangalore",
+
+        price: "₹1.85 Crore",
+
+        bedrooms: "4",
+
+        bathrooms: "3",
+
+        area: "2,800 sqft",
+
+        description:
+            "Modern villa designed for comfortable family living.",
+
+        owner_name:
+            "Estate-Ease Owner",
+
+        owner_phone:
+            "+91 9876543212",
+
+        image:
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85",
+
+        source:
+            "featured"
+
+    },
+
+
+    {
+        id: "featured-4",
+
+        title: "Skyline Premium Apartment",
+
+        type: "Apartment",
+
+        purpose: "Sale",
+
+        location: "Koramangala, Bangalore",
+
+        price: "₹1.20 Crore",
+
+        bedrooms: "3",
+
+        bathrooms: "3",
+
+        area: "1,900 sqft",
+
+        description:
+            "Premium apartment located in a prime urban location.",
+
+        owner_name:
+            "Estate-Ease Owner",
+
+        owner_phone:
+            "+91 9876543213",
+
+        image:
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=85",
+
+        source:
+            "featured"
+
+    }
+
+];
+
+
+// ============================================================
+// NEW APPROVED PROPERTIES FROM DATABASE
+// ============================================================
+
+let uploadedProperties = [];
+
+
+// ============================================================
+// COMBINED PROPERTY LIST
+// ============================================================
+
+let allFeaturedProperties = [];
+
+
+// ============================================================
+// LOAD APPROVED PROPERTIES
+// ============================================================
+
+async function loadFeaturedProperties() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/properties",
+                {
+                    method: "GET"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            response.ok &&
+            data.success &&
+            Array.isArray(data.properties)
+        ) {
+
+            uploadedProperties =
+                data.properties.map(
+                    property => ({
+
+                        ...property,
+
+                        source:
+                            "uploaded"
+
+                    })
+                );
+
+        }
+
+        else {
+
+            uploadedProperties = [];
+
+        }
+
+
+        // ====================================================
+        // COMBINE NEW + OLD
+        // ====================================================
+
+        allFeaturedProperties = [
+
+            ...uploadedProperties,
+
+            ...oldFeaturedProperties
+
+        ];
+
+
+        // ====================================================
+        // RENDER
+        // ====================================================
+
+        renderFeaturedProperties(
+            allFeaturedProperties
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Featured properties error:",
+            error
+        );
+
+
+        // If API fails, old properties still show
+
+        allFeaturedProperties =
+            [...oldFeaturedProperties];
+
+
+        renderFeaturedProperties(
+            allFeaturedProperties
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// RENDER FEATURED PROPERTIES
+// ============================================================
+
+function renderFeaturedProperties(
+    properties
+) {
+
+    const grid =
+        document.getElementById(
+            "featuredPropertyGrid"
+        );
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    if (
+        properties.length === 0
+    ) {
+
+        grid.innerHTML = `
+
+            <div class="no-properties">
+
+                No properties available right now.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        properties.map(
+            (property, index) => {
+
+
+                const image =
+                    property.image ||
+                    "images/default-property.jpg";
+
+
+                const tag =
+                    property.source === "uploaded"
+                        ? "NEW PROPERTY"
+                        : (
+                            property.purpose
+                                ? property.purpose.toUpperCase()
+                                : "FEATURED"
+                        );
+
+
+                const price =
+                    property.price
+                        ? formatPropertyPrice(
+                            property.price
+                        )
+                        : "Price on request";
+
+
+                const bedrooms =
+                    property.bedrooms ||
+                    0;
+
+
+                const bathrooms =
+                    property.bathrooms ||
+                    0;
+
+
+                const area =
+                    property.area ||
+                    "N/A";
+
+
+                return `
+
+                    <div
+                        class="property-card"
+                        onclick="openFeaturedProperty(${index})"
+                    >
+
+                        <div class="property-image">
+
+                            <img
+                                src="${escapePropertyHTML(image)}"
+                                alt="${escapePropertyHTML(property.title || "Property")}"
+                            >
+
+
+                            <span class="property-tag">
+
+                                ${escapePropertyHTML(tag)}
+
+                            </span>
+
+
+                            <div
+                                class="heart"
+                                onclick="event.stopPropagation(); favorite(this)"
+                            >
+                                ♡
+                            </div>
+
+                        </div>
+
+
+                        <div class="property-info">
+
+                            <h3>
+                                ${escapePropertyHTML(
+                                    property.title ||
+                                    "Property"
+                                )}
+                            </h3>
+
+
+                            <div class="location">
+
+                                📍
+                                ${escapePropertyHTML(
+                                    property.location ||
+                                    "Location not available"
+                                )}
+
+                            </div>
+
+
+                            <div class="property-details">
+
+                                <span>
+                                    🛏 ${escapePropertyHTML(
+                                        String(bedrooms)
+                                    )} Beds
+                                </span>
+
+                                <span>
+                                    🚿 ${escapePropertyHTML(
+                                        String(bathrooms)
+                                    )} Baths
+                                </span>
+
+                                <span>
+                                    📐 ${escapePropertyHTML(
+                                        String(area)
+                                    )}
+                                </span>
+
+                            </div>
+
+
+                            <div class="property-bottom">
+
+                                <div class="price">
+
+                                    ${escapePropertyHTML(
+                                        price
+                                    )}
+
+                                </div>
+
+
+                                <button
+                                    type="button"
+                                    class="view-btn"
+                                    onclick="
+                                        event.stopPropagation();
+                                        openFeaturedProperty(${index});
+                                    "
+                                >
+
+                                    View Details →
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+// ============================================================
+// OPEN FEATURED PROPERTY
+// ============================================================
+
+function openFeaturedProperty(
+    index
+) {
+
+    const property =
+        allFeaturedProperties[index];
+
+
+    if (!property) {
+
+        return;
+
+    }
+
+
+    // ========================================================
+    // SAVE CURRENT PROPERTY
+    // ========================================================
+
+    window.currentFeaturedProperty =
+        property;
+
+
+    // ========================================================
+    // USE EXISTING POPUP
+    // ========================================================
+
+    const modal =
+        document.getElementById(
+            "propertyModal"
+        );
+
+
+    if (!modal) {
+
+        console.error(
+            "Property modal not found."
+        );
+
+        return;
+
+    }
+
+
+    const image =
+        document.getElementById(
+            "propertyImage"
+        );
+
+
+    const title =
+        document.getElementById(
+            "popupTitle"
+        );
+
+
+    const location =
+        document.getElementById(
+            "popupLocation"
+        );
+
+
+    const details =
+        document.getElementById(
+            "popupDetails"
+        );
+
+
+    const price =
+        document.getElementById(
+            "popupPrice"
+        );
+
+
+    const owner =
+        document.getElementById(
+            "popupOwner"
+        );
+
+
+    const phone =
+        document.getElementById(
+            "popupPhone"
+        );
+
+
+    const description =
+        document.getElementById(
+            "popupDescription"
+        );
+
+
+    if (image) {
+
+        image.src =
+            property.image ||
+            "";
+
+    }
+
+
+    if (title) {
+
+        title.textContent =
+            property.title ||
+            "Property";
+
+    }
+
+
+    if (location) {
+
+        location.textContent =
+            "📍 " +
+            (
+                property.location ||
+                "Location unavailable"
+            );
+
+    }
+
+
+    if (details) {
+
+        details.innerHTML = `
+
+            <span>
+                🛏 ${property.bedrooms || 0} Beds
+            </span>
+
+            <span>
+                🚿 ${property.bathrooms || 0} Baths
+            </span>
+
+            <span>
+                📐 ${property.area || "N/A"}
+            </span>
+
+        `;
+
+    }
+
+
+    if (price) {
+
+        price.textContent =
+            formatPropertyPrice(
+                property.price
+            );
+
+    }
+
+
+    if (owner) {
+
+        owner.textContent =
+            property.owner_name ||
+            "Property Owner";
+
+    }
+
+
+    if (phone) {
+
+        phone.textContent =
+            property.owner_phone ||
+            "Phone not available";
+
+    }
+
+
+    if (description) {
+
+        description.textContent =
+            property.description ||
+            "Property available on Estate-Ease.";
+
+    }
+
+
+    // ========================================================
+    // CONTACT OWNER
+    // ========================================================
+
+    const contactButton =
+        document.getElementById(
+            "contactOwnerBtn"
+        );
+
+
+    if (
+        contactButton &&
+        property.owner_phone
+    ) {
+
+        const cleanPhone =
+            String(
+                property.owner_phone
+            )
+                .replace(
+                    /[^0-9+]/g,
+                    ""
+                );
+
+
+        contactButton.href =
+            "tel:" +
+            cleanPhone;
+
+    }
+
+
+    // ========================================================
+    // OPEN MODAL
+    // ========================================================
+
+    modal.style.display =
+        "block";
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+// ============================================================
+// FEATURED SEARCH
+// ============================================================
+
+function filterFeaturedProperties() {
+
+    const searchInput =
+        document.getElementById(
+            "featuredSearch"
+        );
+
+
+    const typeSelect =
+        document.getElementById(
+            "featuredType"
+        );
+
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+
+    const selectedType =
+        typeSelect
+            ? typeSelect.value
+            : "all";
+
+
+    const filtered =
+        allFeaturedProperties.filter(
+            property => {
+
+
+                const searchableText = [
+
+                    property.title,
+
+                    property.location,
+
+                    property.type,
+
+                    property.purpose,
+
+                    property.owner_name,
+
+                    property.description
+
+                ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLowerCase();
+
+
+                const searchMatch =
+                    !search ||
+                    searchableText.includes(
+                        search
+                    );
+
+
+                const typeMatch =
+                    selectedType === "all" ||
+                    normalizePropertyType(
+                        property.type
+                    ) ===
+                    normalizePropertyType(
+                        selectedType
+                    );
+
+
+                return (
+                    searchMatch &&
+                    typeMatch
+                );
+
+            }
+        );
+
+
+    renderFeaturedProperties(
+        filtered
+    );
+
+}
+
+
+// ============================================================
+// NORMALIZE PROPERTY TYPE
+// ============================================================
+
+function normalizePropertyType(
+    type
+) {
+
+    const value =
+        String(
+            type || ""
+        )
+            .trim()
+            .toLowerCase();
+
+
+    if (
+        value === "independent house" ||
+        value === "house"
+    ) {
+
+        return "house";
+
+    }
+
+
+    if (
+        value === "commercial" ||
+        value === "office" ||
+        value === "shop"
+    ) {
+
+        return "commercial";
+
+    }
+
+
+    return value;
+
+}
+
+
+// ============================================================
+// PRICE FORMAT
+// ============================================================
+
+function formatPropertyPrice(
+    price
+) {
+
+    if (
+        price === null ||
+        price === undefined ||
+        price === ""
+    ) {
+
+        return "Price on request";
+
+    }
+
+
+    const value =
+        String(price);
+
+
+    // If price already contains ₹ or text
+    if (
+        value.includes("₹") ||
+        value.includes("Lakh") ||
+        value.includes("Crore") ||
+        value.includes("/") ||
+        value.includes("Cr")
+    ) {
+
+        return value;
+
+    }
+
+
+    const number =
+        Number(value);
+
+
+    if (
+        Number.isNaN(number)
+    ) {
+
+        return value;
+
+    }
+
+
+    return "₹" +
+        number.toLocaleString("en-IN");
+
+}
+
+
+// ============================================================
+// HTML ESCAPE
+// ============================================================
+
+function escapePropertyHTML(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// ============================================================
+// LOAD FEATURED PROPERTIES
+// ============================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadFeaturedProperties();
+
+    }
+);

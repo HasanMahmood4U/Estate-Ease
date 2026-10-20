@@ -2,92 +2,76 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/login.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Estate-Ease | Login</title>
+    <title>Login | Estate-Ease</title>
+
+    <link
+        rel="stylesheet"
+        href="css/login.css"
+    >
+
 </head>
+
 
 <body>
 
+
     <div class="login-container">
-
-        <!-- =========================
-             LEFT SIDE
-        ========================== -->
-
-        <div class="login-image">
-
-            <h1>Find Your Dream Home</h1>
-
-            <p>
-                Discover beautiful properties and find the perfect place
-                to call home with Estate-Ease.
-            </p>
-
-        </div>
+        
+        <div class="login-card">
+            <a href="index.html" class="back-link">
+            &larr; Back
+        </a>
 
 
-        <!-- =========================
-             RIGHT SIDE
-        ========================== -->
 
-        <div class="login-form">
+            <!-- LOGO -->
 
-            <!-- Back -->
-            <div class="login-back">
-                <a href="index.html">← Back</a>
-            </div>
-
-
-            <!-- Logo -->
             <div class="logo">
-                Estate-Ease
+
+                <span>Estate</span>
+                <b>-Ease</b>
+
             </div>
 
 
-            <h2>Welcome Back</h2>
+            <h1>Welcome Back</h1>
 
             <p class="subtitle">
-                Login to manage your properties and account.
+                Login to continue to Estate-Ease
             </p>
 
 
-            <!-- =========================
-                 LOGIN FORM
-            ========================== -->
+            <!-- AUTO ACCOUNT INFO -->
 
-            <form onsubmit="login(event)">
+            <div class="auto-account-info">
 
+                <strong>New user?</strong>
 
-                <!-- Login Type -->
+                Just enter your email and password.
+                Your Estate-Ease account will be created automatically.
 
-                <div class="input-group">
-
-                    <label for="loginType">
-                        Login As
-                    </label>
-
-                    <select id="loginType" required>
-
-                        <option value="user">
-                            Normal User
-                        </option>
-
-                        <option value="admin">
-                            Admin
-                        </option>
-
-                    </select>
-
-                </div>
+            </div>
 
 
-                <!-- Email -->
+            <!-- LOGIN FORM -->
 
-                <div class="input-group">
+            <form
+                id="loginForm"
+                onsubmit="login(event)"
+            >
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
 
                     <label for="email">
                         Email Address
@@ -96,16 +80,18 @@
                     <input
                         type="email"
                         id="email"
+                        name="email"
                         placeholder="Enter your email"
+                        autocomplete="email"
                         required
                     >
 
                 </div>
 
 
-                <!-- Password -->
+                <!-- PASSWORD -->
 
-                <div class="input-group">
+                <div class="form-group">
 
                     <label for="password">
                         Password
@@ -114,73 +100,68 @@
                     <input
                         type="password"
                         id="password"
+                        name="password"
                         placeholder="Enter your password"
+                        autocomplete="current-password"
+                        minlength="6"
                         required
                     >
 
                 </div>
 
 
-                <!-- Options -->
+                <!-- REMEMBER -->
 
-                <div class="options">
+                <div class="login-options">
 
-                    <label class="remember">
 
-                        <input type="checkbox" id="rememberMe">
+                    <label class="remember-box">
 
-                        Remember me
+                        <input
+                            type="checkbox"
+                            id="remember"
+                            checked
+                        >
+
+                        <span>
+                            Remember me
+                        </span>
 
                     </label>
 
 
-                    <a href="#" class="forgot">
-                        Forgot Password?
-                    </a>
-
                 </div>
 
 
-                <!-- Login Button -->
+                <!-- LOGIN BUTTON -->
 
                 <button
                     type="submit"
-                    class="login-btn">
+                    id="loginButton"
+                    class="login-btn"
+                >
 
                     Login
 
                 </button>
 
+
             </form>
 
 
-            <!-- OR -->
+            <p
+                id="loginMessage"
+                class="login-message"
+            ></p>
 
-            <div class="divider">
-                OR
-            </div>
-
-
-            <!-- Create Account -->
-
-            <p class="signup">
-
-                Don't have an account?
-
-                <a href="signup.html">
-                    Create Account
-                </a>
-
-            </p>
 
         </div>
 
     </div>
 
 
-    <!-- JavaScript -->
-
     <script src="js/login.js"></script>
+
 
 </body>
 

@@ -9,11 +9,523 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
-    <link rel="stylesheet" href="css/search-results.css">
 
     <title>Search Results | Estate-Ease</title>
 
-    
+    <link
+        rel="stylesheet"
+        href="css/search-results.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f8f7;
+            color: #222;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 75px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: #0d6b4b;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #f4a62a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #0d6b4b;
+        }
+
+        .logout-btn {
+            border: none;
+            background: #dc3545;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #b02a37;
+        }
+
+        /* ================= HEADER ================= */
+
+        .results-header {
+            text-align: center;
+            padding: 45px 20px 25px;
+        }
+
+        .results-header h1 {
+            color: #0d6b4b;
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .results-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        #resultInfo {
+            margin-top: 10px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-area {
+            max-width: 850px;
+            margin: 0 auto 35px;
+            padding: 0 20px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            height: 50px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 0 16px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #0d6b4b;
+        }
+
+        .search-box button {
+            width: 130px;
+            border: none;
+            border-radius: 8px;
+            background: #0d6b4b;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background: #09543b;
+        }
+
+        /* ================= RESULTS ================= */
+
+        .results-container {
+            width: 90%;
+            max-width: 1250px;
+            margin: 0 auto 60px;
+        }
+
+        #propertyContainer {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 5px 22px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .property-content {
+            padding: 20px;
+        }
+
+        .property-content h2 {
+            color: #0d6b4b;
+            font-size: 21px;
+            margin-bottom: 7px;
+        }
+
+        .property-brand {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .property-location {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .property-details {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .property-price {
+            color: #f4a62a;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .view-btn {
+            width: 100%;
+            border: none;
+            padding: 12px;
+            background: #0d6b4b;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .view-btn:hover {
+            background: #09543b;
+        }
+
+        /* ================= NO RESULT ================= */
+
+        #noResult {
+            display: none;
+            text-align: center;
+            padding: 70px 20px;
+            color: #666;
+        }
+
+        #noResult h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* ================= MODAL ================= */
+
+        .property-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.72);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 30px 15px;
+        }
+
+        .property-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 1050px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-height: 90vh;
+        }
+
+        .modal-image-side {
+            background: #111;
+            min-height: 600px;
+            position: relative;
+        }
+
+        #modalImage {
+            width: 100%;
+            height: 100%;
+            min-height: 600px;
+            object-fit: cover;
+        }
+
+        .modal-content {
+            padding: 35px;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 18px;
+            top: 15px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.65);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        #modalTitle {
+            font-size: 29px;
+            color: #0d6b4b;
+            margin-bottom: 7px;
+        }
+
+        #modalBrand {
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        #modalLocation {
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        #modalDetails {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        #modalPrice {
+            font-size: 24px;
+            font-weight: 800;
+            color: #f4a62a;
+            margin-bottom: 20px;
+        }
+
+        #modalDescription {
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        /* ================= OWNER ================= */
+
+        .owner-box {
+            background: #f6f8f7;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .owner-box h3 {
+            color: #0d6b4b;
+            margin-bottom: 10px;
+        }
+
+        .owner-box p {
+            margin: 5px 0;
+            color: #444;
+        }
+
+        #callOwnerBtn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: #0d6b4b;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: 700;
+        }
+
+        /* ================= BOOKING ================= */
+
+        .booking-box {
+            border: 1px solid #e2e2e2;
+            border-radius: 12px;
+            padding: 20px;
+            background: white;
+        }
+
+        .booking-box h3 {
+            color: #0d6b4b;
+            margin-bottom: 15px;
+        }
+
+        .booking-box label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        #bookingDate {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 0 12px;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        #bookVisitBtn {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 8px;
+            background: #0d6b4b;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        #bookVisitBtn:hover {
+            background: #09543b;
+        }
+
+        #bookVisitBtn:disabled {
+            background: #888;
+            cursor: not-allowed;
+        }
+
+        /* ================= LOGIN MESSAGE ================= */
+
+        .login-note {
+            margin-top: 10px;
+            color: #777;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #10231c;
+            color: white;
+            padding: 35px 6%;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        #footerAuth {
+            margin-top: 15px;
+        }
+
+        #footerLogout {
+            border: none;
+            background: #dc3545;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        #footerLogout:hover {
+            background: #b02a37;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            #propertyContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-box {
+                grid-template-columns: 1fr;
+                max-height: 95vh;
+            }
+
+            .modal-image-side {
+                min-height: 350px;
+            }
+
+            #modalImage {
+                min-height: 350px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            #propertyContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box button {
+                width: 100%;
+                height: 50px;
+            }
+
+            .results-header h1 {
+                font-size: 27px;
+            }
+
+            .modal-content {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -21,256 +533,213 @@
 <body>
 
 
-<!-- ================= NAVBAR ================= -->
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-<header>
+<nav class="navbar">
 
-    <nav class="navbar">
-
-        <div class="logo">
-            Estate<span>-Ease</span>
-        </div>
-
-
-        <ul class="nav-links">
-
-            <li>
-                <a href="index.html">
-                    Home
-                </a>
-            </li>
-
-            <li>
-                <a href="index.html#properties">
-                    Properties
-                </a>
-            </li>
-
-            <li>
-                <a href="index.html#categories">
-                    Categories
-                </a>
-            </li>
-
-            <li>
-                <a href="index.html#about">
-                    About
-                </a>
-            </li>
-
-            <li>
-                <a href="index.html#contact">
-                    Contact
-                </a>
-            </li>
-
-        </ul>
+    <a
+        href="index.html"
+        class="logo"
+    >
+        Estate<span>-Ease</span>
+    </a>
 
 
-        <div class="nav-buttons">
+    <ul class="nav-links">
 
-            <a
-                href="login.html"
-                class="login-btn"
-            >
-                Login
+        <li>
+            <a href="index.html">
+                Home
             </a>
+        </li>
 
-            <a
-                href="post.html"
-                class="post-btn"
-            >
+        <li>
+            <a href="apartments.html">
+                Apartments
+            </a>
+        </li>
+
+        <li>
+            <a href="villas.html">
+                Villas
+            </a>
+        </li>
+
+        <li>
+            <a href="post.html">
                 Post Property
             </a>
+        </li>
 
-        </div>
+        <li id="authNav">
+            <a href="login.html">
+                Login
+            </a>
+        </li>
 
-    </nav>
+    </ul>
 
-</header>
+</nav>
 
 
-<!-- ================= PAGE HEADER ================= -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <section class="results-header">
 
     <h1>
-        Search Results
+        Property Search Results
     </h1>
 
     <p>
-        Properties matching your search
+        Find properties that match your requirements.
     </p>
+
+    <div id="resultInfo">
+        Loading properties...
+    </div>
 
 </section>
 
 
-<!-- ================= SEARCH SUMMARY ================= -->
+<!-- =====================================================
+     SEARCH
+===================================================== -->
 
-<section class="search-summary">
+<section class="search-area">
 
-    <div class="search-summary-box">
+    <div class="search-box">
 
-        <div>
-
-            <div
-                class="criteria"
-                id="criteria"
-            ></div>
-
-            <div
-                class="result-count"
-                id="resultCount"
-            ></div>
-
-        </div>
-
-
-        <a
-            href="index.html"
-            class="back-btn"
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by location, property name or type..."
         >
-            ← Back to Home
-        </a>
+
+        <button
+            type="button"
+            onclick="performSearch()"
+        >
+            Search
+        </button>
 
     </div>
 
 </section>
 
 
-<!-- ================= RESULTS ================= -->
+<!-- =====================================================
+     RESULTS
+===================================================== -->
 
 <main class="results-container">
 
-    <div
-        class="property-grid"
-        id="resultsGrid"
-    ></div>
+    <div id="propertyContainer"></div>
 
-
-    <div
-        class="no-result"
-        id="noResult"
-    >
-
-        <div class="icon">
-            🏠
-        </div>
+    <div id="noResult">
 
         <h2>
-            No Properties Found
+            No properties found
         </h2>
 
         <p>
-            Try another location,
-            property type or search mode.
+            Try another location, property name or type.
         </p>
-
-        <a
-            href="index.html"
-            class="back-btn"
-        >
-            Search Again
-        </a>
 
     </div>
 
 </main>
 
 
-<!-- ================= PROPERTY MODAL ================= -->
+<!-- =====================================================
+     PROPERTY MODAL
+===================================================== -->
 
 <div
-    class="property-modal"
     id="propertyModal"
+    class="property-modal"
 >
 
-    <div class="modal-content">
+    <div class="modal-box">
 
         <button
+            type="button"
             class="close-modal"
-            onclick="closeModal()"
+            onclick="closePropertyModal()"
         >
             ×
         </button>
 
 
-        <div class="modal-image-area">
+        <!-- IMAGE -->
+
+        <div class="modal-image-side">
 
             <img
                 id="modalImage"
-                class="modal-image"
                 src=""
                 alt="Property"
             >
 
-
-            <button
-                class="slider-btn slider-prev"
-                onclick="changeModalImage(-1)"
-            >
-                ❮
-            </button>
-
-
-            <button
-                class="slider-btn slider-next"
-                onclick="changeModalImage(1)"
-            >
-                ❯
-            </button>
-
         </div>
 
 
-        <div class="modal-info">
+        <!-- CONTENT -->
+
+        <div class="modal-content">
 
             <h2 id="modalTitle">
                 Property
             </h2>
 
+            <p id="modalBrand"></p>
 
-            <div
-                class="modal-location"
-                id="modalLocation"
-            ></div>
+            <p id="modalLocation"></p>
 
+            <p id="modalDetails"></p>
 
-            <div
-                class="modal-details"
-                id="modalDetails"
-            ></div>
+            <div id="modalPrice"></div>
 
-
-            <div
-                class="modal-price"
-                id="modalPrice"
-            ></div>
-
-
-            <p
-                class="modal-description"
-                id="modalDescription"
-            ></p>
+            <p id="modalDescription"></p>
 
 
             <!-- OWNER -->
 
             <div class="owner-box">
 
-                <h4>
-                    👤 Property Owner
-                </h4>
+                <h3>
+                    Property Owner
+                </h3>
 
                 <p>
-                    <strong>Name:</strong>
-                    <span id="modalOwner"></span>
+
+                    <strong>
+                        Name:
+                    </strong>
+
+                    <span id="modalOwnerName"></span>
+
                 </p>
 
                 <p>
-                    <strong>Phone:</strong>
-                    <span id="modalPhone"></span>
+
+                    <strong>
+                        Phone:
+                    </strong>
+
+                    <span id="modalOwnerPhone"></span>
+
                 </p>
+
+                <a
+                    id="callOwnerBtn"
+                    href="#"
+                >
+                    ☎ Contact Owner
+                </a>
 
             </div>
 
@@ -278,6 +747,10 @@
             <!-- BOOKING -->
 
             <div class="booking-box">
+
+                <h3>
+                    Book Property Visit
+                </h3>
 
                 <label for="bookingDate">
                     Select Visit Date
@@ -288,26 +761,17 @@
                     id="bookingDate"
                 >
 
-            </div>
-
-
-            <div class="modal-actions">
-
                 <button
-                    class="book-btn"
+                    type="button"
+                    id="bookVisitBtn"
                     onclick="bookProperty()"
                 >
-                    📅 Book Property
+                    📅 Book Visit
                 </button>
 
-
-                <a
-                    id="contactBtn"
-                    class="contact-btn"
-                    href="#"
-                >
-                    📞 Contact Owner
-                </a>
+                <p class="login-note">
+                    Login is required before booking.
+                </p>
 
             </div>
 
@@ -318,291 +782,351 @@
 </div>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
     <p>
-        © 2026 Estate-Ease.
-        All Rights Reserved.
+        © 2026 Estate-Ease. All Rights Reserved.
     </p>
+
+    <div id="footerAuth"></div>
 
 </footer>
 
 
 <script>
 
-/* =========================================================
-   ESTATE-EASE SEARCH RESULTS
-========================================================= */
 
-let searchResults = [];
+// ======================================================
+// GLOBAL VARIABLES
+// ======================================================
 
-let selectedProperty = null;
+let allProperties = [];
 
-let currentModalImageIndex = 0;
+let filteredProperties = [];
+
+let selectedPropertyIndex = null;
 
 
-/* =========================================================
-   LOAD SEARCH RESULTS
-========================================================= */
+// ======================================================
+// CHECK LOGIN STATUS
+// ======================================================
 
-function loadSearchResults() {
+async function checkLoginStatus() {
 
-    const storedResults =
-        sessionStorage.getItem(
-            "estateEaseSearchResults"
+    try {
+
+        const response = await fetch(
+            "/api/me",
+            {
+                method: "GET",
+                credentials: "include"
+            }
         );
 
 
-    const storedCriteria =
-        sessionStorage.getItem(
-            "estateEaseSearchCriteria"
+        const data = await response.json();
+
+
+        /*
+         * Support both possible server responses:
+         *
+         * { loggedIn: true, user: {...} }
+         *
+         * OR
+         *
+         * { user: {...} }
+         */
+
+        const loggedIn =
+            data.loggedIn === true ||
+            !!data.user;
+
+
+        const authNav =
+            document.getElementById(
+                "authNav"
+            );
+
+
+        const footerAuth =
+            document.getElementById(
+                "footerAuth"
+            );
+
+
+        if (loggedIn) {
+
+            authNav.innerHTML = `
+                <button
+                    class="logout-btn"
+                    onclick="logoutUser()"
+                >
+                    Logout
+                </button>
+            `;
+
+
+            footerAuth.innerHTML = `
+                <button
+                    id="footerLogout"
+                    onclick="logoutUser()"
+                >
+                    Logout
+                </button>
+            `;
+
+        }
+
+        else {
+
+            authNav.innerHTML = `
+                <a href="login.html">
+                    Login
+                </a>
+            `;
+
+
+            footerAuth.innerHTML = `
+                <a href="login.html">
+                    Login
+                </a>
+            `;
+
+        }
+
+
+        return loggedIn;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Login status error:",
+            error
         );
 
-
-    /*
-       READ RESULTS
-    */
-
-    if (storedResults) {
-
-        try {
-
-            searchResults =
-                JSON.parse(
-                    storedResults
-                );
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Unable to read search results:",
-                error
-            );
-
-            searchResults = [];
-
-        }
+        return false;
 
     }
-
-    else {
-
-        searchResults = [];
-
-    }
-
-
-    /*
-       READ CRITERIA
-    */
-
-    let criteria = null;
-
-
-    if (storedCriteria) {
-
-        try {
-
-            criteria =
-                JSON.parse(
-                    storedCriteria
-                );
-
-        }
-
-        catch (error) {
-
-            criteria = null;
-
-        }
-
-    }
-
-
-    /*
-       URL FALLBACK
-    */
-
-    if (!criteria) {
-
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
-
-        criteria = {
-
-            location:
-                params.get("location") || "",
-
-            type:
-                params.get("type") || "all",
-
-            mode:
-                params.get("mode") || "Buy",
-
-            bedrooms:
-                params.get("bedrooms") || "Any",
-
-            budget:
-                params.get("budget") || "Any Budget"
-
-        };
-
-    }
-
-
-    displayCriteria(criteria);
-
-    renderSearchResults(searchResults);
 
 }
 
 
-/* =========================================================
-   DISPLAY SEARCH CRITERIA
-========================================================= */
+// ======================================================
+// LOGOUT
+// ======================================================
 
-function displayCriteria(criteria) {
+async function logoutUser() {
 
-    const container =
-        document.getElementById(
-            "criteria"
-        );
+    try {
 
-
-    if (!container) return;
-
-
-    container.innerHTML = "";
-
-
-    const mode =
-        criteria.mode || "Buy";
+        const response =
+            await fetch(
+                "/api/logout",
+                {
+                    method: "POST",
+                    credentials: "include"
+                }
+            );
 
 
-    const type =
-        criteria.type || "all";
+        if (response.ok) {
 
+            alert(
+                "You have been logged out."
+            );
 
-    const location =
-        criteria.location || "";
+            window.location.href =
+                "login.html";
 
+        }
 
-    const bedrooms =
-        criteria.bedrooms || "Any";
+        else {
 
-
-    const budget =
-        criteria.budget || "Any Budget";
-
-
-    let typeText =
-        type;
-
-
-    if (type === "all") {
-
-        typeText =
-            "All Types";
-
-    }
-
-
-    const values = [
-
-        `Mode: ${mode}`,
-
-        `Type: ${typeText}`,
-
-        `Location: ${
-            location || "All Locations"
-        }`
-
-    ];
-
-
-    if (
-        bedrooms &&
-        bedrooms !== "Any"
-    ) {
-
-        values.push(
-            `Bedrooms: ${bedrooms}`
-        );
-
-    }
-
-
-    if (
-        budget &&
-        budget !== "Any Budget"
-    ) {
-
-        values.push(
-            `Budget: ${budget}`
-        );
-
-    }
-
-
-    values.forEach(
-        value => {
-
-            const span =
-                document.createElement(
-                    "span"
-                );
-
-
-            span.innerText =
-                value;
-
-
-            container.appendChild(
-                span
+            alert(
+                "Logout failed."
             );
 
         }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+        alert(
+            "Unable to logout."
+        );
+
+    }
+
+}
+
+
+// ======================================================
+// GET INITIAL SEARCH VALUE
+// ======================================================
+
+function getInitialSearchValue() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const urlSearch =
+        params.get("search");
+
+
+    if (urlSearch) {
+
+        return urlSearch;
+
+    }
+
+
+    const sessionSearch =
+        sessionStorage.getItem(
+            "searchValue"
+        );
+
+
+    if (sessionSearch) {
+
+        return sessionSearch;
+
+    }
+
+
+    return "";
+
+}
+
+
+// ======================================================
+// LOAD APPROVED PROPERTIES
+// ======================================================
+
+async function loadProperties() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/properties",
+                {
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load properties."
+            );
+
+        }
+
+
+        allProperties =
+            data.properties || [];
+
+
+        const searchValue =
+            getInitialSearchValue();
+
+
+        document.getElementById(
+            "searchInput"
+        ).value =
+            searchValue;
+
+
+        showResults(
+            searchValue
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Load properties error:",
+            error
+        );
+
+
+        document.getElementById(
+            "resultInfo"
+        ).textContent =
+            "Unable to load properties.";
+
+
+        document.getElementById(
+            "noResult"
+        ).style.display =
+            "block";
+
+    }
+
+}
+
+
+// ======================================================
+// SEARCH
+// ======================================================
+
+function performSearch() {
+
+    const value =
+        document.getElementById(
+            "searchInput"
+        ).value.trim();
+
+
+    sessionStorage.setItem(
+        "searchValue",
+        value
     );
 
 
-    const resultCount =
-        document.getElementById(
-            "resultCount"
-        );
-
-
-    if (resultCount) {
-
-        resultCount.innerText =
-            `${searchResults.length} ${
-                searchResults.length === 1
-                    ? "property"
-                    : "properties"
-            } found`;
-
-    }
+    showResults(
+        value
+    );
 
 }
 
 
-/* =========================================================
-   RENDER RESULTS
-========================================================= */
+// ======================================================
+// SHOW RESULTS
+// ======================================================
 
-function renderSearchResults(
-    properties
+function showResults(
+    searchValue = ""
 ) {
 
-    const grid =
+    const container =
         document.getElementById(
-            "resultsGrid"
+            "propertyContainer"
         );
 
 
@@ -612,43 +1136,105 @@ function renderSearchResults(
         );
 
 
-    if (!grid) return;
+    const resultInfo =
+        document.getElementById(
+            "resultInfo"
+        );
 
 
-    grid.innerHTML = "";
+    const search =
+        String(searchValue)
+            .toLowerCase()
+            .trim();
+
+
+    if (!search) {
+
+        filteredProperties =
+            [
+                ...allProperties
+            ];
+
+    }
+
+    else {
+
+        filteredProperties =
+            allProperties.filter(
+                property => {
+
+                    const text = [
+
+                        property.title,
+
+                        property.type,
+
+                        property.purpose,
+
+                        property.location,
+
+                        property.description,
+
+                        property.owner_name
+
+                    ]
+                    .join(" ")
+                    .toLowerCase();
+
+
+                    return text.includes(
+                        search
+                    );
+
+                }
+            );
+
+    }
+
+
+    container.innerHTML =
+        "";
 
 
     if (
-        !properties ||
-        properties.length === 0
+        filteredProperties.length === 0
     ) {
 
-        if (noResult) {
+        noResult.style.display =
+            "block";
 
-            noResult.style.display =
-                "block";
 
-        }
+        resultInfo.textContent =
+            "0 properties found.";
 
         return;
 
     }
 
 
-    if (noResult) {
-
-        noResult.style.display =
-            "none";
-
-    }
+    noResult.style.display =
+        "none";
 
 
-    properties.forEach(
-        (property, index) => {
+    resultInfo.textContent =
+        filteredProperties.length +
+        (
+            filteredProperties.length === 1
+                ? " property found."
+                : " properties found."
+        );
+
+
+    filteredProperties.forEach(
+        (
+            property,
+            index
+        ) => {
+
 
             const card =
                 document.createElement(
-                    "article"
+                    "div"
                 );
 
 
@@ -657,60 +1243,78 @@ function renderSearchResults(
 
 
             const image =
-                property.images &&
-                property.images.length
-                    ? property.images[0]
-                    : "";
+                property.image ||
+                "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80";
+
+
+            const price =
+                formatPrice(
+                    property.price
+                );
+
+
+            const details = [
+
+                property.bedrooms > 0
+                    ? `${property.bedrooms} Beds`
+                    : null,
+
+                property.bathrooms > 0
+                    ? `${property.bathrooms} Baths`
+                    : null,
+
+                property.area
+                    ? `${property.area} sqft`
+                    : null
+
+            ]
+            .filter(Boolean)
+            .join(" • ");
 
 
             card.innerHTML = `
 
-                <div class="property-image">
+                <img
+                    class="property-image"
+                    src="${escapeHTML(image)}"
+                    alt="${escapeHTML(
+                        property.title ||
+                        "Property"
+                    )}"
+                    onerror="this.src='https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'"
+                >
 
-                    <img
-                        src="${escapeHTML(image)}"
-                        alt="${escapeHTML(
-                            property.name ||
-                            "Property"
-                        )}"
-                    >
 
+                <div class="property-content">
 
-                    <span class="property-tag">
-
+                    <h2>
                         ${escapeHTML(
-                            property.purpose ||
-                            "FOR SALE"
+                            property.title ||
+                            "Property"
                         )}
+                    </h2>
 
-                    </span>
 
-
-                    <span class="type-tag">
+                    <p class="property-brand">
 
                         ${escapeHTML(
                             property.type ||
-                            "Property"
+                            ""
                         )}
 
-                    </span>
+                        ${
+                            property.purpose
+                                ? " • " +
+                                  escapeHTML(
+                                      property.purpose
+                                  )
+                                : ""
+                        }
 
-                </div>
-
-
-                <div class="property-info">
-
-                    <h3>
-
-                        ${escapeHTML(
-                            property.name ||
-                            "Property"
-                        )}
-
-                    </h3>
+                    </p>
 
 
-                    <div class="location">
+                    <p class="property-location">
 
                         📍
 
@@ -719,97 +1323,44 @@ function renderSearchResults(
                             "Location not available"
                         )}
 
-                    </div>
+                    </p>
 
 
-                    <div class="property-details">
+                    <p class="property-details">
 
-                        ${
-                            property.beds > 0
-                            ?
+                        ${escapeHTML(
+                            details ||
+                            "Property details available"
+                        )}
 
-                            `<span>
-                                🛏 ${property.beds} Beds
-                            </span>`
-
-                            :
-
-                            ""
-                        }
+                    </p>
 
 
-                        ${
-                            property.baths > 0
-                            ?
+                    <div class="property-price">
 
-                            `<span>
-                                🚿 ${property.baths} Baths
-                            </span>`
-
-                            :
-
-                            ""
-                        }
-
-
-                        <span>
-
-                            📐
-
-                            ${escapeHTML(
-                                property.area ||
-                                "Area not available"
-                            )}
-
-                        </span>
+                        ${escapeHTML(
+                            price
+                        )}
 
                     </div>
 
 
-                    <div class="owner">
-
-                        👤
-
-                        Owner:
-                        <strong>
-                            ${escapeHTML(
-                                property.owner ||
-                                "Owner not available"
-                            )}
-                        </strong>
-
-                    </div>
-
-
-                    <div class="property-bottom">
-
-                        <div class="price">
-
-                            ${escapeHTML(
-                                property.price ||
-                                "Price on request"
-                            )}
-
-                        </div>
-
-
-                        <button
-                            class="view-btn"
-                            onclick="openModal(${index})"
-                        >
-
-                            View Details →
-
-                        </button>
-
-                    </div>
+                    <button
+                        type="button"
+                        class="view-btn"
+                        onclick="openPropertyPopup(${index})"
+                    >
+                        View Details
+                    </button>
 
                 </div>
 
             `;
 
 
-            grid.appendChild(card);
+            container.appendChild(
+                card
+            );
 
         }
     );
@@ -817,438 +1368,270 @@ function renderSearchResults(
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+// ======================================================
+// FORMAT PRICE
+// ======================================================
 
-function escapeHTML(value) {
+function formatPrice(price) {
 
-    const div =
-        document.createElement(
-            "div"
+    if (
+        price === null ||
+        price === undefined ||
+        price === ""
+    ) {
+
+        return "Price on request";
+
+    }
+
+
+    const number =
+        Number(price);
+
+
+    if (
+        Number.isNaN(number)
+    ) {
+
+        return String(price);
+
+    }
+
+
+    return "₹" +
+        number.toLocaleString(
+            "en-IN"
         );
-
-
-    div.innerText =
-        value === undefined ||
-        value === null
-            ? ""
-            : String(value);
-
-
-    return div.innerHTML;
 
 }
 
 
-/* =========================================================
-   OPEN PROPERTY MODAL
-========================================================= */
+// ======================================================
+// OPEN PROPERTY POPUP
+// ======================================================
 
-function openModal(index) {
+function openPropertyPopup(index) {
+
+    selectedPropertyIndex =
+        index;
+
 
     const property =
-        searchResults[index];
+        filteredProperties[index];
 
 
-    if (!property) return;
-
-
-    selectedProperty =
-        property;
-
-
-    currentModalImageIndex = 0;
-
-
-    const imageList =
-        property.images || [];
-
-
-    const modalImage =
-        document.getElementById(
-            "modalImage"
-        );
-
-
-    if (modalImage) {
-
-        modalImage.src =
-            imageList[0] || "";
-
-    }
-
-
-    const title =
-        document.getElementById(
-            "modalTitle"
-        );
-
-
-    if (title) {
-
-        title.innerText =
-            property.name ||
-            "Property";
-
-    }
-
-
-    const location =
-        document.getElementById(
-            "modalLocation"
-        );
-
-
-    if (location) {
-
-        location.innerText =
-            "📍 " +
-            (
-                property.location ||
-                "Location not available"
-            );
-
-    }
-
-
-    const price =
-        document.getElementById(
-            "modalPrice"
-        );
-
-
-    if (price) {
-
-        price.innerText =
-            property.price ||
-            "Price on request";
-
-    }
-
-
-    const description =
-        document.getElementById(
-            "modalDescription"
-        );
-
-
-    if (description) {
-
-        description.innerText =
-            property.description ||
-            "Beautiful property available through Estate-Ease.";
-
-    }
-
-
-    /* ================= DETAILS ================= */
-
-    const details =
-        document.getElementById(
-            "modalDetails"
-        );
-
-
-    if (details) {
-
-        let html = "";
-
-
-        if (property.type) {
-
-            html += `
-
-                <span>
-                    🏠 ${escapeHTML(
-                        property.type
-                    )}
-                </span>
-
-            `;
-
-        }
-
-
-        if (property.purpose) {
-
-            html += `
-
-                <span>
-                    🏷 ${escapeHTML(
-                        property.purpose
-                    )}
-                </span>
-
-            `;
-
-        }
-
-
-        if (property.beds > 0) {
-
-            html += `
-
-                <span>
-                    🛏 ${property.beds} Beds
-                </span>
-
-            `;
-
-        }
-
-
-        if (property.baths > 0) {
-
-            html += `
-
-                <span>
-                    🚿 ${property.baths} Baths
-                </span>
-
-            `;
-
-        }
-
-
-        if (property.area) {
-
-            html += `
-
-                <span>
-                    📐 ${escapeHTML(
-                        property.area
-                    )}
-                </span>
-
-            `;
-
-        }
-
-
-        if (property.brand) {
-
-            html += `
-
-                <span>
-                    🏷 ${escapeHTML(
-                        property.brand
-                    )}
-                </span>
-
-            `;
-
-        }
-
-
-        details.innerHTML =
-            html;
-
-    }
-
-
-    /* ================= OWNER ================= */
-
-    const owner =
-        document.getElementById(
-            "modalOwner"
-        );
-
-
-    const phone =
-        document.getElementById(
-            "modalPhone"
-        );
-
-
-    if (owner) {
-
-        owner.innerText =
-            property.owner ||
-            "Owner not available";
-
-    }
-
-
-    if (phone) {
-
-        phone.innerText =
-            property.phone
-                ? "+91 " + property.phone
-                : "Phone not available";
-
-    }
-
-
-    /* ================= CONTACT ================= */
-
-    const contactBtn =
-        document.getElementById(
-            "contactBtn"
-        );
-
-
-    if (contactBtn) {
-
-        if (property.phone) {
-
-            contactBtn.href =
-                "tel:+91" +
-                property.phone;
-
-        }
-
-        else {
-
-            contactBtn.href =
-                "#";
-
-        }
-
-    }
-
-
-    /* ================= DATE ================= */
-
-    const bookingDate =
-        document.getElementById(
-            "bookingDate"
-        );
-
-
-    if (bookingDate) {
-
-        bookingDate.value = "";
-
-        const today =
-            new Date()
-                .toISOString()
-                .split("T")[0];
-
-        bookingDate.min =
-            today;
-
-    }
-
-
-    /* ================= SHOW MODAL ================= */
-
-    const modal =
-        document.getElementById(
-            "propertyModal"
-        );
-
-
-    if (modal) {
-
-        modal.style.display =
-            "block";
-
-        document.body.style.overflow =
-            "hidden";
-
-    }
-
-}
-
-
-/* =========================================================
-   CHANGE MODAL IMAGE
-========================================================= */
-
-function changeModalImage(
-    direction
-) {
-
-    if (!selectedProperty) return;
-
-
-    const images =
-        selectedProperty.images || [];
-
-
-    if (images.length <= 1) {
+    if (!property) {
 
         return;
 
     }
 
 
-    currentModalImageIndex +=
-        direction;
+    document.getElementById(
+        "modalImage"
+    ).src =
+        property.image || "";
 
 
-    if (
-        currentModalImageIndex >=
-        images.length
-    ) {
-
-        currentModalImageIndex = 0;
-
-    }
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        property.title ||
+        "Property";
 
 
-    if (
-        currentModalImageIndex < 0
-    ) {
-
-        currentModalImageIndex =
-            images.length - 1;
-
-    }
-
-
-    const image =
-        document.getElementById(
-            "modalImage"
+    document.getElementById(
+        "modalBrand"
+    ).textContent =
+        (
+            property.type ||
+            ""
+        ) +
+        (
+            property.purpose
+                ? " • " +
+                  property.purpose
+                : ""
         );
 
 
-    if (image) {
-
-        image.src =
-            images[
-                currentModalImageIndex
-            ];
-
-    }
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-function closeModal() {
-
-    const modal =
-        document.getElementById(
-            "propertyModal"
+    document.getElementById(
+        "modalLocation"
+    ).textContent =
+        "📍 " +
+        (
+            property.location ||
+            "Location not available"
         );
 
 
-    if (modal) {
+    const details = [
 
-        modal.style.display =
-            "none";
+        property.bedrooms > 0
+            ? `${property.bedrooms} Beds`
+            : null,
 
-    }
+        property.bathrooms > 0
+            ? `${property.bathrooms} Baths`
+            : null,
+
+        property.area
+            ? `${property.area} sqft`
+            : null
+
+    ]
+    .filter(Boolean)
+    .join(" • ");
 
 
-    document.body.style.overflow =
+    document.getElementById(
+        "modalDetails"
+    ).textContent =
+        details ||
+        "Property details available";
+
+
+    document.getElementById(
+        "modalPrice"
+    ).textContent =
+        formatPrice(
+            property.price
+        );
+
+
+    document.getElementById(
+        "modalDescription"
+    ).textContent =
+        property.description ||
+        "No description available.";
+
+
+    document.getElementById(
+        "modalOwnerName"
+    ).textContent =
+        property.owner_name ||
+        "Not available";
+
+
+    document.getElementById(
+        "modalOwnerPhone"
+    ).textContent =
+        property.owner_phone ||
+        "Not available";
+
+
+    const phone =
+        String(
+            property.owner_phone ||
+            ""
+        )
+        .replace(
+            /[^0-9+]/g,
+            ""
+        );
+
+
+    document.getElementById(
+        "callOwnerBtn"
+    ).href =
+        phone
+            ? "tel:" + phone
+            : "#";
+
+
+    // ===============================
+    // MINIMUM BOOKING DATE
+    // ===============================
+
+    const today =
+        new Date();
+
+
+    const year =
+        today.getFullYear();
+
+
+    const month =
+        String(
+            today.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            today.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const todayString =
+        `${year}-${month}-${day}`;
+
+
+    document.getElementById(
+        "bookingDate"
+    ).min =
+        todayString;
+
+
+    document.getElementById(
+        "bookingDate"
+    ).value =
         "";
 
+
+    document.getElementById(
+        "propertyModal"
+    ).classList.add(
+        "active"
+    );
+
 }
 
 
-/* =========================================================
-   BOOK PROPERTY
-========================================================= */
+// ======================================================
+// CLOSE MODAL
+// ======================================================
 
-function bookProperty() {
+function closePropertyModal() {
 
-    if (!selectedProperty) {
+    document.getElementById(
+        "propertyModal"
+    ).classList.remove(
+        "active"
+    );
+
+
+    selectedPropertyIndex =
+        null;
+
+}
+
+
+// ======================================================
+// BOOK PROPERTY
+// ======================================================
+
+async function bookProperty() {
+
+    console.log(
+        "Book Visit button clicked"
+    );
+
+
+    // ==========================================
+    // 1. CHECK PROPERTY
+    // ==========================================
+
+    if (
+        selectedPropertyIndex === null ||
+        selectedPropertyIndex === undefined
+    ) {
 
         alert(
             "Please select a property first."
@@ -1259,20 +1642,49 @@ function bookProperty() {
     }
 
 
-    const dateInput =
-        document.getElementById(
-            "bookingDate"
+    const property =
+        filteredProperties[
+            selectedPropertyIndex
+        ];
+
+
+    if (!property) {
+
+        alert(
+            "Property information not found."
         );
 
+        return;
 
-    if (!dateInput) return;
-
-
-    const date =
-        dateInput.value;
+    }
 
 
-    if (!date) {
+    // ==========================================
+    // 2. CHECK DATABASE PROPERTY ID
+    // ==========================================
+
+    if (!property.id) {
+
+        alert(
+            "This property is not available for online booking yet."
+        );
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // 3. GET BOOKING DATE
+    // ==========================================
+
+    const bookingDate =
+        document.getElementById(
+            "bookingDate"
+        ).value;
+
+
+    if (!bookingDate) {
 
         alert(
             "Please select a visit date."
@@ -1283,47 +1695,418 @@ function bookProperty() {
     }
 
 
-    const propertyName =
-        selectedProperty.name ||
-        "Property";
+    // ==========================================
+    // 4. CHECK LOGIN FIRST
+    // ==========================================
+
+    let loginData;
 
 
-    alert(
+    try {
 
-        "Booking request submitted successfully!\n\n" +
+        console.log(
+            "Checking login..."
+        );
 
-        "Property: " +
-        propertyName +
-        "\n" +
 
-        "Visit Date: " +
-        date
+        const loginResponse =
+            await fetch(
+                "/api/me",
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
 
+
+        console.log(
+            "Login response:",
+            loginResponse.status
+        );
+
+
+        /*
+         * If server returns 401,
+         * user is not logged in.
+         */
+
+        if (
+            loginResponse.status === 401
+        ) {
+
+            sessionStorage.setItem(
+                "afterLogin",
+                window.location.href
+            );
+
+
+            sessionStorage.setItem(
+                "bookingPropertyId",
+                String(property.id)
+            );
+
+
+            sessionStorage.setItem(
+                "bookingDate",
+                bookingDate
+            );
+
+
+            alert(
+                "Please login first to book a property visit."
+            );
+
+
+            window.location.href =
+                "/login.html";
+
+
+            return;
+
+        }
+
+
+        loginData =
+            await loginResponse.json();
+
+
+        /*
+         * Support:
+         *
+         * loggedIn: true
+         *
+         * OR
+         *
+         * user: {...}
+         */
+
+        const isLoggedIn =
+            loginData.loggedIn === true ||
+            !!loginData.user;
+
+
+        if (!isLoggedIn) {
+
+            sessionStorage.setItem(
+                "afterLogin",
+                window.location.href
+            );
+
+
+            sessionStorage.setItem(
+                "bookingPropertyId",
+                String(property.id)
+            );
+
+
+            sessionStorage.setItem(
+                "bookingDate",
+                bookingDate
+            );
+
+
+            alert(
+                "Please login first to book a property visit."
+            );
+
+
+            window.location.href =
+                "/login.html";
+
+
+            return;
+
+        }
+
+
+        console.log(
+            "User is logged in."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Login check error:",
+            error
+        );
+
+
+        alert(
+            "Please login first."
+        );
+
+
+        window.location.href =
+            "/login.html";
+
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // 5. DISABLE BOOK BUTTON
+    // ==========================================
+
+    const button =
+        document.getElementById(
+            "bookVisitBtn"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "Booking...";
+
+
+    // ==========================================
+    // 6. CREATE BOOKING
+    // ==========================================
+
+    try {
+
+        console.log(
+            "Sending booking request..."
+        );
+
+
+        const response =
+            await fetch(
+                "/api/bookings",
+                {
+
+                    method:
+                        "POST",
+
+                    credentials:
+                        "include",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Accept":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            property_id:
+                                Number(
+                                    property.id
+                                ),
+
+                            booking_date:
+                                bookingDate
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Booking response:",
+            data
+        );
+
+
+        // ======================================
+        // LOGIN REQUIRED
+        // ======================================
+
+        if (
+            response.status === 401
+        ) {
+
+            sessionStorage.setItem(
+                "afterLogin",
+                window.location.href
+            );
+
+
+            sessionStorage.setItem(
+                "bookingPropertyId",
+                String(property.id)
+            );
+
+
+            sessionStorage.setItem(
+                "bookingDate",
+                bookingDate
+            );
+
+
+            alert(
+                "Please login first."
+            );
+
+
+            window.location.href =
+                "/login.html";
+
+
+            return;
+
+        }
+
+
+        // ======================================
+        // BOOKING FAILED
+        // ======================================
+
+        if (
+            !response.ok
+        ) {
+
+            alert(
+                data.message ||
+                "Booking failed."
+            );
+
+
+            return;
+
+        }
+
+
+        // ======================================
+        // SUCCESS
+        // ======================================
+
+        const booking =
+            data.booking || {};
+
+
+        alert(
+
+            "Property visit booked successfully!\n\n" +
+
+            "Property: " +
+            (
+                property.title ||
+                "Property"
+            ) +
+
+            "\nVisit Date: " +
+            bookingDate +
+
+            (
+                booking.id
+                    ? "\nBooking ID: " +
+                      booking.id
+                    : ""
+            ) +
+
+            "\nStatus: Pending"
+
+        );
+
+
+        document.getElementById(
+            "bookingDate"
+        ).value =
+            "";
+
+
+        closePropertyModal();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Booking error:",
+            error
+        );
+
+
+        alert(
+            "Unable to create booking. Please try again."
+        );
+
+    }
+
+    finally {
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "📅 Book Visit";
+
+    }
+
+}
+
+
+// ======================================================
+// ESCAPE HTML
+// ======================================================
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
     );
 
 }
 
 
-/* =========================================================
-   CLOSE WHEN CLICKING OUTSIDE
-========================================================= */
+// ======================================================
+// CLICK OUTSIDE MODAL
+// ======================================================
 
-window.addEventListener(
+document.getElementById(
+    "propertyModal"
+).addEventListener(
     "click",
     function(event) {
 
-        const modal =
-            document.getElementById(
-                "propertyModal"
-            );
-
-
         if (
-            modal &&
-            event.target === modal
+            event.target === this
         ) {
 
-            closeModal();
+            closePropertyModal();
 
         }
 
@@ -1331,9 +2114,9 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
+// ======================================================
+// ESC KEY
+// ======================================================
 
 document.addEventListener(
     "keydown",
@@ -1343,7 +2126,7 @@ document.addEventListener(
             event.key === "Escape"
         ) {
 
-            closeModal();
+            closePropertyModal();
 
         }
 
@@ -1351,15 +2134,39 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+// ======================================================
+// ENTER KEY SEARCH
+// ======================================================
+
+document.getElementById(
+    "searchInput"
+).addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            performSearch();
+
+        }
+
+    }
+);
+
+
+// ======================================================
+// PAGE LOAD
+// ======================================================
 
 document.addEventListener(
     "DOMContentLoaded",
-    function() {
+    async function() {
 
-        loadSearchResults();
+        await checkLoginStatus();
+
+        await loadProperties();
 
     }
 );

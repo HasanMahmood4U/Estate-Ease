@@ -2385,3 +2385,26 @@
         right: 12px;
     }
 }
+.logout-btn {
+
+    background: #0d6b4b;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+.logout-btn:hover {
+
+    background: #09543b;
+
+}

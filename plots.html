@@ -141,33 +141,24 @@
 
 
             <!-- MODAL IMAGE -->
+<div class="form-group">
+    <label for="propertyImages">
+        Property Photos <span>*</span>
+    </label>
 
-            <div class="modal-image-slider">
+    <input
+        type="file"
+        id="propertyImages"
+        name="images"
+        accept="image/*"
+        multiple
+        required
+    >
 
-                <img
-                    id="modalPropertyImage"
-                    src=""
-                    alt="Residential Plot"
-                >
-
-
-                <button
-                    class="modal-slider-btn modal-prev"
-                    onclick="changeModalImage(-1)"
-                >
-                    ❮
-                </button>
-
-
-                <button
-                    class="modal-slider-btn modal-next"
-                    onclick="changeModalImage(1)"
-                >
-                    ❯
-                </button>
-
-            </div>
-
+    <small>
+        Please select at least 3 photos of your property.
+    </small>
+</div>
 
             <!-- MODAL CONTENT -->
 
