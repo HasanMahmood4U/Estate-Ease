@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us | Estate-Ease</title>
+    <meta name="description" content="Contact Estate-Ease for questions, website feedback, property listing assistance, or general enquiries.">
+
+    <style>
+        :root {
+            --green: #0d6b4b;
+            --green-dark: #084b36;
+            --orange: #f4a62a;
+            --background: #f6f8f7;
+            --text: #24332c;
+            --muted: #68766f;
+            --white: #ffffff;
+            --border: #e3eae6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--white);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            min-height: 75px;
+            margin: auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: var(--green);
+            white-space: nowrap;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            color: #37463e;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--green);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 15px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .login-btn {
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .post-btn {
+            color: white;
+            background: var(--green);
+        }
+
+        .menu-toggle {
+            display: none;
+            border: none;
+            background: none;
+            color: var(--green);
+            font-size: 27px;
+            cursor: pointer;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 75px 24px;
+            color: white;
+            background:
+                linear-gradient(
+                    115deg,
+                    rgba(5, 52, 36, 0.96),
+                    rgba(13, 107, 75, 0.85)
+                ),
+                url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85")
+                center/cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 7px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            color: #ffe0a5;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-bottom: 18px;
+            font-size: clamp(36px, 5vw, 54px);
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--orange);
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: auto;
+            color: #e5f1eb;
+            font-size: 16px;
+        }
+
+        /* MAIN LAYOUT */
+
+        .container {
+            max-width: 1120px;
+            margin: auto;
+            padding: 55px 24px;
+        }
+
+        .section-heading {
+            margin-bottom: 28px;
+            text-align: center;
+        }
+
+        .section-heading small {
+            color: var(--green);
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            margin-top: 8px;
+            color: #193d2e;
+            font-size: clamp(27px, 3vw, 36px);
+            line-height: 1.3;
+        }
+
+        .section-heading p {
+            max-width: 700px;
+            margin: 12px auto 0;
+            color: var(--muted);
+        }
+
+        /* CONTACT INFORMATION CARDS */
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 45px;
+        }
+
+        .contact-card {
+            padding: 27px 22px;
+            text-align: center;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            transition: 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 15px;
+            border-radius: 14px;
+            background: #e8f3ed;
+            font-size: 25px;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 7px;
+            color: var(--green);
+            font-size: 18px;
+        }
+
+        .contact-card p {
+            color: var(--muted);
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        /* FORM AND SIDEBAR */
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .form-card,
+        .side-card {
+            padding: 30px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 8px 28px rgba(20, 60, 40, 0.04);
+        }
+
+        .form-card h2,
+        .side-card h2 {
+            margin-bottom: 8px;
+            color: var(--green-dark);
+            font-size: 25px;
+        }
+
+        .form-intro {
+            margin-bottom: 25px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #34483c;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d9e2dc;
+            border-radius: 8px;
+            outline: none;
+            background: #fcfdfc;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(13, 107, 75, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            background: var(--green);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--green-dark);
+        }
+
+        .submit-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+        }
+
+        .form-message {
+            display: none;
+            margin-top: 17px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-message.success {
+            display: block;
+            background: #e8f7ed;
+            color: #17653c;
+        }
+
+        .form-message.error {
+            display: block;
+            background: #fff0ef;
+            color: #a32620;
+        }
+
+        .demo-note {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* SIDEBAR */
+
+        .side-card {
+            margin-bottom: 22px;
+        }
+
+        .side-card h2 {
+            font-size: 21px;
+        }
+
+        .side-card > p {
+            margin-bottom: 17px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .side-list {
+            list-style: none;
+        }
+
+        .side-list li {
+            position: relative;
+            margin-bottom: 15px;
+            padding-left: 28px;
+            color: #536159;
+            font-size: 14px;
+        }
+
+        .side-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 1px;
+            width: 20px;
+            height: 20px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #e2f2e9;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .side-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .side-link {
+            display: block;
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 7px;
+            background: #e8f3ed;
+            color: var(--green);
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .side-link:hover {
+            background: #d9ece1;
+        }
+
+        /* FAQ */
+
+        .faq-section {
+            margin-top: 65px;
+        }
+
+        .faq-list {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .faq-item {
+            margin-bottom: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border: none;
+            background: white;
+            color: #263d31;
+            text-align: left;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .faq-question span {
+            color: var(--green);
+            font-size: 22px;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 20px 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* BOTTOM CTA */
+
+        .cta {
+            margin-top: 65px;
+            padding: 45px 25px;
+            border-radius: 15px;
+            background: var(--green-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            margin-bottom: 12px;
+            font-size: clamp(25px, 3vw, 34px);
+        }
+
+        .cta p {
+            max-width: 650px;
+            margin: 0 auto 23px;
+            color: #d9e9df;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 7px;
+            background: var(--orange);
+            color: #222;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .cta-btn:hover {
+            background: #ffc05b;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            margin-top: 20px;
+            padding: 55px 24px 20px;
+            background: #102c20;
+            color: white;
+        }
+
+        .footer-container {
+            max-width: 1120px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            gap: 35px;
+        }
+
+        .footer .logo {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer p {
+            max-width: 320px;
+            color: #c2d2c8;
+            font-size: 14px;
+        }
+
+        .footer h3 {
+            margin-bottom: 15px;
+            color: #ffd28a;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #c2d2c8;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            max-width: 1120px;
+            margin: 35px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+            color: #b6c8bd;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 1000px) {
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                padding: 23px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-left: auto;
+            }
+
+            .nav-links {
+                display: none;
+                order: 3;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 5px;
+                border-top: 1px solid #edf1ee;
+            }
+
+            .nav-actions {
+                display: none;
+                order: 4;
+                width: 100%;
+            }
+
+            .nav-actions.open {
+                display: flex;
+            }
+
+            .nav-btn {
+                flex: 1;
+                text-align: center;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .container {
+                padding: 40px 18px;
+            }
+
+            .form-card,
+            .side-card {
+                padding: 22px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                Estate<span>-Ease</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Toggle navigation"
+                aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="index.html#properties">Properties</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="blog.html">Our Story</a>
+                <a href="contact.html" class="active">Contact</a>
+            </nav>
+
+            <div class="nav-actions" id="navActions">
+                <a href="login.html" class="nav-btn login-btn">Login</a>
+                <a href="post.html" class="nav-btn post-btn">Post Property</a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+
+            <span class="hero-label">Get in Touch</span>
+
+            <h1>
+                We'd Love to <span>Hear From You</span>
+            </h1>
+
+            <p>
+                Have a question about Estate-Ease, want to share feedback,
+                or need help understanding the website? Send us a message.
+            </p>
+
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- CONTACT INTRO -->
+        <section>
+            <div class="section-heading">
+                <small>Contact Estate-Ease</small>
+                <h2>Let's Start a Conversation</h2>
+                <p>
+                    Your questions and suggestions can help improve this
+                    real-estate website project. Choose a topic and
+                    share the details using the form below.
+                </p>
+            </div>
+
+            <!-- CONTACT CARDS -->
+            <div class="contact-cards">
+
+                <article class="contact-card">
+                    <div class="contact-icon">👨‍💻</div>
+                    <h3>Project Creator</h3>
+                    <p>Hasan Mahmood</p>
+                    <p>Creator of Estate-Ease</p>
+                </article>
+
+                <article class="contact-card">
+                    <div class="contact-icon">🏡</div>
+                    <h3>Property Enquiries</h3>
+                    <p>
+                        Explore a property listing and use the
+                        owner details displayed on that listing,
+                        where available.
+                    </p>
+                </article>
+
+                <article class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Feedback &amp; Support</h3>
+                    <p>
+                        Share your suggestions, website feedback,
+                        or questions about the project.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CONTACT FORM AND SIDEBAR -->
+        <section class="contact-layout">
+
+            <!-- CONTACT FORM -->
+            <div class="form-card">
+
+                <h2>Send Us a Message</h2>
+
+                <p class="form-intro">
+                    Fill in the form below. Fields marked with *
+                    are required.
+                </p>
+
+                <form id="contactForm">
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                maxlength="100"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                maxlength="150"
+                                required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number (Optional)</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                autocomplete="tel"
+                                maxlength="20">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Enquiry Type *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a topic</option>
+                                <option value="General Enquiry">General Enquiry</option>
+                                <option value="Property Enquiry">Property Enquiry</option>
+                                <option value="Technical Support">Technical Support</option>
+                                <option value="Website Feedback">Website Feedback</option>
+                                <option value="Report a Problem">Report a Problem</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message *</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Write your question or feedback here..."
+                            minlength="10"
+                            maxlength="3000"
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        Submit Message
+                    </button>
+
+                    <div
+                        id="formMessage"
+                        class="form-message"
+                        role="status"
+                        aria-live="polite">
+                    </div>
+
+                    <p class="demo-note">
+                        Demo form: messages are not sent or saved until
+                        a backend or email service is connected.
+                    </p>
+
+                </form>
+            </div>
+
+            <!-- INFORMATION SIDEBAR -->
+            <aside>
+
+                <div class="side-card">
+                    <h2>How Can We Help?</h2>
+
+                    <p>
+                        Choose the topic that best describes
+                        your question.
+                    </p>
+
+                    <ul class="side-list">
+                        <li>Questions about using the website</li>
+                        <li>Suggestions for improving Estate-Ease</li>
+                        <li>Reporting an issue or incorrect information</li>
+                        <li>Questions about property listings</li>
+                        <li>Feedback about the website design</li>
+                    </ul>
+                </div>
+
+                <div class="side-card">
+                    <h2>Looking for a Property?</h2>
+
+                    <p>
+                        Browse the available categories and explore
+                        property details before contacting the owner.
+                    </p>
+
+                    <a href="index.html#categories" class="side-link">
+                        Explore Property Categories →
+                    </a>
+
+                    <a href="search-results.html" class="side-link">
+                        Search Properties →
+                    </a>
+                </div>
+
+                <div class="side-card">
+                    <h2>Want to List a Property?</h2>
+
+                    <p>
+                        Visit the property submission page to enter
+                        your listing details.
+                    </p>
+
+                    <a href="post.html" class="side-link">
+                        Post a Property →
+                    </a>
+                </div>
+
+            </aside>
+
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="faq-section">
+
+            <div class="section-heading">
+                <small>Frequently Asked Questions</small>
+                <h2>Quick Answers</h2>
+                <p>
+                    Find answers to a few common questions about
+                    using Estate-Ease.
+                </p>
+            </div>
+
+            <div class="faq-list">
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        What is Estate-Ease?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        Estate-Ease is a real-estate website project
+                        created by Hasan Mahmood. It is designed to
+                        help users explore property categories and
+                        view available listing information.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        How can I search for a property?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        Open the homepage or search page, enter the
+                        available search details, and review the
+                        matching results shown by the website.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        How can I submit a property?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        Use the Post Property page and complete
+                        the required listing fields. Availability
+                        and approval depend on the functionality
+                        configured in the project.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        Does submitting this contact form send an email?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        Not yet. This page currently demonstrates
+                        form validation in the browser. A backend
+                        endpoint or email service must be connected
+                        before messages can actually be delivered.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        How can I report a problem?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        You can describe the problem in the contact
+                        form. To deliver the report, the form must
+                        be connected to a working server endpoint
+                        or email service.
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+
+            <h2>Explore Estate-Ease</h2>
+
+            <p>
+                Discover property categories, explore listings,
+                and learn more about the project created by
+                Hasan Mahmood.
+            </p>
+
+            <a href="index.html" class="cta-btn">
+                Back to Homepage
+            </a>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div>
+                <a href="index.html" class="logo">
+                    Estate<span>-Ease</span>
+                </a>
+
+                <p>
+                    A real-estate website project focused on
+                    property discovery, web development, and
+                    practical application design.
+                </p>
+            </div>
+
+            <div>
+                <h3>Properties</h3>
+
+                <div class="footer-links">
+                    <a href="index.html#categories">Apartments</a>
+                    <a href="index.html#categories">Villas</a>
+                    <a href="index.html#categories">Independent Houses</a>
+                    <a href="index.html#categories">Plots</a>
+                </div>
+            </div>
+
+            <div>
+                <h3>Explore</h3>
+
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#properties">Featured Properties</a>
+                    <a href="blog.html">Our Story</a>
+                    <a href="post.html">Post Property</a>
+                </div>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+
+                <div class="footer-links">
+                    <a href="contact.html">Contact Us</a>
+                    <a href="contact.html#contactForm">Send a Message</a>
+                    <a href="contact.html#faq">FAQs</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            &copy; <span id="currentYear"></span> Estate-Ease.
+            Created by Hasan Mahmood. All rights reserved.
+        </div>
+
+    </footer>
+
+    <script>
+        // Mobile navigation
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+        const navActions = document.getElementById("navActions");
+
+        menuToggle.addEventListener("click", function () {
+            const isOpen = navLinks.classList.toggle("open");
+
+            navActions.classList.toggle("open", isOpen);
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            menuToggle.textContent = isOpen ? "✕" : "☰";
+        });
+
+        // Close mobile menu after selecting a link
+        navLinks.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("open");
+                navActions.classList.remove("open");
+
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.textContent = "☰";
+            });
+        });
+
+        // FAQ accordion
+        document.querySelectorAll(".faq-question").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const item = button.closest(".faq-item");
+                const isOpen = item.classList.toggle("open");
+                const icon = button.querySelector("span");
+
+                icon.textContent = isOpen ? "−" : "+";
+                button.setAttribute("aria-expanded", String(isOpen));
+            });
+
+            button.setAttribute("aria-expanded", "false");
+        });
+
+        // Contact form demo validation
+        // This does not send or store messages.
+        const contactForm = document.getElementById("contactForm");
+        const formMessage = document.getElementById("formMessage");
+
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById("fullName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const subject = document.getElementById("subject").value;
+            const message = document.getElementById("message").value.trim();
+
+            formMessage.className = "form-message";
+
+            if (!fullName || !email || !subject || message.length < 10) {
+                formMessage.textContent =
+                    "Please complete all required fields. Your message must contain at least 10 characters.";
+                formMessage.classList.add("error");
+                return;
+            }
+
+            formMessage.textContent =
+                "The form is valid, but this demo does not send messages yet. Connect a backend or email service to receive enquiries.";
+
+            formMessage.classList.add("success");
+        });
+
+        // Dynamic copyright year
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>
